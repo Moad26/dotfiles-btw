@@ -1,0 +1,224 @@
+@import "./colors.css";
+
+/* ── Reset & typography ────────────────────────────── */
+* {
+  font-family: "Iosevka Nerd Font", monospace;
+  font-weight: bold;
+  font-size: 13px;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+:root {
+  --radius: 0px;
+  --gap: 8px;
+  --pad: 10px 14px;
+
+  /* mirrors waybar's token palette */
+  --accent: var(--color6);
+  --muted: var(--color8);
+  --warn: var(--color3);
+  --danger: var(--color4);
+  --ok: var(--color2);
+
+  --surface: color-mix(in srgb, var(--background) 92%, transparent);
+  --surface-hover: color-mix(in srgb, var(--muted) 18%, var(--background));
+  --rule: 1px solid color-mix(in srgb, var(--muted) 28%, transparent);
+}
+
+/* ── Control-center shell ──────────────────────────── */
+.control-center {
+  background: var(--background);
+  border-left: 1px solid color-mix(in srgb, var(--muted) 40%, transparent);
+  border-radius: 0;
+  color: var(--foreground);
+  padding: 0;
+}
+
+/* ── Widget base ───────────────────────────────────── */
+.widgets > .widget {
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: var(--rule);
+  border-left: 3px solid var(--muted); /* waybar bottom-border idiom, rotated */
+  padding: var(--pad);
+  margin: var(--gap);
+  color: var(--foreground);
+}
+
+/* ── Inhibitors ────────────────────────────────────── */
+.widget-inhibitors {
+  border-left-color: var(--warn);
+  color: var(--warn);
+  font-size: 12px;
+}
+
+.widget-inhibitors > button {
+  background: transparent;
+  border: 1px solid var(--muted);
+  border-radius: 0;
+  color: var(--muted);
+  padding: 2px 10px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.widget-inhibitors > button:hover {
+  background: var(--muted);
+  color: var(--background);
+}
+
+/* ── DND ───────────────────────────────────────────── */
+.widget-dnd {
+  border-left-color: var(--accent);
+  color: var(--foreground);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+.widget-dnd > switch {
+  background: var(--muted);
+  border-radius: 0; /* flat, like waybar */
+  border: none;
+  min-width: 40px;
+  min-height: 20px;
+}
+
+.widget-dnd > switch:checked {
+  background: var(--accent);
+}
+
+.widget-dnd > switch slider {
+  background: var(--background);
+  border-radius: 0;
+  min-width: 16px;
+  min-height: 16px;
+  margin: 2px;
+}
+
+/* ── Notification list placeholder ────────────────── */
+.control-center-list-placeholder {
+  padding: 40px;
+  color: var(--muted);
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+/* ── Notification group ────────────────────────────── */
+.notification-group {
+  padding: 4px var(--gap);
+  border-radius: var(--radius);
+}
+
+/* ── Notification rows ─────────────────────────────── */
+.notification-row {
+  margin: 2px 0;
+}
+
+.notification-background {
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: var(--rule);
+  border-left: 3px solid var(--muted);
+  padding: 10px 12px;
+  color: var(--foreground);
+}
+
+.notification-background:hover {
+  background: var(--surface-hover);
+}
+
+/* urgency — same accent-line language as waybar modules */
+.notification-background.low {
+  border-left-color: var(--warn);
+}
+
+.notification-background.normal {
+  border-left-color: var(--accent);
+}
+
+.notification-background.critical {
+  border-left-color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 8%, var(--surface));
+}
+
+/* text hierarchy */
+.notification .summary {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.notification .body {
+  font-size: 12px;
+  font-weight: normal;
+  color: var(--foreground);
+  opacity: 0.85;
+}
+
+.notification .time {
+  font-size: 10px;
+  color: var(--muted);
+  opacity: 0.7;
+  letter-spacing: 0.04em;
+}
+
+/* close button — invisible until hovered */
+.notification > .close-button {
+  background: transparent;
+  color: transparent;
+  border-radius: 0;
+  padding: 0 4px;
+  min-width: 20px;
+  min-height: 20px;
+  border: none;
+}
+
+.notification-background:hover .close-button,
+.notification > .close-button:hover {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+}
+
+/* ── MPRIS ─────────────────────────────────────────── */
+.widget.widget-mpris {
+  background: transparent;
+  border: none;
+  border-left: 3px solid var(--ok);
+  border-radius: var(--radius);
+  padding: 0;
+}
+
+.widget-mpris > box > button,
+.widget-mpris > carouselindicatordots {
+  background: var(--surface);
+  border: var(--rule);
+  border-radius: var(--radius);
+  padding: var(--pad);
+  color: var(--foreground);
+}
+
+.widget-mpris > box > button:hover {
+  background: var(--surface-hover);
+}
+
+.widget-mpris-player {
+  box-shadow: none;
+  border: none;
+  margin: 0;
+  color: var(--foreground);
+}
+
+.widget-mpris-title {
+  color: var(--accent);
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.widget-mpris-subtitle {
+  color: var(--muted);
+  font-size: 11px;
+  opacity: 0.8;
+}

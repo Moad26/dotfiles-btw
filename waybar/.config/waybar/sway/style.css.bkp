@@ -1,0 +1,100 @@
+@import "../colors.css";
+
+* {
+  font-family: "Iosevka Nerd Font", monospace;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+window#waybar {
+  background-color: @background;
+  color: @foreground;
+}
+
+#workspaces button {
+  padding: 0 8px;
+  color: @color8;
+  background: transparent;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+#workspaces button.empty {
+  color: @color0;
+  border-bottom: 3px solid transparent;
+}
+
+#workspaces button.focused {
+  color: @color6;
+  border-bottom: 3px solid @color6;
+}
+
+#workspaces button.visible {
+  color: @color0;
+  border-radius: 0px;
+  background-color: @color8;
+  border-bottom: 3px solid @color8;
+}
+
+#workspaces button.urgent {
+  color: @color2;
+  border-bottom: 3px solid @color2;
+}
+
+#workspaces button:hover {
+  color: @color7;
+  border-color: transparent;
+}
+
+#clock,
+#custom-sep,
+#battery,
+#cpu,
+#memory,
+#disk,
+#network,
+#pulseaudio,
+#backlight,
+#custom-notification,
+#tray {
+  padding: 0 2px;
+  color: @color1;
+}
+
+#window {
+  margin-left: 4px;
+}
+#clock {
+  color: @color6;
+}
+
+#battery.charging {
+  color: @color2;
+}
+
+#battery.critical {
+  color: @color10;
+}
+
+#idle_inhibitor {
+  padding: 0 8px;
+  margin-right: 4px;
+  color: @color8;
+}
+
+#idle_inhibitor.activated {
+  color: @color2;
+}
+
+#custom-sep {
+  color: @color8;
+}
+
+#custom-notification {
+  padding: 0 8px;
+  margin-right: 8px;
+}
+
+#custom-notification.notification {
+  color: @color9;
+}
