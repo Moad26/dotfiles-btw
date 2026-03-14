@@ -19,7 +19,7 @@ if status is-interactive
   if type -q zoxide
         zoxide init fish | source
     end
-  commandline -f repaint
+  set -U tide_async false
 end
 
 # Go
@@ -44,4 +44,3 @@ set -gx COMPOSE_DOCKER_CLI_BUILD 1
 if test -f "$HOME/.local/bin/env"
     bass source "$HOME/.local/bin/env"
 end
-set -x QT_QPA_PLATFORMTHEME qt5ct

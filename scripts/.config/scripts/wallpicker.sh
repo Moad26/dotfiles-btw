@@ -2,14 +2,38 @@
 
 set -euo pipefail
 
-WALL_DIR="${WALLPAPER_DIR:-$HOME/Desktop/Wallpaper/}"
-
-# Start daemon if not running
-if ! pgrep -x awww-daemon &>/dev/null; then
-  awww-daemon &
-  sleep 1 # Give it more time to initialize
+# ── WM detection ─────────────────────────────────────────────────────────────
+# Pass "niri" or "sway" as $1 to force; otherwise auto-detected from env.
+if [[ $# -ge 1 && ("$1" == "niri" || "$1" == "sway") ]]; then
+  WM="$1"
+elif [[ -n "${NIRI_SOCKET:-}" ]]; then
+  WM="niri"
+elif [[ -n "${SWAYSOCK:-}" ]]; then
+  WM="sway"
+else
+  notify-send "Wallpaper Picker" "Could not detect WM (set NIRI_SOCKET or SWAYSOCK, or pass niri/sway as arg)" \
+    --icon=dialog-warning
+  exit 1
 fi
 
+SCRIPT_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/scripts"
+THEME_SCRIPT="${SCRIPT_DIR}/theme_change_${WM}.sh"
+
+if [[ ! -x "$THEME_SCRIPT" ]]; then
+  notify-send "Wallpaper Picker" "Theme script not found or not executable: $THEME_SCRIPT" \
+    --icon=dialog-warning
+  exit 1
+fi
+
+# ── awww daemon ───────────────────────────────────────────────────────────────
+WALL_DIR="${WALLPAPER_DIR:-$HOME/Desktop/Wallpaper/}"
+
+if ! pgrep -x awww-daemon &>/dev/null; then
+  awww-daemon &
+  sleep 1
+fi
+
+# ── Build image list ──────────────────────────────────────────────────────────
 mapfile -t images < <(
   find "$WALL_DIR" -maxdepth 2 -type f \
     \( -iname "*.jpg" -o -iname "*.jpeg" \
@@ -22,32 +46,11 @@ if [[ ${#images[@]} -eq 0 ]]; then
   exit 1
 fi
 
-# Remove the hardcoded override — IMG_FMT="sixel" was killing the kitty branch
-# if [[ "$TERM" == "xterm-kitty" ]]; then
-#   IMG_FMT="kitty"
-# elif [[ "$TERM" == "foot" ]]; then
-#   IMG_FMT="sixel"
-# else
-#   IMG_FMT="symbols"
-# fi
-#
-# IMG_FMT="sixel"
-# selected=$(
-#   printf "%s\n" "${images[@]}" |
-#     fzf \
-#       --prompt "Wallpaper > " \
-#       --preview "bash -c 'chafa -f $IMG_FMT --size=\${FZF_PREVIEW_COLUMNS}x\${FZF_PREVIEW_LINES} -- \"{}\"'" \
-#       --preview-window 'right:60%' \
-#       --ansi \
-#       --layout=reverse \
-#       --no-sort \
-#       --cycle
-# )
-
+# ── fzf picker ────────────────────────────────────────────────────────────────
 selected=$(
   printf "%s\n" "${images[@]}" |
     fzf \
-      --prompt "Wallpaper > " \
+      --prompt "Wallpaper [$WM] > " \
       --preview "bash -c 'chafa --format=sixel --size=\${FZF_PREVIEW_COLUMNS}x\${FZF_PREVIEW_LINES} -- {}'" \
       --preview-window 'right:75%,border-none' \
       --with-nth -1 \
@@ -60,7 +63,8 @@ selected=$(
 )
 
 [[ -z "$selected" ]] && exit 0
-systemd-run --user ~/.config/scripts/theme_change.sh "$selected" --quiet
+
+systemd-run --user "$THEME_SCRIPT" "$selected" 2>/dev/null
 notify-send "Theme change" "Changed the wallpaper and the theming ig ma man"
 
 exit 0
