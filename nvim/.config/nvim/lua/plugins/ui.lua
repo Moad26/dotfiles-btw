@@ -44,13 +44,13 @@ return {
 			dashboard = {
 				preset = {
 					header = [[
-ooooo      ooo oooooo     oooo ooooo ooo        ooooo 
-`888b.     `8'  `888.     .8'  `888' `88.       .888' 
- 8 `88b.    8    `888.   .8'    888   888b     d'888  
- 8   `88b.  8     `888. .8'     888   8 Y88. .P  888  
- 8     `88b.8      `888.8'      888   8  `888'   888  
- 8       `888       `888'       888   8    Y     888  
-o8o        `8        `8'       o888o o8o        o888o 
+ooooo      ooo oooooo     oooo ooooo ooo        ooooo
+`888b.     `8'  `888.     .8'  `888' `88.       .888'
+ 8 `88b.    8    `888.   .8'    888   888b     d'888
+ 8   `88b.  8     `888. .8'     888   8 Y88. .P  888
+ 8     `88b.8      `888.8'      888   8  `888'   888
+ 8       `888       `888'       888   8    Y     888
+o8o        `8        `8'       o888o o8o        o888o
         ]],
 				},
 				sections = {
@@ -488,32 +488,4 @@ o8o        `8        `8'       o888o o8o        o888o
 			})
 		end,
 	},
-
-	--[[ return {
-	"nvim-lualine/lualine.nvim",
-	dependencies = { "echasnovski/mini.icons" },
-	config = function()
-		require("lualine").setup({
-			options = {
-				theme = "auto",
-				icons_enabled = true,
-				-- no separators
-				section_separators = "",
-				component_separators = "",
-
-				-- dotted
-				--section_separators = { left = '•', right = '•' },
-				--component_separators = { left = '∙', right = '∙' },
-				--
-				--slang style
-				--section_separators = { left = '', right = '' },
-				--component_separators = { left = '', right = '' },
-				--
-				--arrows
-				--section_separators = { left = '', right = '' },
-				--component_separators = { left = '', right = '' },
-			},
-		})
-	end,
-} ]]
 }

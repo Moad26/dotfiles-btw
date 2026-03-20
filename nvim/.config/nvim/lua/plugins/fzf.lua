@@ -25,7 +25,15 @@ return {
 		keymap("n", "<leader><leader>", fzf.oldfiles, { desc = "Recent Files" })
 
 		-- LSP pickers
+		keymap("n", "gr", fzf.lsp_references, { desc = "Lsp references" })
+		keymap("n", "gd", fzf.lsp_definitions, { desc = "Lsp definitions" })
+		keymap("n", "gi", fzf.lsp_implementations, { desc = "Lsp implementations" })
+		keymap("n", "gt", fzf.lsp_typedefs, { desc = "Lsp type definitions" })
+
 		keymap("n", "<leader>ds", fzf.lsp_document_symbols, { desc = "Document Symbols" })
+		keymap("n", "<leader>dd", fzf.diagnostics_document, { desc = "Document diagnostics" })
+		keymap("n", "<leader>dx", fzf.diagnostics_workspace, { desc = "Workspace diagnostics" })
+		keymap("n", "<leader>dq", fzf.quickfix, { desc = "Quickfix" })
 
 		-- Additional useful pickers
 		keymap("n", "<leader>fb", fzf.buffers, { desc = "Buffers" })
@@ -72,6 +80,5 @@ return {
 				sort_lastused = true, -- your last used floats to top, rest alphabetical
 			})
 		end, { desc = "Switch Colorscheme" })
-		-- keymap("n", "<leader>tc", fzf.colorschemes, { desc = "Switch Colorscheme" })
 	end,
 }

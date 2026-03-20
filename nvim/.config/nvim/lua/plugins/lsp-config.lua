@@ -14,7 +14,6 @@ return {
 			-- this next line is added because lua_ls is not found by nvim while already existing in the mason/bin
 			vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 			local keymap = vim.keymap
-			local fzf = require("fzf-lua")
 			local mason = require("mason")
 			local mason_lspconfig = require("mason-lspconfig")
 			local mason_tool_installer = require("mason-tool-installer")
@@ -61,11 +60,6 @@ return {
 						keymap.set("n", keys, func, opts)
 					end
 
-					map("gr", fzf.lsp_references, "show lsp references")
-					map("gd", fzf.lsp_definitions, "show lsp definitions")
-					map("gi", fzf.lsp_implementations, "show lsp implementations")
-					map("gt", fzf.lsp_typedefs, "show lsp type definitions")
-					map("<leader>d", fzf.diagnostics_document, "show buffer diagnostics")
 					map("[d", vim.diagnostic.goto_prev, "go to previous diagnostic")
 					map("]d", vim.diagnostic.goto_next, "go to next diagnostic")
 					map("K", vim.lsp.buf.hover, "show documentation")

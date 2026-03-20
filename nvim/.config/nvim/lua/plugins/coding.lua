@@ -151,25 +151,25 @@ return {
 			require("bufferline").setup({})
 		end,
 	},
-	{
-		"folke/trouble.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons", "folke/todo-comments.nvim" },
-		opts = {
-			focus = true,
-		},
-		cmd = "Trouble",
-		keys = {
-			{ "<leader>xw", "<cmd>Trouble diagnostics toggle<CR>", desc = "Open trouble workspace diagnostics" },
-			{
-				"<leader>xd",
-				"<cmd>Trouble diagnostics toggle filter.buf=0<CR>",
-				desc = "Open trouble document diagnostics",
-			},
-			{ "<leader>xq", "<cmd>Trouble quickfix toggle<CR>", desc = "Open trouble quickfix list" },
-			{ "<leader>xl", "<cmd>Trouble loclist toggle<CR>", desc = "Open trouble location list" },
-			{ "<leader>xt", "<cmd>Trouble todo toggle<CR>", desc = "Open todos in trouble" },
-		},
-	},
+	-- {
+	-- 	"folke/trouble.nvim",
+	-- 	dependencies = { "nvim-tree/nvim-web-devicons", "folke/todo-comments.nvim" },
+	-- 	opts = {
+	-- 		focus = true,
+	-- 	},
+	-- 	cmd = "Trouble",
+	-- 	keys = {
+	-- 		{ "<leader>xw", "<cmd>Trouble diagnostics toggle<CR>", desc = "Open trouble workspace diagnostics" },
+	-- 		{
+	-- 			"<leader>xd",
+	-- 			"<cmd>Trouble diagnostics toggle filter.buf=0<CR>",
+	-- 			desc = "Open trouble document diagnostics",
+	-- 		},
+	-- 		{ "<leader>xq", "<cmd>Trouble quickfix toggle<CR>", desc = "Open trouble quickfix list" },
+	-- 		{ "<leader>xl", "<cmd>Trouble loclist toggle<CR>", desc = "Open trouble location list" },
+	-- 		{ "<leader>xt", "<cmd>Trouble todo toggle<CR>", desc = "Open todos in trouble" },
+	-- 	},
+	-- },
 
 	--Tmux
 
@@ -213,7 +213,7 @@ return {
 				callback = function(ev)
 					local ft = vim.bo[ev.buf].filetype
 					if ft == "" then
-						return
+				return
 					end
 
 					-- Query fresh each time so newly installed parsers are detected.
@@ -242,38 +242,6 @@ return {
 			})
 		end,
 	},
-	-- {
-	-- 	"nvim-treesitter/nvim-treesitter",
-	-- 	lazy = false,
-	-- 	build = ":TSUpdate",
-	-- 	config = function()
-	-- 		local treesitter = require("nvim-treesitter")
-	-- 		local available_parsers = treesitter.get_available()
-	-- 		local installed_parsers = treesitter.get_installed()
-	--
-	-- 		local ts_group = vim.api.nvim_create_augroup("TreesitterSetup", { clear = true })
-	--
-	-- 		vim.api.nvim_create_autocmd("FileType", {
-	-- 			group = ts_group,
-	-- 			callback = function()
-	-- 				local ft = vim.bo.filetype
-	--
-	-- 				if vim.tbl_contains(available_parsers, ft) then
-	-- 					if not vim.tbl_contains(installed_parsers, ft) then
-	-- 						vim.notify("Auto-installing parser for: " .. ft)
-	-- 						treesitter.install(ft)
-	-- 						table.insert(installed_parsers, ft)
-	-- 					else
-	-- 						vim.treesitter.start()
-	-- 						vim.wo.foldmethod = "expr"
-	-- 						vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-	-- 						vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-	-- 					end
-	-- 				end
-	-- 			end,
-	-- 		})
-	-- 	end,
-	-- },
 	{
 		"folke/ts-comments.nvim",
 		opts = {},
