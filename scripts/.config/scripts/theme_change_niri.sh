@@ -11,15 +11,14 @@ awww img "$selected" \
 
 wal -i "$selected" -n -q
 
-# Reload swaync
-swaync-client -R && swaync-client -rs
+swaync-client -R && swaync-client -rs || true
 
-niri msg action reconfigure || true
+niri msg action load-config-file || true
 
 pkill waybar || true
 sleep 0.3
-waybar \
+systemd-run --user --no-block \
+  waybar \
   -c "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/niri/config.jsonc" \
-  -s "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/niri/style.css" &
-
+  -s "${XDG_CONFIG_HOME:-$HOME/.config}/waybar/niri/style.css"
 exit 0

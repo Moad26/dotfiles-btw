@@ -5,9 +5,9 @@ set -euo pipefail
 selected=$1
 
 awww img "$selected" \
-    --transition-type simple \
-    --transition-fps 60 \
-    --transition-step 20
+  --transition-type simple \
+  --transition-fps 60 \
+  --transition-step 20
 
 wal -i "$selected" -n -q
 

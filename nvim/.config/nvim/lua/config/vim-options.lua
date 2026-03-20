@@ -36,3 +36,8 @@ vim.api.nvim_create_autocmd("FocusGained", {
 	pattern = "*",
 	command = "checktime",
 })
+vim.opt.undofile = true
+vim.opt.grepprg = "rg --vimgrep --smart-case"
+vim.opt.grepformat = "%f:%l:%c:%m"
+vim.opt.splitkeep = "screen"
+vim.opt.smoothscroll = true

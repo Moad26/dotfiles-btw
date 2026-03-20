@@ -20,10 +20,12 @@ if status is-interactive
         zoxide init fish | source
     end
   set -U tide_async false
+  starship init fish | source
 end
 
 # Go
 fish_add_path /usr/local/go/bin
+fish_add_path $HOME/go/bin
 
 # # Pyenv
 # set -gx PYENV_ROOT $HOME/.pyenv

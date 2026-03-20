@@ -1,13 +1,12 @@
 prefer-no-csd
 
-// ── INPUT ────────────────────────────────────────────────────────────────────
 input {
     keyboard {
         repeat-rate 35
         repeat-delay 200
         xkb {
             layout "us"
-            options "caps:swapescape"   // same as sway
+            options "caps:swapescape" 
         }
         numlock
     }
@@ -25,14 +24,12 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
-// ── OUTPUT ───────────────────────────────────────────────────────────────────
 output "eDP-2" {
     mode "2560x1600@240.000"
     position x=0 y=0
     scale 1.5
 }
 
-// ── LAYOUT ───────────────────────────────────────────────────────────────────
 layout {
     gaps 4
 
@@ -72,38 +69,26 @@ layout {
     struts {}
 }
 
-// ── STARTUP ──────────────────────────────────────────────────────────────────
-
-// Wallpaper — awww replaces swaybg, same daemon you used in sway
 spawn-at-startup "awww-daemon"
 spawn-sh-at-startup "awww img ~/Desktop/Wallpaper/ --transition-type center --transition-fps 60"
 
-// Bar
-spawn-sh-at-startup "waybar -c ~/.config/waybar/niri/config.jsonc -s ~/.config/waybar/niri/style.css"
+spawn-sh-at-startup "waybar -c ~/.config/waybar/niri/config.jsonc -s ~/.config/waybar/niri/style.css >/dev/null 2>&1 "
 
-// Notifications
 spawn-at-startup "swaync"
 
-// Idle / lock — niri msg replaces swaymsg for monitor power
-spawn-sh-at-startup "swayidle -w \
-    timeout 1800 'swaylock -f' \
-    timeout 3600 'niri msg action power-off-monitors' \
-    before-sleep 'swaylock -f'"
+spawn-sh-at-startup "swayidle -w timeout 1800 'swaylock -f' timeout 3600 'niri msg action power-off-monitors' before-sleep 'swaylock -f'"
 
-// Color temperature (same as sway)
 spawn-sh-at-startup "gammastep -O 4500"
 
-// Clipboard (same as sway)
 spawn-sh-at-startup "cclipd -s 2 -t 'image/png' -t 'image/*' -t 'text/plain;charset=utf-8' -t 'text/*' -t '*'"
 
-// Portal / DBus env for niri session
-spawn-sh-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=niri"
+// spawn-sh-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=niri"
 
 // ── WINDOW RULES ─────────────────────────────────────────────────────────────
 
 // Floating launcher / picker windows — mirrors sway for_window + resize rules
 window-rule {
-    match app-id="fsel"
+    match title="launcher"
     open-floating true
     default-column-width { proportion 0.38; }
 }
@@ -120,19 +105,16 @@ window-rule {
     default-column-width { proportion 0.59; }
 }
 
-// Firefox PiP stays floating
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     open-floating true
 }
 
-// WezTerm initial-size bug workaround
 window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     default-column-width {}
 }
 
-// ── MISC ─────────────────────────────────────────────────────────────────────
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 hotkey-overlay {
@@ -143,11 +125,9 @@ animations {
     // off
 }
 
-// ── BINDS ─────────────────────────────────────────────────────────────────────
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    // ── Apps ────────────────────────────────────────────────────────────────
     Alt+Return hotkey-overlay-title="Terminal: foot" {
         spawn "foot";
     }
@@ -160,36 +140,33 @@ binds {
         spawn "zen-browser";
     }
 
-    // fsel toggle (same toggle logic as sway)
-    Alt+Space hotkey-overlay-title="App picker: fsel" {
-        spawn-sh "pgrep -f fsel >/dev/null 2>&1 && pkill -f fsel || foot --app-id fsel -T foot fsel";
+    Alt+Space hotkey-overlay-title="Launcher: fsel" {
+      spawn "foot" "--app-id" "fsel" "--title" "launcher" "fsel" "--nosway" "-d";
     }
+    // Alt+Space { spawn "alacritty" "--title" "launcher" "-e" "fsel" "--nosway" "-d"; }
+    // Alt+Space hotkey-overlay-title="launcher" {
+    //   spawn-sh "pgrep wofi >/dev/null 2>&1 && killall wofi || wofi --show drun";
+    // }
 
-    // otter-launcher toggle
     Alt+Shift+Space hotkey-overlay-title="Launcher: otter-launcher" {
-        spawn-sh "pgrep -f otter-launcher >/dev/null 2>&1 && pkill -f otter-launcher || foot --app-id otter-launcher -T foot otter-launcher";
+        spawn-sh "pgrep -x otter-launcher >/dev/null 2>&1 && pkill -f otter-launcher || foot --app-id otter-launcher -T foot otter-launcher";
     }
 
-    // Wallpaper picker
     Alt+Shift+W hotkey-overlay-title="Wallpaper picker" {
         spawn "foot" "--app-id" "wall-pick" "-T" "foot" "/bin/sh" "-c" "~/.config/scripts/wallpicker.sh";
     }
 
-    // Screen lock
     Alt+W hotkey-overlay-title="Lock screen: swaylock" {
         spawn "swaylock" "-f";
     }
 
-    // ── Session ─────────────────────────────────────────────────────────────
     Alt+Shift+E { quit; }
     Ctrl+Alt+Delete { quit; }
 
-    // Reload waybar (mirrors Alt+Shift+B in sway)
     Alt+Shift+B hotkey-overlay-title="Reload waybar" {
         spawn-sh "pkill waybar; waybar -c ~/.config/waybar/niri/config.jsonc -s ~/.config/waybar/niri/style.css &";
     }
 
-    // Scale toggles — niri msg replaces swaymsg
     Alt+G hotkey-overlay-title="Scale 1.0" {
         spawn-sh "niri msg output eDP-2 scale 1.0";
     }
@@ -197,7 +174,6 @@ binds {
         spawn-sh "niri msg output eDP-2 scale 1.5";
     }
 
-    // Color temperature (mirrors sway Alt+o / Alt+x)
     Alt+O hotkey-overlay-title="Gammastep on" {
         spawn-sh "pkill gammastep; gammastep -O 4500 &";
     }
@@ -205,7 +181,6 @@ binds {
         spawn-sh "pkill gammastep; gammastep -x";
     }
 
-    // ── Screenshots ─────────────────────────────────────────────────────────
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
@@ -229,27 +204,27 @@ binds {
     Alt+End  { focus-column-last; }
 
     // ── Move ────────────────────────────────────────────────────────────────
-    Alt+Ctrl+H     { move-column-left; }
-    Alt+Ctrl+J     { move-window-down; }
-    Alt+Ctrl+K     { move-window-up; }
-    Alt+Ctrl+L     { move-column-right; }
-    Alt+Ctrl+Left  { move-column-left; }
-    Alt+Ctrl+Down  { move-window-down; }
-    Alt+Ctrl+Up    { move-window-up; }
-    Alt+Ctrl+Right { move-column-right; }
+    Alt+Shift+H     { move-column-left; }
+    Alt+Shift+J     { move-window-down; }
+    Alt+Shift+K     { move-window-up; }
+    Alt+Shift+L     { move-column-right; }
+    Alt+Shift+Left  { move-column-left; }
+    Alt+Shift+Down  { move-window-down; }
+    Alt+Shift+Up    { move-window-up; }
+    Alt+Shift+Right { move-column-right; }
 
-    Alt+Ctrl+Home { move-column-to-first; }
-    Alt+Ctrl+End  { move-column-to-last; }
+    Alt+Shift+Home { move-column-to-first; }
+    Alt+Shift+End  { move-column-to-last; }
 
     // ── Monitor focus / move ─────────────────────────────────────────────────
-    Alt+Shift+H     { focus-monitor-left; }
-    Alt+Shift+J     { focus-monitor-down; }
-    Alt+Shift+K     { focus-monitor-up; }
-    Alt+Shift+L     { focus-monitor-right; }
-    Alt+Shift+Left  { focus-monitor-left; }
-    Alt+Shift+Down  { focus-monitor-down; }
-    Alt+Shift+Up    { focus-monitor-up; }
-    Alt+Shift+Right { focus-monitor-right; }
+    Alt+Ctrl+H     { focus-monitor-left; }
+    Alt+Ctrl+J     { focus-monitor-down; }
+    Alt+Ctrl+K     { focus-monitor-up; }
+    Alt+Ctrl+L     { focus-monitor-right; }
+    Alt+Ctrl+Left  { focus-monitor-left; }
+    Alt+Ctrl+Down  { focus-monitor-down; }
+    Alt+Ctrl+Up    { focus-monitor-up; }
+    Alt+Ctrl+Right { focus-monitor-right; }
 
     Alt+Shift+Ctrl+H     { move-column-to-monitor-left; }
     Alt+Shift+Ctrl+J     { move-column-to-monitor-down; }
@@ -281,15 +256,15 @@ binds {
     Alt+8 { focus-workspace 8; }
     Alt+9 { focus-workspace 9; }
 
-    Alt+Ctrl+1 { move-column-to-workspace 1; }
-    Alt+Ctrl+2 { move-column-to-workspace 2; }
-    Alt+Ctrl+3 { move-column-to-workspace 3; }
-    Alt+Ctrl+4 { move-column-to-workspace 4; }
-    Alt+Ctrl+5 { move-column-to-workspace 5; }
-    Alt+Ctrl+6 { move-column-to-workspace 6; }
-    Alt+Ctrl+7 { move-column-to-workspace 7; }
-    Alt+Ctrl+8 { move-column-to-workspace 8; }
-    Alt+Ctrl+9 { move-column-to-workspace 9; }
+    Alt+Shift+1 { move-column-to-workspace 1; }
+    Alt+Shift+2 { move-column-to-workspace 2; }
+    Alt+Shift+3 { move-column-to-workspace 3; }
+    Alt+Shift+4 { move-column-to-workspace 4; }
+    Alt+Shift+5 { move-column-to-workspace 5; }
+    Alt+Shift+6 { move-column-to-workspace 6; }
+    Alt+Shift+7 { move-column-to-workspace 7; }
+    Alt+Shift+8 { move-column-to-workspace 8; }
+    Alt+Shift+9 { move-column-to-workspace 9; }
 
     // Scroll workspace
     Alt+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
@@ -317,14 +292,14 @@ binds {
     Alt+C          { center-column; }
     Alt+Ctrl+C     { center-visible-columns; }
 
-    Alt+Minus      { set-column-width "-10%"; }
-    Alt+Equal      { set-column-width "+10%"; }
-    Alt+Shift+Minus { set-window-height "-10%"; }
-    Alt+Shift+Equal { set-window-height "+10%"; }
+    Alt+M      { set-column-width "-10%"; }
+    Alt+N      { set-column-width "+10%"; }
+    Alt+Shift+M { set-window-height "-10%"; }
+    Alt+Shift+N { set-window-height "+10%"; }
 
     // ── Floating / column stacking (niri's take on sway Alt+T) ───────────────
-    Alt+V       { toggle-window-floating; }
-    Alt+Shift+V { switch-focus-between-floating-and-tiling; }
+    Alt+T       { toggle-window-floating; }
+    Alt+Shift+T { switch-focus-between-floating-and-tiling; }
 
     // Consume/expel (niri's column stacking — conceptually like sway's layout)
     Alt+BracketLeft  { consume-or-expel-window-left; }
@@ -333,7 +308,7 @@ binds {
     Alt+Period       { expel-window-from-column; }
 
     // Tabbed display mode (niri quirk — vertical tabs within a column)
-    Alt+T { toggle-column-tabbed-display; }
+    Alt+V { toggle-column-tabbed-display; }
 
     // Overview (niri-specific zoomed-out workspace view)
     Alt+Shift+O repeat=false { toggle-overview; }
@@ -361,4 +336,4 @@ binds {
 // Generated by: wal -i <wallpaper>  (called from theme_change_niri.sh)
 // Template at:  ~/.config/wal/templates/colors-niri.kdl
 // Provides: overview, layout/focus-ring, layout/background-color, cast window-rule
-include "~/.cache/wal/colors-niri.kdl"
+include "colors-niri.kdl"

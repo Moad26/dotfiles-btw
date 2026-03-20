@@ -2,8 +2,6 @@
 
 set -euo pipefail
 
-# ── WM detection ─────────────────────────────────────────────────────────────
-# Pass "niri" or "sway" as $1 to force; otherwise auto-detected from env.
 if [[ $# -ge 1 && ("$1" == "niri" || "$1" == "sway") ]]; then
   WM="$1"
 elif [[ -n "${NIRI_SOCKET:-}" ]]; then
@@ -25,7 +23,6 @@ if [[ ! -x "$THEME_SCRIPT" ]]; then
   exit 1
 fi
 
-# ── awww daemon ───────────────────────────────────────────────────────────────
 WALL_DIR="${WALLPAPER_DIR:-$HOME/Desktop/Wallpaper/}"
 
 if ! pgrep -x awww-daemon &>/dev/null; then
@@ -46,7 +43,6 @@ if [[ ${#images[@]} -eq 0 ]]; then
   exit 1
 fi
 
-# ── fzf picker ────────────────────────────────────────────────────────────────
 selected=$(
   printf "%s\n" "${images[@]}" |
     fzf \

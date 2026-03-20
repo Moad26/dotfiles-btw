@@ -55,9 +55,7 @@ window#waybar {
 #custom-notification,
 #bluetooth,
 #tray {
-  /* padding: 0 2px; */
-  /* color: @color1; */
-  padding: 0 6px;
+  padding: 0 2px;
   color: @color1;
   transition: color 0.2s ease;
 }

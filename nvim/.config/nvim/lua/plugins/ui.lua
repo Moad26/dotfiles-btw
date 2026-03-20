@@ -306,6 +306,7 @@ o8o        `8        `8'       o888o o8o        o888o
 				-- Config
 				local config = {
 					options = {
+						globalstatus = true,
 						component_separators = "",
 						section_separators = "",
 						position = "top",
