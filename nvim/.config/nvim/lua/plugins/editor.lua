@@ -63,6 +63,9 @@ return {
 		},
 		config = function()
 			require("neoclip").setup()
+			vim.keymap.set("n", "<leader>fy", function()
+				require("neoclip.fzf")()
+			end, { desc = "Clipboard History" })
 		end,
 	},
 
