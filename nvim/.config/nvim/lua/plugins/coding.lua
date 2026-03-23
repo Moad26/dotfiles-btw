@@ -128,47 +128,19 @@ return {
 			require("nvim-ts-autotag").setup()
 		end,
 	},
-	{
-		"rachartier/tiny-code-action.nvim",
-		dependencies = {
-			"ibhagwan/fzf-lua",
-			{
-				"folke/snacks.nvim",
-				opts = {
-					terminal = {},
-				},
-			},
-		},
-		event = "LspAttach",
-		opts = {},
-	},
-	{
-		"akinsho/bufferline.nvim",
-		version = "*",
-		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			vim.opt.termguicolors = true
-			require("bufferline").setup({})
-		end,
-	},
 	-- {
-	-- 	"folke/trouble.nvim",
-	-- 	dependencies = { "nvim-tree/nvim-web-devicons", "folke/todo-comments.nvim" },
-	-- 	opts = {
-	-- 		focus = true,
-	-- 	},
-	-- 	cmd = "Trouble",
-	-- 	keys = {
-	-- 		{ "<leader>xw", "<cmd>Trouble diagnostics toggle<CR>", desc = "Open trouble workspace diagnostics" },
+	-- 	"rachartier/tiny-code-action.nvim",
+	-- 	dependencies = {
+	-- 		"ibhagwan/fzf-lua",
 	-- 		{
-	-- 			"<leader>xd",
-	-- 			"<cmd>Trouble diagnostics toggle filter.buf=0<CR>",
-	-- 			desc = "Open trouble document diagnostics",
+	-- 			"folke/snacks.nvim",
+	-- 			opts = {
+	-- 				terminal = {},
+	-- 			},
 	-- 		},
-	-- 		{ "<leader>xq", "<cmd>Trouble quickfix toggle<CR>", desc = "Open trouble quickfix list" },
-	-- 		{ "<leader>xl", "<cmd>Trouble loclist toggle<CR>", desc = "Open trouble location list" },
-	-- 		{ "<leader>xt", "<cmd>Trouble todo toggle<CR>", desc = "Open todos in trouble" },
 	-- 	},
+	-- 	event = "LspAttach",
+	-- 	opts = {},
 	-- },
 
 	--Tmux
@@ -213,7 +185,7 @@ return {
 				callback = function(ev)
 					local ft = vim.bo[ev.buf].filetype
 					if ft == "" then
-				return
+						return
 					end
 
 					-- Query fresh each time so newly installed parsers are detected.

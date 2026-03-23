@@ -1,7 +1,7 @@
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.tabstop = 2 -- Number of spaces per tab
 vim.opt.softtabstop = 2 -- Editing feels like 2 spaces per tab
-vim.opt.showtabline = 2
+vim.opt.showtabline = 0
 vim.opt.shiftwidth = 2 -- Indent by 2 spaces
 vim.opt.smartindent = true -- Smart indentation
 vim.opt.autoindent = true

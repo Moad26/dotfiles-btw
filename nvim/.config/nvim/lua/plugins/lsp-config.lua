@@ -65,7 +65,7 @@ return {
 					map("K", vim.lsp.buf.hover, "show documentation")
 					map("<leader>rs", ":lsprestart<cr>", "restart lsp")
 					map("<leader>rn", vim.lsp.buf.rename, "smart rename")
-					map("<leader>ca", vim.lsp.buf.code_action, "see available code actions")
+					-- map("<leader>ca", vim.lsp.buf.code_action, "see available code actions")
 				end,
 			})
 

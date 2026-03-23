@@ -34,6 +34,7 @@ return {
 		keymap("n", "<leader>dd", fzf.diagnostics_document, { desc = "Document diagnostics" })
 		keymap("n", "<leader>dx", fzf.diagnostics_workspace, { desc = "Workspace diagnostics" })
 		keymap("n", "<leader>dq", fzf.quickfix, { desc = "Quickfix" })
+		keymap("n", "<leader>dc", fzf.lsp_code_actions, { desc = "Code actions" })
 
 		-- Additional useful pickers
 		keymap("n", "<leader>fb", fzf.buffers, { desc = "Buffers" })
