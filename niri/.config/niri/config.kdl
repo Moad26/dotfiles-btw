@@ -31,7 +31,7 @@ output "eDP-2" {
 }
 
 layout {
-    gaps 4
+    gaps 2
 
     center-focused-column "never"
 
@@ -141,7 +141,7 @@ binds {
     }
 
     Alt+Space hotkey-overlay-title="Launcher: fsel" {
-      spawn "foot" "--app-id" "fsel" "--title" "launcher" "fsel" "--nosway" "-d";
+      spawn "foot" "--app-id" "fsel" "--title" "launcher" "fsel"  "-d";
     }
     // Alt+Space { spawn "alacritty" "--title" "launcher" "-e" "fsel" "--nosway" "-d"; }
     // Alt+Space hotkey-overlay-title="launcher" {
