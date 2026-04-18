@@ -122,7 +122,7 @@ hotkey-overlay {
 }
 
 animations {
-    // off
+    off
 }
 
 binds {
