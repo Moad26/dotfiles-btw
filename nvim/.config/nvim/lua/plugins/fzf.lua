@@ -14,6 +14,19 @@ return {
 					["shift-tab"] = "up",
 				},
 			},
+			-- Allow copying diagnostic text from the picker with Ctrl-y
+			diagnostics = {
+				actions = {
+					["ctrl-y"] = function(selected)
+						if selected and #selected > 0 then
+							-- Extract just the diagnostic message (after the severity icon)
+							local entry = selected[1]
+							vim.fn.setreg("+", entry)
+							vim.notify("Copied to clipboard", vim.log.levels.INFO)
+						end
+					end,
+				},
+			},
 		})
 
 		fzf.register_ui_select()

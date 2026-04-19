@@ -112,7 +112,6 @@ return {
 								rangeVariableTypes = true,
 							},
 							analyses = {
-								fieldalignment = true,
 								useany = true,
 							},
 							usePlaceholders = true,

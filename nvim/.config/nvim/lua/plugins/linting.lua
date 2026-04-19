@@ -4,6 +4,22 @@ return {
 	config = function()
 		local lint = require("lint")
 
+		-- golangci-lint v2.x changed CLI flags; override nvim-lint's built-in args
+		lint.linters.golangcilint.args = {
+			"run",
+			"--output.json.path",
+			"stdout",
+			"--issues-exit-code",
+			"0",
+			"--show-stats=false",
+			function()
+				return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+			end,
+		}
+		-- exit code 3 = timeout/analysis error; treat as non-fatal so nvim-lint
+		-- still parses whatever output was produced rather than discarding it
+		lint.linters.golangcilint.ignore_exitcode = true
+
 		lint.linters.cpplint.args = {
 			"--filter=-legal/copyright",
 			"--linelength=120", -- Optional: adjust line length if needed
