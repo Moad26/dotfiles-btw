@@ -1,29 +1,7 @@
+-- noice.nvim removed: it conflicts with the native ui2 introduced in Neovim 0.12.
+-- ui2 handles cmdline, messages, and pager natively.
+-- winborder = "rounded" in vim-options.lua covers LSP float borders globally.
 return {
-	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-		},
-		opts = {
-			lsp = {
-				override = {
-					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-					["vim.lsp.util.stylize_markdown"] = true,
-				},
-				signature = {
-					auto_open = { enabled = false },
-				},
-			},
-			presets = {
-				bottom_search = true,
-				command_palette = true,
-				long_message_to_split = true,
-				inc_rename = false,
-				lsp_doc_border = true,
-			},
-		},
-	},
 
 	{
 		"folke/snacks.nvim",
@@ -206,7 +184,7 @@ o8o        `8        `8'       o888o o8o        o888o
 				end,
 			})
 			vim.opt.inccommand = "split"
-			vim.opt.pumblend = 10
+			-- pumblend removed: it conflicts visually with pumborder in Neovim 0.12
 		end,
 	},
 	{
@@ -423,24 +401,29 @@ o8o        `8        `8'       o888o o8o        o888o
 						removed = { fg = colors.removed },
 					},
 				})
-				-- Lsp
+				-- LSP progress: uses the native 0.12 vim.ui.progress_status()
 				ins_right({
-					-- Lsp server name .
 					function()
-						local msg = "No Active Lsp"
-						local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
-						local clients = vim.lsp.get_clients()
-						if next(clients) == nil then
-							return msg
-						end
-						local client_names = {}
-						for _, client in ipairs(clients) do
-							table.insert(client_names, client.name)
-						end
-						return table.concat(client_names, ",")
+						return vim.ui.progress_status()
 					end,
-					icon = " LSP:",
+					color = { fg = colors.cyan },
+					cond = function()
+						return vim.ui.progress_status() ~= ""
+					end,
+				})
+				-- Active LSP clients (compact)
+				ins_right({
+					function()
+						local clients = vim.lsp.get_clients({ bufnr = 0 })
+						if #clients == 0 then return "" end
+						local names = vim.tbl_map(function(c) return c.name end, clients)
+						return table.concat(names, " ")
+					end,
+					icon = " ",
 					color = { fg = colors.fg, gui = "bold" },
+					cond = function()
+						return #vim.lsp.get_clients({ bufnr = 0 }) > 0
+					end,
 				})
 				-- Center divider
 				-- ins_left({

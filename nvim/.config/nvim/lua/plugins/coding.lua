@@ -166,6 +166,7 @@ return {
 	--Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main", -- master branch is frozen; main is required for Neovim 0.12+
 		lazy = false,
 		build = ":TSUpdate",
 		config = function()

@@ -62,25 +62,28 @@ return {
 
 					map("[d", vim.diagnostic.goto_prev, "go to previous diagnostic")
 					map("]d", vim.diagnostic.goto_next, "go to next diagnostic")
-					map("K", vim.lsp.buf.hover, "show documentation")
+					-- K (hover), grn (rename), gra (code_action), grr (references) are now
+					-- built-in default LSP keymaps in Neovim 0.12 — no need to define them here.
 					map("<leader>rs", ":lsprestart<cr>", "restart lsp")
-					map("<leader>rn", vim.lsp.buf.rename, "smart rename")
 					-- map("<leader>ca", vim.lsp.buf.code_action, "see available code actions")
 				end,
 			})
 
+			-- NOTE: sign_define() for diagnostics was removed in Neovim 0.12.
+			-- Signs are now configured via the signs.text table inside vim.diagnostic.config().
 			vim.diagnostic.config({
 				virtual_text = { enabled = true, source = "always", prefix = "●" },
-				signs = true,
 				underline = true,
 				float = { border = "rounded", source = "always" },
+				signs = {
+					text = {
+						[vim.diagnostic.severity.ERROR] = "✘ ",
+						[vim.diagnostic.severity.WARN] = "▲ ",
+						[vim.diagnostic.severity.HINT] = "⚑ ",
+						[vim.diagnostic.severity.INFO] = "» ",
+					},
+				},
 			})
-
-			local signs = { error = "✘ ", warn = "▲ ", hint = "⚑ ", info = "» " }
-			for type, icon in pairs(signs) do
-				local hl = "diagnosticsign" .. type
-				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-			end
 
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
