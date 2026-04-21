@@ -144,23 +144,7 @@ return {
 						},
 					},
 				},
-				--[[ pyright = {
-				settings = {
-					python = {
-						analysis = {
-							autoSearchPaths = true,
-							diagnosticMode = "workspace",
-							useLibraryCodeForTypes = true,
-							typeCheckingMode = "basic",
-							reportReturnType = "warning",
-							reportOptionalMemberAccess = "warning",
-							reportOptionalOperand = "warning",
-							reportOptionalSubscript = "warning",
-							reportGeneralTypeIssues = "warning",
-						},
-					},
-				},
-			}, ]]
+
 				ts_ls = {
 					settings = {
 						typescript = {
@@ -240,9 +224,6 @@ return {
 			}
 
 			for name, config in pairs(servers) do
-				if name == "tsserver" then
-					name = "ts_ls"
-				end
 
 				config.capabilities = capabilities
 				config.on_attach = on_attach
@@ -255,19 +236,5 @@ return {
 				automatic_enable = true,
 			})
 		end,
-	},
-	-- Lazydev
-	{
-		{
-			"folke/lazydev.nvim",
-			ft = "lua", -- only load on lua files
-			opts = {
-				library = {
-					-- See the configuration section for more details
-					-- Load luvit types when the `vim.uv` word is found
-					{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
-				},
-			},
-		},
 	},
 }

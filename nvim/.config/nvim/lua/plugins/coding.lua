@@ -103,9 +103,6 @@ return {
 				},
 				documentation = {
 					auto_show = true,
-					window = {
-						border = "rounded",
-					},
 				},
 				ghost_text = {
 					enabled = true,
@@ -114,9 +111,6 @@ return {
 
 			signature = {
 				enabled = true,
-				window = {
-					border = "rounded",
-				},
 			},
 		},
 
@@ -129,21 +123,6 @@ return {
 			require("nvim-ts-autotag").setup()
 		end,
 	},
-	-- {
-	-- 	"rachartier/tiny-code-action.nvim",
-	-- 	dependencies = {
-	-- 		"ibhagwan/fzf-lua",
-	-- 		{
-	-- 			"folke/snacks.nvim",
-	-- 			opts = {
-	-- 				terminal = {},
-	-- 			},
-	-- 		},
-	-- 	},
-	-- 	event = "LspAttach",
-	-- 	opts = {},
-	-- },
-
 	--Tmux
 
 	{
@@ -227,5 +206,9 @@ return {
 		opts = {},
 		event = "VeryLazy",
 		enabled = vim.fn.has("nvim-0.10.0") == 1,
+	},
+	{
+		"benomahony/uv.nvim",
+		opts = {},
 	},
 }

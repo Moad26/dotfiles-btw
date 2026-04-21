@@ -55,12 +55,13 @@ return {
 		keymap("n", "<leader>fc", fzf.commands, { desc = "Commands" })
 		keymap("n", "<leader>fk", fzf.keymaps, { desc = "Keymaps" })
 		keymap("n", "<leader>fw", fzf.grep_cword, { desc = "Word Under Cursor" })
+		keymap("n", "<leader>fy", fzf.registers, { desc = "Registers" })
 		keymap("n", "<leader>fr", fzf.resume, { desc = "Resume Last Picker" })
 
 		-- Git pickers
 		keymap("n", "<leader>gs", fzf.git_status, { desc = "Git Status" })
 		keymap("n", "<leader>gc", fzf.git_commits, { desc = "Git Commits" })
-		keymap("n", "<leader>gb", fzf.git_branches, { desc = "Git Branches" })
+		keymap("n", "<leader>gB", fzf.git_branches, { desc = "Git Branches" })
 		keymap("n", "<leader>tc", function()
 			fzf.colorschemes({
 				ignore_patterns = {
