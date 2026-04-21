@@ -28,7 +28,8 @@ return {
 			},
 
 			appearance = {
-				use_nvim_cmp_as_default = true,
+				highlight_ns = vim.api.nvim_create_namespace("blink_cmp"),
+				use_nvim_cmp_as_default = false,
 				nerd_font_variant = "mono",
 			},
 
@@ -203,13 +204,19 @@ return {
 							("nvim-treesitter: auto-installing parser for '%s'…"):format(ft),
 							vim.log.levels.INFO
 						)
-						-- install() is async; chain onto its promise so features
-						-- are enabled in the triggering buffer once done.
-						treesitter.install(ft):map(function()
-							if vim.api.nvim_buf_is_valid(ev.buf) and vim.bo[ev.buf].filetype == ft then
-								vim.schedule(enable_ts_features)
-							end
-						end)
+						-- install() is async; use a one-shot autocmd to enable
+						-- TS features once the parser becomes available.
+						treesitter.install(ft)
+						vim.api.nvim_create_autocmd("FileType", {
+							group = ts_group,
+							buffer = ev.buf,
+							once = true,
+							callback = function()
+								if vim.tbl_contains(treesitter.get_installed(), ft) then
+									enable_ts_features()
+								end
+							end,
+						})
 					end
 				end,
 			})
