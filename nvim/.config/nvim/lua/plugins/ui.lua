@@ -386,13 +386,14 @@ o8o        `8        `8'       o888o o8o        o888o
 				ins_left({
 					"diagnostics",
 					sources = { "nvim_diagnostic" },
-					symbols = { error = " ", warn = " ", info = " ", hint = " " },
+					symbols = { error = " ", warn = " ", info = " ", hint = " " },
 					diagnostics_color = {
 						error = { fg = colors.red },
 						warn = { fg = colors.yellow },
 						info = { fg = colors.cyan },
 						hint = { fg = colors.green },
 					},
+					padding = { left = 1, right = 1 },
 				})
 
 				-- ═══ right side ═══
