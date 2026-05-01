@@ -222,4 +222,5 @@ return {
 	{ "Everblush/nvim", name = "everblush", lazy = true },
 	{ "owickstrom/vim-colors-paramount", lazy = true },
 	{ "no-clown-fiesta/no-clown-fiesta.nvim", lazy = true },
+	{ "casedami/neomodern.nvim", lazy = true },
 }

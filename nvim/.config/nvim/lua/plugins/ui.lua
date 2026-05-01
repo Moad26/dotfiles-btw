@@ -15,19 +15,19 @@ return {
 			quickfile = { enabled = true },
 
 			dashboard = {
-				preset = {
-					header = [[
-ooooo      ooo oooooo     oooo ooooo ooo        ooooo
-`888b.     `8'  `888.     .8'  `888' `88.       .888'
- 8 `88b.    8    `888.   .8'    888   888b     d'888
- 8   `88b.  8     `888. .8'     888   8 Y88. .P  888
- 8     `88b.8      `888.8'      888   8  `888'   888
- 8       `888       `888'       888   8    Y     888
-o8o        `8        `8'       o888o o8o        o888o
-        ]],
-				},
+				preset = {},
 				sections = {
-					{ section = "header" },
+					function()
+						local handle = io.popen("fortune -s | cowsay")
+						local result = handle and handle:read("*a") or ""
+						if handle then handle:close() end
+						result = result:gsub("\n$", "")
+						return {
+							text = { result, hl = "header" },
+							padding = 1,
+							indent = 8,
+						}
+					end,
 					{ section = "keys", gap = 1, padding = 1 },
 					{ section = "startup" },
 				},

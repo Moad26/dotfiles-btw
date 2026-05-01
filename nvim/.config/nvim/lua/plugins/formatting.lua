@@ -43,6 +43,7 @@ return {
 				-- Other
 				toml = { "taplo" },
 				typst = { "typstyle" },
+				proto = { "buf" },
 			},
 
 			-- Format on save configuration

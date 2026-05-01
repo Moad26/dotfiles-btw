@@ -48,6 +48,9 @@ return {
 					"delve",
 					"debugpy",
 					"taplo",
+					"buf",
+					"buf_ls",
+					"hadolint",
 				},
 			})
 
@@ -200,6 +203,7 @@ return {
 				bashls = {
 					settings = { bashIde = { globPattern = "*@(.sh|.inc|.bash|.command)" } },
 				},
+				buf_ls = {},
 				tinymist = {
 					settings = { formatterMode = "typstyle", exportPdf = "never", semanticTokens = "disable" },
 				},
@@ -221,10 +225,11 @@ return {
 				tailwindcss = {},
 				marksman = {},
 				neocmake = {},
+				dockerls = {},
+				docker_compose_language_service = {},
 			}
 
 			for name, config in pairs(servers) do
-
 				config.capabilities = capabilities
 				config.on_attach = on_attach
 
