@@ -53,5 +53,5 @@ font-family="Iosevka Nerd Font"
 # theme = TokyoNight Night
 font-size=15
 confirm-close-surface = false
-background-opacity = 0.5
+background-opacity = 1
 config-file = ?/home/moad/.cache/wal/ghostty.conf
