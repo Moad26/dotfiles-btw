@@ -223,4 +223,5 @@ return {
 	{ "owickstrom/vim-colors-paramount", lazy = true },
 	{ "no-clown-fiesta/no-clown-fiesta.nvim", lazy = true },
 	{ "casedami/neomodern.nvim", lazy = true },
+	{ "kyazdani42/blue-moon", lazy = true },
 }

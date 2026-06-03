@@ -7,6 +7,7 @@ if status is-interactive
   abbr -a v 'nvim'
   abbr -a c 'clear'
   abbr -a cat 'bat'
+  abbr -a k 'kubectl'
 
   bind \cp up-or-search
   bind \cn down-or-search
@@ -43,6 +44,7 @@ set -Ux JAVA_HOME /usr/lib/jvm/java-21-openjdk
 set -Ux SCALA_HOME /usr/bin/scala
 set -gx DOCKER_BUILDKIT 1
 set -gx COMPOSE_DOCKER_CLI_BUILD 1
+set -gx PATH $PATH $HOME/.krew/bin
 if test -f "$HOME/.local/bin/env"
     bass source "$HOME/.local/bin/env"
 end
