@@ -25,6 +25,7 @@ return {
 			"--linelength=120", -- Optional: adjust line length if needed
 		}
 
+
 		lint.linters_by_ft = {
 			-- Go
 			go = { "golangcilint" },

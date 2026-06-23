@@ -6,6 +6,7 @@ return {
 			"nvim-mini/mini.nvim",
 			"rafamadriz/friendly-snippets",
 			"L3MON4D3/LuaSnip",
+			"Kaiser-Yang/blink-cmp-dictionary",
 		},
 		version = "v1.*",
 
@@ -35,12 +36,23 @@ return {
 
 			sources = {
 				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+				per_filetype = {
+					markdown = { "buffer", "path", "dictionary" },
+				},
 				providers = {
 					lazydev = {
 						name = "LazyDev",
 						module = "lazydev.integrations.blink",
 						-- make lazydev completions top priority (see `:h blink.cmp`)
 						score_offset = 100,
+					},
+					dictionary = {
+						name = "dictionary",
+						module = "blink-cmp-dictionary",
+						min_keyword_length = 2,
+						opts = {
+							dictionary_files = { vim.fn.expand("~/.config/nvim/dictionary/words.dict") },
+						},
 					},
 				},
 			},
