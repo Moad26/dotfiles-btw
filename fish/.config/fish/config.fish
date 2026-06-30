@@ -27,7 +27,7 @@ end
 # Go
 fish_add_path /usr/local/go/bin
 fish_add_path $HOME/go/bin
-
+fish_add_path ~/.config/scripts
 # # Pyenv
 # set -gx PYENV_ROOT $HOME/.pyenv
 # if test -d "$PYENV_ROOT/bin"
@@ -39,6 +39,7 @@ fish_add_path $HOME/go/bin
 
 # Local bin
 fish_add_path $HOME/.local/bin
+fish_add_path $HOME/.config/emacs/bin
 
 set -Ux JAVA_HOME /usr/lib/jvm/java-21-openjdk
 set -Ux SCALA_HOME /usr/bin/scala

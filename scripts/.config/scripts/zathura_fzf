@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if IFS= read -r -d '' file < <(
+  find . -type f -name "*.pdf" -print0 |
+    fzf --read0 --print0
+); then
+  zathura "$file" &
+  disown
+fi
