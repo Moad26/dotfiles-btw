@@ -224,4 +224,6 @@ return {
 	{ "no-clown-fiesta/no-clown-fiesta.nvim", lazy = true },
 	{ "casedami/neomodern.nvim", lazy = true },
 	{ "kyazdani42/blue-moon", lazy = true },
+	{ "Aejkatappaja/cendre", lazy = true },
+	{ "roobert/palette.nvim", lazy = true },
 }

@@ -1,5 +1,9 @@
 prefer-no-csd
 
+environment {
+  QT_QPA_PLATFORMTHEME "kde"
+}
+
 input {
     keyboard {
         repeat-rate 35
@@ -128,8 +132,8 @@ animations {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Alt+Return hotkey-overlay-title="Terminal: foot" {
-        spawn "foot";
+    Alt+Return hotkey-overlay-title="Terminal: Kitty" {
+        spawn "kitty";
     }
 
     Alt+E hotkey-overlay-title="File manager: dolphin" {
