@@ -23,6 +23,7 @@ let
     # wofi      = "wofi/.config/wofi";
     # yazi      = "yazi/.config/yazi";
     # zed       = "zed/.config/zed";
+    wallust = "wallust/.config/wallust";
   };
 in
 {
