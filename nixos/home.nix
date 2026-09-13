@@ -88,7 +88,7 @@ in
   svelte-language-server
   emmet-language-server
   docker-compose-language-service
-  dockerfile-language-server-nodejs
+  dockerfile-language-server
 
   prettier
   stylua
