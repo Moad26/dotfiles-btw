@@ -89,7 +89,7 @@ in
       buf
 
       # --- Formatters ---
-      nodePackages.prettier
+      prettier
       stylua
       shfmt
       gofumpt
@@ -102,7 +102,7 @@ in
       ruff
       eslint_d
       cpplint
-      nodePackages.jsonlint
+      jsonlint
       markdownlint-cli
       shellcheck
       hadolint
