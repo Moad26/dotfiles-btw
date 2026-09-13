@@ -97,7 +97,7 @@ in
 
   xdg.configFile = builtins.mapAttrs (name: subpath: {
     source = symlink "${dotfiles}/${subpath}";
-    recursive = true;
+    # recursive = true;
   }) configs;
   programs.home-manager.enable = true;
 }
