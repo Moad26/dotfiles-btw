@@ -33,5 +33,17 @@
     # optional: nix dev shell helper
     nix-direnv
   ];
+
+
+  programs.git = {
+  enable = true;
+  settings = {
+    user.name = "Moad26";
+    user.email = "moad2632005@gmail.com";
+    init.defaultBranch = "main";
+    pull.rebase = false;
+  };
+  };
+
   programs.home-manager.enable = true;
 }
