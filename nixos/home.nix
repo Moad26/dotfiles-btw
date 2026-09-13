@@ -27,6 +27,7 @@
     gh              # GitHub CLI
 
     # apps
+    antigravity
     obsidian
     telegram-desktop
     vlc
