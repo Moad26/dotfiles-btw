@@ -1,0 +1,11 @@
+layout {
+    focus-ring {
+        active-color "{{color4}}"
+        inactive-color "{{color8}}"
+    }
+    background-color "{{background}}"
+}
+
+overview {
+    backdrop-color "{{color0}}"
+}

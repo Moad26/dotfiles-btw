@@ -10,7 +10,7 @@ let
     # fish      = "fish/.config/fish";
     # foot      = "foot/.config/foot";
     # ghostty   = "ghostty/.config/ghostty";
-    # kitty     = "kitty/.config/kitty";
+    kitty     = "kitty/.config/kitty";
     # lazygit   = "lazygit/.config/lazygit";
     # mpv       = "mpv/.config/mpv";
     # niri      = "niri/.config/niri";
