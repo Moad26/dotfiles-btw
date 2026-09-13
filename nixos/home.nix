@@ -34,6 +34,7 @@ in
   # Things that are yours, not system-wide
   home.packages = with pkgs; [
     # terminal tools
+    wallust
     kitty
     lazygit
     neovim
