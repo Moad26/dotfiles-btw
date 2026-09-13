@@ -53,6 +53,7 @@ in
 
     # apps
     antigravity
+    vscodium
     obsidian
     telegram-desktop
     vlc
