@@ -12,7 +12,7 @@ return {
 		},
 		config = function()
 			-- this next line is added because lua_ls is not found by nvim while already existing in the mason/bin
-			vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
+			-- vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 			local keymap = vim.keymap
 			local mason = require("mason")
 			local mason_lspconfig = require("mason-lspconfig")
@@ -28,31 +28,31 @@ return {
 				},
 			})
 
-			mason_tool_installer.setup({
-				ensure_installed = {
-					"prettier",
-					"stylua",
-					"ruff",
-					"clang-format",
-					"eslint_d",
-					"mypy",
-					"cpplint",
-					"jsonlint",
-					"markdownlint",
-					"shfmt",
-					"shellcheck",
-					"gofumpt",
-					"goimports",
-					"golines",
-					"golangci-lint",
-					"delve",
-					"debugpy",
-					"taplo",
-					"buf",
-					"buf_ls",
-					"hadolint",
-				},
-			})
+			-- mason_tool_installer.setup({
+			-- 	ensure_installed = {
+			-- 		"prettier",
+			-- 		"stylua",
+			-- 		"ruff",
+			-- 		"clang-format",
+			-- 		"eslint_d",
+			-- 		"mypy",
+			-- 		"cpplint",
+			-- 		"jsonlint",
+			-- 		"markdownlint",
+			-- 		"shfmt",
+			-- 		"shellcheck",
+			-- 		"gofumpt",
+			-- 		"goimports",
+			-- 		"golines",
+			-- 		"golangci-lint",
+			-- 		"delve",
+			-- 		"debugpy",
+			-- 		"taplo",
+			-- 		"buf",
+			-- 		"buf_ls",
+			-- 		"hadolint",
+			-- 	},
+			-- })
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("userlspconfig", {}),
@@ -190,7 +190,8 @@ return {
 					},
 				},
 				lua_ls = {
-					cmd = { vim.fn.stdpath("data") .. "/mason/bin/lua-language-server" },
+					-- cmd = { vim.fn.stdpath("data") .. "/mason/bin/lua-language-server" },
+					cmd = { "lua-language-server" },
 					settings = {
 						Lua = {
 							runtime = { version = "LuaJIT" },
@@ -234,10 +235,11 @@ return {
 				config.on_attach = on_attach
 
 				vim.lsp.config(name, config)
+				vim.lsp.enable(name)
 			end
 
 			mason_lspconfig.setup({
-				ensure_installed = vim.tbl_keys(servers),
+				-- ensure_installed = vim.tbl_keys(servers),
 				automatic_enable = true,
 			})
 		end,

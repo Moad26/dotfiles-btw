@@ -14,7 +14,7 @@ let
     # lazygit   = "lazygit/.config/lazygit";
     # mpv       = "mpv/.config/mpv";
     # niri      = "niri/.config/niri";
-    # nvim      = "nvim/.config/nvim";
+    nvim      = "nvim/.config/nvim";
     # scripts   = "scripts/.config/scripts";
     # swaylock  = "swaylock/.config/swaylock";
     # swaync    = "swaync/.config/swaync";
@@ -35,7 +35,7 @@ in
   home.packages = with pkgs; [
     # terminal tools
     lazygit
-    neovim
+    # neovim
     btop
     ripgrep
     fd
@@ -63,6 +63,52 @@ in
     nix-direnv
   ];
 
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true; # Sets the $EDITOR environment variable
+    
+    extraPackages = with pkgs; [
+      # --- Treesitter Requirements ---
+      gcc
+      gnumake
+      tree-sitter
+
+      # --- Language Servers (LSPs) ---
+      gopls
+      clang-tools
+      basedpyright
+      typescript-language-server
+      vscode-langservers-extracted
+      lua-language-server
+      bash-language-server
+      tinymist
+      marksman
+      dockerfile-language-server-nodejs
+      docker-compose-language-service
+      tailwindcss-language-server
+      buf
+
+      # --- Formatters ---
+      nodePackages.prettier
+      stylua
+      shfmt
+      gofumpt
+      gotools
+      golines
+      taplo
+
+      # --- Linters ---
+      golangci-lint
+      ruff
+      eslint_d
+      cpplint
+      nodePackages.jsonlint
+      markdownlint-cli
+      shellcheck
+      hadolint
+
+    ];
+    };
 
   programs.git = {
   enable = true;
