@@ -72,6 +72,36 @@ in
     # Python (LSP, linter/formatter, debugger)
     basedpyright
     ruff
+    tree-sitter
+  luarocks
+
+  lua-language-server
+  clang-tools
+  vscode-langservers-extracted
+  typescript-language-server
+  nodePackages.bash-language-server
+  marksman
+  buf
+  tinymist
+  tailwindcss-language-server
+  svelte-language-server
+  emmet-language-server
+  docker-compose-language-service
+  nodePackages.dockerfile-language-server-nodejs
+
+  nodePackages.prettier
+  stylua
+  shfmt
+  taplo
+  typstyle
+
+  eslint_d
+  shellcheck
+  hadolint
+  markdownlint-cli
+
+  zathura
+
     # optional: nix dev shell helper
     nix-direnv
   ];

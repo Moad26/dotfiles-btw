@@ -3,9 +3,9 @@ return {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"saghen/blink.cmp",
-			"williamboman/mason.nvim",
-			"whoissethdaniel/mason-tool-installer.nvim",
-			"williamboman/mason-lspconfig.nvim",
+			--"williamboman/mason.nvim",
+			--"whoissethdaniel/mason-tool-installer.nvim",
+			--"williamboman/mason-lspconfig.nvim",
 			"b0o/schemastore.nvim",
 			{ "antosha417/nvim-lsp-file-operations", config = true },
 			{ "folke/lazydev.nvim", opts = {} },
@@ -14,19 +14,19 @@ return {
 			-- this next line is added because lua_ls is not found by nvim while already existing in the mason/bin
 			-- vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 			local keymap = vim.keymap
-			local mason = require("mason")
-			local mason_lspconfig = require("mason-lspconfig")
-			local mason_tool_installer = require("mason-tool-installer")
-
-			mason.setup({
-				ui = {
-					icons = {
-						package_installed = "✓",
-						package_pending = "➜",
-						package_uninstalled = "✗",
-					},
-				},
-			})
+			-- local mason = require("mason")
+			-- local mason_lspconfig = require("mason-lspconfig")
+			-- local mason_tool_installer = require("mason-tool-installer")
+			--
+			-- mason.setup({
+			-- 	ui = {
+			-- 		icons = {
+			-- 			package_installed = "✓",
+			-- 			package_pending = "➜",
+			-- 			package_uninstalled = "✗",
+			-- 		},
+			-- 	},
+			-- })
 
 			-- mason_tool_installer.setup({
 			-- 	ensure_installed = {
@@ -238,10 +238,10 @@ return {
 				vim.lsp.enable(name)
 			end
 
-			mason_lspconfig.setup({
-				-- ensure_installed = vim.tbl_keys(servers),
-				automatic_enable = true,
-			})
+			-- mason_lspconfig.setup({
+			-- 	-- ensure_installed = vim.tbl_keys(servers),
+			-- 	automatic_enable = true,
+			-- })
 		end,
 	},
 }
