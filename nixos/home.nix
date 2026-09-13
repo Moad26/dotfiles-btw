@@ -68,44 +68,19 @@ in
     defaultEditor = true; # Sets the $EDITOR environment variable
     
     extraPackages = with pkgs; [
-      # --- Treesitter Requirements ---
       gcc
-      gnumake
-      tree-sitter
 
-      # --- Language Servers (LSPs) ---
+      # Go (LSP, linter, formatters, debugger)
       gopls
-      clang-tools
-      basedpyright
-      typescript-language-server
-      vscode-langservers-extracted
-      lua-language-server
-      bash-language-server
-      tinymist
-      marksman
-      dockerfile-language-server-nodejs
-      docker-compose-language-service
-      tailwindcss-language-server
-      buf
-
-      # --- Formatters ---
-      prettier
-      stylua
-      shfmt
-      gofumpt
-      gotools
-      golines
-      taplo
-
-      # --- Linters ---
       golangci-lint
+      gofumpt
+      gotools     # provides goimports
+      golines
+      delve
+
+      # Python (LSP, linter/formatter, debugger)
+      basedpyright
       ruff
-      eslint_d
-      cpplint
-      jsonlint
-      markdownlint-cli
-      shellcheck
-      hadolint
 
     ];
     };
