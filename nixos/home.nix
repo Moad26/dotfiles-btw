@@ -9,6 +9,8 @@
   # Things that are yours, not system-wide
   home.packages = with pkgs; [
     # terminal tools
+    lazygit
+    neovim
     btop
     ripgrep
     fd

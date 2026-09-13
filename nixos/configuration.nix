@@ -12,13 +12,12 @@
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages;
+  boot.extraModprobeConfig = ''
+    options snd_hda_intel power_save=0 power_save_controller=N
+  '';
 
   networking.hostName = "legion"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -41,7 +40,7 @@
   	modesetting.enable = true;
   	powerManagement.enable = true;
   	powerManagement.finegrained = false;
-  	open = false;
+  	open = true;
   	nvidiaSettings = true;
   };
 
@@ -100,6 +99,8 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+  virtualisation.docker.enable = true;
+  hardware.nvidia-container-toolkit.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -108,12 +109,16 @@
   users.users."mouaad" = {
     isNormalUser = true;
     description = "Mouaad El Yalaoui";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
+    shell = pkgs.fish;
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
     ];
   };
+
+  programs.fish.enable = true;
+
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -136,6 +141,14 @@
   	usbutils
   ];
 
+  environment.localBinInPath = true;
+
+  nix.gc = {
+	  automatic = true;
+	  dates = "weekly";
+	  options = "--delete-older-than 14d";
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -155,10 +168,6 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "26.05"; # Did you read the comment?
