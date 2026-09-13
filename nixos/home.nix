@@ -79,7 +79,7 @@ in
   clang-tools
   vscode-langservers-extracted
   typescript-language-server
-  nodePackages.bash-language-server
+  bash-language-server
   marksman
   buf
   tinymist
@@ -87,9 +87,9 @@ in
   svelte-language-server
   emmet-language-server
   docker-compose-language-service
-  nodePackages.dockerfile-language-server-nodejs
+  dockerfile-language-server-nodejs
 
-  nodePackages.prettier
+  prettier
   stylua
   shfmt
   taplo
