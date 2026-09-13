@@ -1,5 +1,9 @@
 prefer-no-csd
 
+environment {
+  QT_QPA_PLATFORMTHEME "kde"
+}
+
 input {
     keyboard {
         repeat-rate 35
@@ -31,7 +35,7 @@ output "eDP-2" {
 }
 
 layout {
-    gaps 4
+    gaps 2
 
     center-focused-column "never"
 
@@ -122,14 +126,14 @@ hotkey-overlay {
 }
 
 animations {
-    // off
+    off
 }
 
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Alt+Return hotkey-overlay-title="Terminal: foot" {
-        spawn "foot";
+    Alt+Return hotkey-overlay-title="Terminal: Kitty" {
+        spawn "kitty";
     }
 
     Alt+E hotkey-overlay-title="File manager: dolphin" {
@@ -141,7 +145,7 @@ binds {
     }
 
     Alt+Space hotkey-overlay-title="Launcher: fsel" {
-      spawn "foot" "--app-id" "fsel" "--title" "launcher" "fsel" "--nosway" "-d";
+      spawn "foot" "--app-id" "fsel" "--title" "launcher" "fsel"  "-d";
     }
     // Alt+Space { spawn "alacritty" "--title" "launcher" "-e" "fsel" "--nosway" "-d"; }
     // Alt+Space hotkey-overlay-title="launcher" {

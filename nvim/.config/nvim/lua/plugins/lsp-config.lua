@@ -14,7 +14,6 @@ return {
 			-- this next line is added because lua_ls is not found by nvim while already existing in the mason/bin
 			vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 			local keymap = vim.keymap
-			local fzf = require("fzf-lua")
 			local mason = require("mason")
 			local mason_lspconfig = require("mason-lspconfig")
 			local mason_tool_installer = require("mason-tool-installer")
@@ -49,6 +48,9 @@ return {
 					"delve",
 					"debugpy",
 					"taplo",
+					"buf",
+					"buf_ls",
+					"hadolint",
 				},
 			})
 
@@ -61,32 +63,30 @@ return {
 						keymap.set("n", keys, func, opts)
 					end
 
-					map("gr", fzf.lsp_references, "show lsp references")
-					map("gd", fzf.lsp_definitions, "show lsp definitions")
-					map("gi", fzf.lsp_implementations, "show lsp implementations")
-					map("gt", fzf.lsp_typedefs, "show lsp type definitions")
-					map("<leader>d", fzf.diagnostics_document, "show buffer diagnostics")
 					map("[d", vim.diagnostic.goto_prev, "go to previous diagnostic")
 					map("]d", vim.diagnostic.goto_next, "go to next diagnostic")
-					map("K", vim.lsp.buf.hover, "show documentation")
+					-- K (hover), grn (rename), gra (code_action), grr (references) are now
+					-- built-in default LSP keymaps in Neovim 0.12 — no need to define them here.
 					map("<leader>rs", ":lsprestart<cr>", "restart lsp")
-					map("<leader>rn", vim.lsp.buf.rename, "smart rename")
-					map("<leader>ca", vim.lsp.buf.code_action, "see available code actions")
+					-- map("<leader>ca", vim.lsp.buf.code_action, "see available code actions")
 				end,
 			})
 
+			-- NOTE: sign_define() for diagnostics was removed in Neovim 0.12.
+			-- Signs are now configured via the signs.text table inside vim.diagnostic.config().
 			vim.diagnostic.config({
 				virtual_text = { enabled = true, source = "always", prefix = "●" },
-				signs = true,
 				underline = true,
 				float = { border = "rounded", source = "always" },
+				signs = {
+					text = {
+						[vim.diagnostic.severity.ERROR] = "✘ ",
+						[vim.diagnostic.severity.WARN] = "▲ ",
+						[vim.diagnostic.severity.HINT] = "⚑ ",
+						[vim.diagnostic.severity.INFO] = "» ",
+					},
+				},
 			})
-
-			local signs = { error = "✘ ", warn = "▲ ", hint = "⚑ ", info = "» " }
-			for type, icon in pairs(signs) do
-				local hl = "diagnosticsign" .. type
-				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-			end
 
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
@@ -115,7 +115,6 @@ return {
 								rangeVariableTypes = true,
 							},
 							analyses = {
-								fieldalignment = true,
 								useany = true,
 							},
 							usePlaceholders = true,
@@ -148,23 +147,7 @@ return {
 						},
 					},
 				},
-				--[[ pyright = {
-				settings = {
-					python = {
-						analysis = {
-							autoSearchPaths = true,
-							diagnosticMode = "workspace",
-							useLibraryCodeForTypes = true,
-							typeCheckingMode = "basic",
-							reportReturnType = "warning",
-							reportOptionalMemberAccess = "warning",
-							reportOptionalOperand = "warning",
-							reportOptionalSubscript = "warning",
-							reportGeneralTypeIssues = "warning",
-						},
-					},
-				},
-			}, ]]
+
 				ts_ls = {
 					settings = {
 						typescript = {
@@ -220,6 +203,7 @@ return {
 				bashls = {
 					settings = { bashIde = { globPattern = "*@(.sh|.inc|.bash|.command)" } },
 				},
+				buf_ls = {},
 				tinymist = {
 					settings = { formatterMode = "typstyle", exportPdf = "never", semanticTokens = "disable" },
 				},
@@ -241,13 +225,11 @@ return {
 				tailwindcss = {},
 				marksman = {},
 				neocmake = {},
+				dockerls = {},
+				docker_compose_language_service = {},
 			}
 
 			for name, config in pairs(servers) do
-				if name == "tsserver" then
-					name = "ts_ls"
-				end
-
 				config.capabilities = capabilities
 				config.on_attach = on_attach
 
@@ -259,19 +241,5 @@ return {
 				automatic_enable = true,
 			})
 		end,
-	},
-	-- Lazydev
-	{
-		{
-			"folke/lazydev.nvim",
-			ft = "lua", -- only load on lua files
-			opts = {
-				library = {
-					-- See the configuration section for more details
-					-- Load luvit types when the `vim.uv` word is found
-					{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
-				},
-			},
-		},
 	},
 }

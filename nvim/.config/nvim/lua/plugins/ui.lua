@@ -1,29 +1,4 @@
 return {
-	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-		},
-		opts = {
-			lsp = {
-				override = {
-					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-					["vim.lsp.util.stylize_markdown"] = true,
-				},
-				signature = {
-					auto_open = { enabled = false },
-				},
-			},
-			presets = {
-				bottom_search = true,
-				command_palette = true,
-				long_message_to_split = true,
-				inc_rename = false,
-				lsp_doc_border = true,
-			},
-		},
-	},
 
 	{
 		"folke/snacks.nvim",
@@ -35,26 +10,24 @@ return {
 
 		---@type snacks.Config
 		opts = {
-			animate = { enabled = true },
-
 			bigfile = { enabled = true },
 
 			quickfile = { enabled = true },
 
 			dashboard = {
-				preset = {
-					header = [[
-ooooo      ooo oooooo     oooo ooooo ooo        ooooo 
-`888b.     `8'  `888.     .8'  `888' `88.       .888' 
- 8 `88b.    8    `888.   .8'    888   888b     d'888  
- 8   `88b.  8     `888. .8'     888   8 Y88. .P  888  
- 8     `88b.8      `888.8'      888   8  `888'   888  
- 8       `888       `888'       888   8    Y     888  
-o8o        `8        `8'       o888o o8o        o888o 
-        ]],
-				},
+				preset = {},
 				sections = {
-					{ section = "header" },
+					function()
+						local handle = io.popen("fortune -s | cowsay")
+						local result = handle and handle:read("*a") or ""
+						if handle then handle:close() end
+						result = result:gsub("\n$", "")
+						return {
+							text = { result, hl = "header" },
+							padding = 1,
+							indent = 8,
+						}
+					end,
 					{ section = "keys", gap = 1, padding = 1 },
 					{ section = "startup" },
 				},
@@ -71,19 +44,6 @@ o8o        `8        `8'       o888o o8o        o888o
 			notifier = {
 				enabled = true,
 				timeout = 3000,
-				width = { min = 40, max = 0.4 },
-				height = { min = 1, max = 0.6 },
-				margin = { top = 0, right = 1, bottom = 0 },
-				padding = true,
-				sort = { "level", "added" },
-				level = vim.log.levels.INFO,
-				icons = {
-					error = " ",
-					warn = " ",
-					info = " ",
-					debug = " ",
-					trace = "󱦹 ",
-				},
 				style = "compact",
 			},
 
@@ -91,11 +51,7 @@ o8o        `8        `8'       o888o o8o        o888o
 
 			words = { enabled = true },
 
-			util = { enabled = true },
-
 			zen = { enabled = true },
-
-			scroll = { enabled = true },
 
 			terminal = {
 				enabled = true,
@@ -129,7 +85,6 @@ o8o        `8        `8'       o888o o8o        o888o
 				end,
 				desc = "Dismiss All Notifications",
 			},
-
 			{
 				"<leader>bd",
 				function()
@@ -151,7 +106,6 @@ o8o        `8        `8'       o888o o8o        o888o
 				end,
 				desc = "Toggle Zoom",
 			},
-
 			{
 				"<leader>lg",
 				function()
@@ -176,11 +130,10 @@ o8o        `8        `8'       o888o o8o        o888o
 			{
 				"<C-n>",
 				function()
-					---@type fun(opts?: snacks.picker.explorer.Config): snacks.Picker
 					Snacks.explorer()
 				end,
+				desc = "Explorer",
 			},
-
 			{
 				"<leader>tt",
 				function()
@@ -194,7 +147,6 @@ o8o        `8        `8'       o888o o8o        o888o
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "VeryLazy",
 				callback = function()
-					-- Setup notification redirect
 					_G.dd = function(...)
 						Snacks.debug.inspect(...)
 					end
@@ -206,130 +158,107 @@ o8o        `8        `8'       o888o o8o        o888o
 				end,
 			})
 			vim.opt.inccommand = "split"
-			vim.opt.pumblend = 10
 		end,
 	},
+
+	-- Statusline — doom emacs evil-line style
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "echasnovski/mini.icons" },
 		config = function()
-			local has_icon, mini_icons = pcall(require, "mini.icons")
-			local static = {}
-			local function setup_lualine()
-				local function get_hl_color(group, attr)
-					local color = vim.fn.synIDattr(vim.fn.hlID(group), attr)
-					return color ~= "" and color or nil
-				end
+			local has_icons, mini_icons = pcall(require, "mini.icons")
 
+			local function get_hl_fg(group)
+				local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+				if hl.fg then
+					return string.format("#%06x", hl.fg)
+				end
+				return nil
+			end
+
+			local function setup_evil_line()
 				local colors = {
-					fg = get_hl_color("Normal", "fg") or "#bbc2cf",
-					bg = get_hl_color("Normal", "bg") or "#202328",
-					error = get_hl_color("DiagnosticError", "fg") or "#ec5f67",
-					warn = get_hl_color("DiagnosticWarn", "fg") or "#ECBE7B",
-					info = get_hl_color("DiagnosticInfo", "fg") or "#008080",
-					hint = get_hl_color("DiagnosticHint", "fg") or "#98be65",
-					added = get_hl_color("DiffAdd", "fg") or "#98be65",
-					changed = get_hl_color("DiffChange", "fg") or "#FF8800",
-					removed = get_hl_color("DiffDelete", "fg") or "#ec5f67",
-					red = get_hl_color("Error", "fg") or "#ec5f67",
-					green = get_hl_color("String", "fg") or "#98be65",
-					blue = get_hl_color("Function", "fg") or "#51afef",
-					violet = get_hl_color("Statement", "fg") or "#a9a1e1",
-					magenta = get_hl_color("Keyword", "fg") or "#c678dd",
-					cyan = get_hl_color("Type", "fg") or "#008080",
-					yellow = get_hl_color("Number", "fg") or "#ECBE7B",
-					orange = get_hl_color("Special", "fg") or "#FF8800",
+					bg = get_hl_fg("Normal")
+							and (function()
+								local hl = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
+								return hl.bg and string.format("#%06x", hl.bg) or "#202328"
+							end)()
+						or "#202328",
+					fg = get_hl_fg("Normal") or "#bbc2cf",
+					red = get_hl_fg("DiagnosticError") or "#ec5f67",
+					green = get_hl_fg("String") or "#98be65",
+					blue = get_hl_fg("Function") or "#51afef",
+					cyan = get_hl_fg("Type") or "#008080",
+					magenta = get_hl_fg("Keyword") or "#c678dd",
+					orange = get_hl_fg("Special") or "#FF8800",
+					violet = get_hl_fg("Statement") or "#a9a1e1",
+					yellow = get_hl_fg("Number") or "#ECBE7B",
 				}
 
-				-- Mode colors mapping
-				local mode_colors = {
-					n = colors.red,
-					no = colors.red,
-					cv = colors.red,
-					ce = colors.red,
-					["!"] = colors.red,
-					t = colors.red,
+				local mode_color = {
+					n = colors.magenta,
 					i = colors.green,
 					v = colors.blue,
-					[""] = colors.blue,
+					["\22"] = colors.blue,
 					V = colors.blue,
-					c = colors.cyan,
+					c = colors.violet,
+					no = colors.magenta,
 					s = colors.orange,
 					S = colors.orange,
-					[""] = colors.orange,
+					["\19"] = colors.orange,
 					ic = colors.yellow,
-					R = colors.violet,
-					Rv = colors.violet,
+					R = colors.cyan,
+					Rv = colors.cyan,
+					cv = colors.magenta,
+					ce = colors.magenta,
 					r = colors.cyan,
 					rm = colors.cyan,
 					["r?"] = colors.cyan,
+					["!"] = colors.magenta,
+					t = colors.magenta,
 				}
 
-				local icons = {
-					mode = " ",
-					git_branch = " ",
-					error = " ",
-					warn = " ",
-					info = " ",
-					hint = " ",
-					added = " ",
-					modified = " ",
-					modified_simple = "~ ",
-					removed = " ",
-					lock = "",
-					modified_marker = "●",
+				local mode_str = {
+					n = "<(•ᴗ•)>",
+					i = "<(•o•)>",
+					v = "(>*-*)>",
+					["\22"] = "(>*-*)>",
+					V = "(>*-*)>",
+					c = "(>*~*)>",
+					no = "<(•ᴗ•)>",
+					s = "(>*-*)>",
+					S = "(>*-*)>",
+					["\19"] = "(>*-*)>",
+					ic = "<(•o•)>",
+					R = "(v*-*)>",
+					Rv = "(v*-*)>",
+					cv = "<(•ᴗ•)>",
+					ce = "<(•ᴗ•)>",
+					r = "(v*-*)>",
+					rm = "(v*-*)>",
+					["r?"] = "(v*-*)>",
+					["!"] = "<(•ᴗ•)>",
+					t = "<(•ᴗ•)>",
 				}
-				local conditions = {
-					buffer_not_empty = function()
-						return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
-					end,
-					hide_in_width = function()
-						return vim.fn.winwidth(0) > 80
-					end,
-					check_git_workspace = function()
-						local filepath = vim.fn.expand("%:p:h")
-						local gitdir = vim.fn.finddir(".git", filepath .. ";")
-						return gitdir and #gitdir > 0 and #gitdir < #filepath
-					end,
-				}
-				local get_ftype_icon = function()
-					if not has_icon then
-						return ""
-					end -- Safety check
-					local file_name = vim.api.nvim_buf_get_name(0)
-					local icon, hl, _ = mini_icons.get("file", file_name)
-					local color = vim.fn.synIDattr(vim.fn.hlID(hl), "fg")
-					static.ftype_icon = icon
-					static.ftype_icon_color = color
-					return static.ftype_icon and static.ftype_icon .. " "
-				end
-				-- Config
+
+				-- Evil-line: all sections empty except c (left) and x (right)
 				local config = {
 					options = {
 						globalstatus = true,
 						component_separators = "",
 						section_separators = "",
-						position = "top",
 						theme = {
 							normal = { c = { fg = colors.fg, bg = colors.bg } },
 							inactive = { c = { fg = colors.fg, bg = colors.bg } },
 						},
 					},
-					-- tabline = {
-					-- 	lualine_a = {},
-					-- 	lualine_b = {},
-					-- 	lualine_c = {},
-					-- 	lualine_x = {},
-					-- 	lualine_y = {},
-					-- 	lualine_z = {},
-					-- },
 					sections = {
 						lualine_a = {},
 						lualine_b = {},
-						lualine_c = {},
-						lualine_x = {},
 						lualine_y = {},
 						lualine_z = {},
+						lualine_c = {},
+						lualine_x = {},
 					},
 					inactive_sections = {
 						lualine_a = {},
@@ -340,180 +269,191 @@ o8o        `8        `8'       o888o o8o        o888o
 						lualine_z = {},
 					},
 				}
+
 				local function ins_left(component)
 					table.insert(config.sections.lualine_c, component)
 				end
 				local function ins_right(component)
 					table.insert(config.sections.lualine_x, component)
 				end
-				--[[ ins_left({
-				function()
-					return "|"
-				end,
-				color = { fg = colors.blue },
-				padding = { left = 0, right = 1 },
-			}) ]]
 
+				-- ▊ mode-colored bar (left edge accent)
 				ins_left({
 					function()
-						return icons.mode
+						return "▊"
 					end,
 					color = function()
-						return { fg = mode_colors[vim.fn.mode()] }
+						return { fg = mode_color[vim.fn.mode()] or colors.magenta }
+					end,
+					padding = { left = 0, right = 1 },
+				})
+
+				-- Mode icon (cute face)
+				ins_left({
+					function()
+						return mode_str[vim.fn.mode()] or "<(•ᴗ•)>"
+					end,
+					color = function()
+						return { fg = mode_color[vim.fn.mode()] or colors.magenta, gui = "bold" }
 					end,
 					padding = { left = 1, right = 1 },
 				})
 
+				-- File size
 				ins_left({
 					function()
-						if has_icon then
-							return get_ftype_icon()
+						local file = vim.fn.expand("%:p")
+						if file == "" or file == nil then
+							return ""
 						end
+						local size = vim.fn.getfsize(file)
+						if size <= 0 then
+							return ""
+						end
+						local suffixes = { "b", "k", "m", "g" }
+						local i = 1
+						while size > 1024 and i < #suffixes do
+							size = size / 1024
+							i = i + 1
+						end
+						return string.format("%.1f%s", size, suffixes[i])
 					end,
-					cond = conditions.buffer_not_empty,
+					cond = function()
+						return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
+					end,
+					color = { fg = colors.fg },
+					padding = { left = 1, right = 1 },
+				})
+
+				-- Filetype icon (from mini.icons)
+				ins_left({
+					function()
+						if not has_icons then
+							return ""
+						end
+						local icon, _, _ = mini_icons.get("file", vim.api.nvim_buf_get_name(0))
+						return icon or ""
+					end,
+					cond = function()
+						return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
+					end,
 					color = function()
-						return { fg = static.ftype_icon_color }
+						if not has_icons then
+							return { fg = colors.fg }
+						end
+						local _, hl, _ = mini_icons.get("file", vim.api.nvim_buf_get_name(0))
+						return { fg = get_hl_fg(hl) }
 					end,
 					padding = { left = 1, right = 0 },
 				})
 
+				-- Filename
 				ins_left({
 					"filename",
-					cond = conditions.buffer_not_empty,
+					cond = function()
+						return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
+					end,
 					color = { fg = colors.magenta, gui = "bold" },
-					symbols = {
-						modified = icons.modified_marker,
-						readonly = icons.lock,
-						unnamed = "[No Name]",
-						newfile = "[New]",
-					},
-					padding = { left = 0, right = 1 },
+					symbols = { modified = "●", readonly = "", unnamed = "[No Name]", newfile = "[New]" },
+					padding = { left = 1, right = 1 },
 				})
 
-				-- Diagnostics part
+				-- Branch
+				ins_left({
+					"branch",
+					icon = "",
+					color = { fg = colors.fg },
+					padding = { left = 1, right = 1 },
+				})
+
+				-- Diff
+				ins_left({
+					"diff",
+					symbols = { added = " ", modified = " ", removed = " " },
+					diff_color = {
+						added = { fg = colors.green },
+						modified = { fg = colors.orange },
+						removed = { fg = colors.red },
+					},
+					cond = function()
+						local gitdir = vim.fn.finddir(".git", vim.fn.expand("%:p:h") .. ";")
+						return gitdir and #gitdir > 0
+					end,
+					padding = { left = 1, right = 1 },
+				})
+
+				-- Diagnostics
 				ins_left({
 					"diagnostics",
-					sources = { "nvim_lsp", "nvim_diagnostic" },
-					symbols = {
-						error = icons.error,
-						warn = icons.warn,
-						info = icons.info,
-						hint = icons.hint,
-					},
+					sources = { "nvim_diagnostic" },
+					symbols = { error = " ", warn = " ", info = " ", hint = " " },
 					diagnostics_color = {
-						error = { fg = colors.error },
-						warn = { fg = colors.warn },
-						info = { fg = colors.info },
-						hint = { fg = colors.hint },
+						error = { fg = colors.red },
+						warn = { fg = colors.yellow },
+						info = { fg = colors.cyan },
+						hint = { fg = colors.green },
 					},
 					padding = { left = 1, right = 1 },
 				})
 
-				ins_left({
-					"diff",
-					cond = conditions.check_git_workspace,
-					symbols = {
-						added = icons.added,
-						modified = icons.modified,
-						removed = icons.removed,
-					},
-					diff_color = {
-						added = { fg = colors.added },
-						modified = { fg = colors.changed },
-						removed = { fg = colors.removed },
-					},
-				})
-				-- Lsp
-				ins_right({
-					-- Lsp server name .
-					function()
-						local msg = "No Active Lsp"
-						local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
-						local clients = vim.lsp.get_clients()
-						if next(clients) == nil then
-							return msg
-						end
-						local client_names = {}
-						for _, client in ipairs(clients) do
-							table.insert(client_names, client.name)
-						end
-						return table.concat(client_names, ",")
-					end,
-					icon = " LSP:",
-					color = { fg = colors.fg, gui = "bold" },
-				})
-				-- Center divider
-				-- ins_left({
-				-- 	function()
-				-- 		return "%="
-				-- 	end,
-				-- })
+				-- ═══ right side ═══
 
-				-- Right side
+				-- Active LSP clients
+				ins_right({
+					function()
+						local clients = vim.lsp.get_clients({ bufnr = 0 })
+						if #clients == 0 then
+							return "No Active Lsp"
+						end
+						local names = vim.tbl_map(function(c)
+							return c.name
+						end, clients)
+						return "LSP: " .. table.concat(names, ", ")
+					end,
+					icon = "",
+					color = { fg = colors.fg },
+					padding = { left = 1, right = 1 },
+				})
+
+				-- Encoding
+				ins_right({
+					"o:encoding",
+					color = { fg = colors.fg },
+					padding = { left = 1, right = 1 },
+				})
+
+				-- File format
+				ins_right({
+					"fileformat",
+					icons_enabled = false,
+					color = { fg = colors.green },
+					padding = { left = 1, right = 1 },
+				})
+
+				-- Location
 				ins_right({
 					"location",
 					color = { fg = colors.fg },
+					padding = { left = 1, right = 1 },
 				})
 
+				-- Progress
 				ins_right({
 					"progress",
 					color = { fg = colors.fg },
+					padding = { left = 1, right = 1 },
 				})
 
-				ins_right({
-					"branch",
-					icon = icons.git_branch,
-					color = { fg = colors.violet, gui = "bold" },
-				})
-
-				--[[ ins_right({
-				function()
-					return "|"
-				end,
-				color = { fg = colors.blue },
-				padding = { left = 1 },
-			}) ]]
 				require("lualine").setup(config)
 			end
-			setup_lualine()
-			-- Auto-reload lualine when colorscheme changes
+
+			setup_evil_line()
 			vim.api.nvim_create_autocmd("ColorScheme", {
 				pattern = "*",
 				callback = function()
-					-- Small delay to ensure colorscheme is fully loaded
-					vim.defer_fn(function()
-						setup_lualine()
-					end, 100)
+					vim.defer_fn(setup_evil_line, 50)
 				end,
 			})
 		end,
 	},
-
-	--[[ return {
-	"nvim-lualine/lualine.nvim",
-	dependencies = { "echasnovski/mini.icons" },
-	config = function()
-		require("lualine").setup({
-			options = {
-				theme = "auto",
-				icons_enabled = true,
-				-- no separators
-				section_separators = "",
-				component_separators = "",
-
-				-- dotted
-				--section_separators = { left = '•', right = '•' },
-				--component_separators = { left = '∙', right = '∙' },
-				--
-				--slang style
-				--section_separators = { left = '', right = '' },
-				--component_separators = { left = '', right = '' },
-				--
-				--arrows
-				--section_separators = { left = '', right = '' },
-				--component_separators = { left = '', right = '' },
-			},
-		})
-	end,
-} ]]
 }

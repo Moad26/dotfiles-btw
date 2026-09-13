@@ -6,6 +6,7 @@ return {
 			"nvim-mini/mini.nvim",
 			"rafamadriz/friendly-snippets",
 			"L3MON4D3/LuaSnip",
+			"Kaiser-Yang/blink-cmp-dictionary",
 		},
 		version = "v1.*",
 
@@ -28,18 +29,30 @@ return {
 			},
 
 			appearance = {
-				use_nvim_cmp_as_default = true,
+				highlight_ns = vim.api.nvim_create_namespace("blink_cmp"),
+				use_nvim_cmp_as_default = false,
 				nerd_font_variant = "mono",
 			},
 
 			sources = {
 				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+				per_filetype = {
+					markdown = { "buffer", "path", "dictionary" },
+				},
 				providers = {
 					lazydev = {
 						name = "LazyDev",
 						module = "lazydev.integrations.blink",
 						-- make lazydev completions top priority (see `:h blink.cmp`)
 						score_offset = 100,
+					},
+					dictionary = {
+						name = "dictionary",
+						module = "blink-cmp-dictionary",
+						min_keyword_length = 2,
+						opts = {
+							dictionary_files = { vim.fn.expand("~/.config/nvim/dictionary/words.dict") },
+						},
 					},
 				},
 			},
@@ -102,9 +115,6 @@ return {
 				},
 				documentation = {
 					auto_show = true,
-					window = {
-						border = "rounded",
-					},
 				},
 				ghost_text = {
 					enabled = true,
@@ -113,9 +123,6 @@ return {
 
 			signature = {
 				enabled = true,
-				window = {
-					border = "rounded",
-				},
 			},
 		},
 
@@ -128,49 +135,6 @@ return {
 			require("nvim-ts-autotag").setup()
 		end,
 	},
-	{
-		"rachartier/tiny-code-action.nvim",
-		dependencies = {
-			"ibhagwan/fzf-lua",
-			{
-				"folke/snacks.nvim",
-				opts = {
-					terminal = {},
-				},
-			},
-		},
-		event = "LspAttach",
-		opts = {},
-	},
-	{
-		"akinsho/bufferline.nvim",
-		version = "*",
-		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			vim.opt.termguicolors = true
-			require("bufferline").setup({})
-		end,
-	},
-	{
-		"folke/trouble.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons", "folke/todo-comments.nvim" },
-		opts = {
-			focus = true,
-		},
-		cmd = "Trouble",
-		keys = {
-			{ "<leader>xw", "<cmd>Trouble diagnostics toggle<CR>", desc = "Open trouble workspace diagnostics" },
-			{
-				"<leader>xd",
-				"<cmd>Trouble diagnostics toggle filter.buf=0<CR>",
-				desc = "Open trouble document diagnostics",
-			},
-			{ "<leader>xq", "<cmd>Trouble quickfix toggle<CR>", desc = "Open trouble quickfix list" },
-			{ "<leader>xl", "<cmd>Trouble loclist toggle<CR>", desc = "Open trouble location list" },
-			{ "<leader>xt", "<cmd>Trouble todo toggle<CR>", desc = "Open todos in trouble" },
-		},
-	},
-
 	--Tmux
 
 	{
@@ -194,6 +158,7 @@ return {
 	--Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main", -- master branch is frozen; main is required for Neovim 0.12+
 		lazy = false,
 		build = ":TSUpdate",
 		config = function()
@@ -230,54 +195,32 @@ return {
 							("nvim-treesitter: auto-installing parser for '%s'…"):format(ft),
 							vim.log.levels.INFO
 						)
-						-- install() is async; chain onto its promise so features
-						-- are enabled in the triggering buffer once done.
-						treesitter.install(ft):map(function()
-							if vim.api.nvim_buf_is_valid(ev.buf) and vim.bo[ev.buf].filetype == ft then
-								vim.schedule(enable_ts_features)
-							end
-						end)
+						-- install() is async; use a one-shot autocmd to enable
+						-- TS features once the parser becomes available.
+						treesitter.install(ft)
+						vim.api.nvim_create_autocmd("FileType", {
+							group = ts_group,
+							buffer = ev.buf,
+							once = true,
+							callback = function()
+								if vim.tbl_contains(treesitter.get_installed(), ft) then
+									enable_ts_features()
+								end
+							end,
+						})
 					end
 				end,
 			})
 		end,
 	},
-	-- {
-	-- 	"nvim-treesitter/nvim-treesitter",
-	-- 	lazy = false,
-	-- 	build = ":TSUpdate",
-	-- 	config = function()
-	-- 		local treesitter = require("nvim-treesitter")
-	-- 		local available_parsers = treesitter.get_available()
-	-- 		local installed_parsers = treesitter.get_installed()
-	--
-	-- 		local ts_group = vim.api.nvim_create_augroup("TreesitterSetup", { clear = true })
-	--
-	-- 		vim.api.nvim_create_autocmd("FileType", {
-	-- 			group = ts_group,
-	-- 			callback = function()
-	-- 				local ft = vim.bo.filetype
-	--
-	-- 				if vim.tbl_contains(available_parsers, ft) then
-	-- 					if not vim.tbl_contains(installed_parsers, ft) then
-	-- 						vim.notify("Auto-installing parser for: " .. ft)
-	-- 						treesitter.install(ft)
-	-- 						table.insert(installed_parsers, ft)
-	-- 					else
-	-- 						vim.treesitter.start()
-	-- 						vim.wo.foldmethod = "expr"
-	-- 						vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-	-- 						vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-	-- 					end
-	-- 				end
-	-- 			end,
-	-- 		})
-	-- 	end,
-	-- },
 	{
 		"folke/ts-comments.nvim",
 		opts = {},
 		event = "VeryLazy",
 		enabled = vim.fn.has("nvim-0.10.0") == 1,
+	},
+	{
+		"benomahony/uv.nvim",
+		opts = {},
 	},
 }

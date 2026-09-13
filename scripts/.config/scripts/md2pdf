@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+# md2pdf — Convert a Markdown file to PDF via Typst
+# Usage: md2pdf [OPTIONS] input.md [output.pdf]
+#
+# Options:
+#   -p, --paper PAPER     Page format: presentation-16-9, a4, letter, etc. (default: presentation-16-9)
+#   -m, --margin MARGIN   Page margin (default: 2em)
+#   -s, --font-size SIZE  Base font size (default: 20pt)
+#   -h, --help            Show this help message
+
+set -euo pipefail
+
+# ── Defaults ──────────────────────────────────────────────────────────────────
+PAPER="presentation-16-9"
+MARGIN="2em"
+FONT_SIZE="20pt"
+
+# ── Helpers ───────────────────────────────────────────────────────────────────
+usage() {
+  sed -n '/^# Usage/,/^[^#]/p' "$0" | grep '^#' | sed 's/^# \?//'
+  exit "${1:-0}"
+}
+
+die() {
+  echo "md2pdf: error: $*" >&2
+  exit 1
+}
+
+# ── Argument parsing ──────────────────────────────────────────────────────────
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  -p | --paper)
+    PAPER="$2"
+    shift 2
+    ;;
+  -m | --margin)
+    MARGIN="$2"
+    shift 2
+    ;;
+  -s | --font-size)
+    FONT_SIZE="$2"
+    shift 2
+    ;;
+  -h | --help) usage 0 ;;
+  -*) die "unknown option: $1" ;;
+  *)
+    POSITIONAL+=("$1")
+    shift
+    ;;
+  esac
+done
+
+[[ ${#POSITIONAL[@]} -ge 1 ]] || usage 1
+
+INPUT="${POSITIONAL[0]}"
+[[ -f "$INPUT" ]] || die "file not found: $INPUT"
+[[ "$INPUT" == *.md ]] || die "input must be a .md file"
+
+# Default output name: same stem, .pdf extension, in current directory
+DEFAULT_OUT="$(basename "${INPUT%.md}").pdf"
+OUTPUT="${POSITIONAL[1]:-$DEFAULT_OUT}"
+
+# ── Dependency check ──────────────────────────────────────────────────────────
+command -v typst >/dev/null 2>&1 || die "typst not found — install it from https://typst.app"
+
+# ── Build temp Typst wrapper ──────────────────────────────────────────────────
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TMP_DIR"' EXIT
+
+# Copy the markdown next to the .typ file so read() can find it
+MD_NAME="$(basename "$INPUT")"
+cp "$INPUT" "$TMP_DIR/$MD_NAME"
+
+cat >"$TMP_DIR/main.typ" <<TYPST
+#import "@preview/cmarker:0.1.8"
+#import "@preview/mitex:0.2.6": mitex
+
+#set page(paper: "${PAPER}", margin: ${MARGIN})
+#set text(size: ${FONT_SIZE})
+#set table(inset: 0.6em)
+#show line.where(length: 100%): pagebreak()
+
+#cmarker.render(read("${MD_NAME}"), math: mitex)
+TYPST
+
+# ── Compile ───────────────────────────────────────────────────────────────────
+echo "md2pdf: compiling '$INPUT' → '$OUTPUT' …"
+typst compile "$TMP_DIR/main.typ" "$OUTPUT"
+echo "md2pdf: done ✓"

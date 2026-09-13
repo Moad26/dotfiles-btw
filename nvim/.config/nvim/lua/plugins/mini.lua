@@ -4,10 +4,10 @@ return {
 	config = function()
 		require("mini.ai").setup()
 		require("mini.surround").setup()
-		require("mini.comment").setup()
+		-- mini.comment removed: ts-comments.nvim (in coding.lua) handles this with Treesitter awareness
 		require("mini.clue").setup()
 		require("mini.pairs").setup()
-		require("mini.indentscope").setup()
+		-- require("mini.indentscope").setup()
 		local miniclue = require("mini.clue")
 		miniclue.setup({
 			triggers = {

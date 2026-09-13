@@ -99,7 +99,7 @@
   "battery": {
     "format": "{capacity}% {icon}",
     "format-discharging": "{icon}",
-    "format-charging": "{icon}",
+    "format-charging": "{icon} charging",
     "format-plugged": "",
     "format-icons": {
       "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
@@ -140,8 +140,8 @@
     "device": "intel_backlight",
     "format": "{icon} {percent}%",
     "format-icons": ["󰃞 ", "󰃟 ", "󰃠 "],
-    "on-scroll-up": "brightnessctl set +5%",
-    "on-scroll-down": "brightnessctl set 5%-",
+    "on-scroll-up": "brightnessctl -d intel_backlight set 5%+",
+    "on-scroll-down": "brightnessctl -d intel_backlight set 5%-",
     "interval": 1,
     "on-click": "nwg-displays",
   },
