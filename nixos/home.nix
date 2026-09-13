@@ -1,5 +1,30 @@
 { config, pkgs, ... }:
 
+let
+  dotfiles = "${config.home.homeDirectory}/dotfiles";
+  symlink = config.lib.file.mkOutOfStoreSymlink;
+
+  configs = {
+    # btop      = "btop/.config/btop";
+    # fastfetch = "fastfetch/.config/fastfetch";
+    # fish      = "fish/.config/fish";
+    # foot      = "foot/.config/foot";
+    # ghostty   = "ghostty/.config/ghostty";
+    # kitty     = "kitty/.config/kitty";
+    # lazygit   = "lazygit/.config/lazygit";
+    # mpv       = "mpv/.config/mpv";
+    # niri      = "niri/.config/niri";
+    # nvim      = "nvim/.config/nvim";
+    # scripts   = "scripts/.config/scripts";
+    # swaylock  = "swaylock/.config/swaylock";
+    # swaync    = "swaync/.config/swaync";
+    # tmux      = "tmux/.config/tmux";
+    # waybar    = "waybar/.config/waybar";
+    # wofi      = "wofi/.config/wofi";
+    # yazi      = "yazi/.config/yazi";
+    # zed       = "zed/.config/zed";
+  };
+in
 {
   home.username = "mouaad";
   home.homeDirectory = "/home/mouaad";
@@ -48,5 +73,9 @@
   };
   };
 
+  xdg.configFile = builtins.mapAttrs (name: subpath: {
+    source = symlink "${dotfiles}/${subpath}";
+    recursive = true;
+  }) configs;
   programs.home-manager.enable = true;
 }
