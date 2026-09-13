@@ -35,7 +35,7 @@ in
   home.packages = with pkgs; [
     # terminal tools
     lazygit
-    # neovim
+    neovim
     btop
     ripgrep
     fd
@@ -59,31 +59,26 @@ in
     vlc
     firefox         # or any browser you use
 
+    gcc
+
+    # Go (LSP, linter, formatters, debugger)
+    gopls
+    golangci-lint
+    gofumpt
+    gotools     # provides goimports
+    golines
+    delve
+
+    # Python (LSP, linter/formatter, debugger)
+    basedpyright
+    ruff
     # optional: nix dev shell helper
     nix-direnv
   ];
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true; # Sets the $EDITOR environment variable
-    
-    extraPackages = with pkgs; [
-      gcc
-
-      # Go (LSP, linter, formatters, debugger)
-      gopls
-      golangci-lint
-      gofumpt
-      gotools     # provides goimports
-      golines
-      delve
-
-      # Python (LSP, linter/formatter, debugger)
-      basedpyright
-      ruff
-
-    ];
-    };
+  # programs.neovim = {
+  #   defaultEditor = true; # Sets the $EDITOR environment variable
+  #   };
 
   programs.git = {
   enable = true;
