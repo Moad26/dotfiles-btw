@@ -9,6 +9,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages;
@@ -148,6 +149,10 @@
 	  dates = "weekly";
 	  options = "--delete-older-than 14d";
   };
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
