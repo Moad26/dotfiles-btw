@@ -25,7 +25,6 @@ return {
 			"--linelength=120", -- Optional: adjust line length if needed
 		}
 
-
 		lint.linters_by_ft = {
 			-- Go
 			go = { "golangcilint" },
@@ -58,6 +57,8 @@ return {
 
 			-- Docker
 			dockerfile = { "hadolint" },
+
+			nix = { "statix", "deadnix" },
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

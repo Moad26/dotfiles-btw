@@ -44,6 +44,7 @@ return {
 				toml = { "taplo" },
 				typst = { "typstyle" },
 				proto = { "buf" },
+				nix = { "nixfmt" },
 			},
 
 			-- Format on save configuration

@@ -98,6 +98,9 @@ in
     tree-sitter
     luarocks
 
+    nixfmt
+    statix
+    deadnix
     lua-language-server
     clang-tools
     vscode-langservers-extracted
