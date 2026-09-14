@@ -58,6 +58,7 @@ in
     inputs.fsel.packages.${pkgs.system}.default
     awww
     fastfetch
+    alsa-utils
 
     # for waybar niri
     brightnessctl
