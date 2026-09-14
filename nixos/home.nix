@@ -8,7 +8,7 @@ let
     # btop      = "btop/.config/btop";
     # fastfetch = "fastfetch/.config/fastfetch";
     # fish      = "fish/.config/fish";
-    # foot      = "foot/.config/foot";
+    foot      = "foot/.config/foot";
     # ghostty   = "ghostty/.config/ghostty";
     kitty     = "kitty/.config/kitty";
     # lazygit   = "lazygit/.config/lazygit";
@@ -37,6 +37,7 @@ in
     # terminal tools
     wallust
     kitty
+    foot
     lazygit
     neovim
     btop
