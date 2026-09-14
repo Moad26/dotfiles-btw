@@ -17,7 +17,7 @@ let
     nvim      = "nvim/.config/nvim";
     scripts   = "scripts/.config/scripts";
     # swaylock  = "swaylock/.config/swaylock";
-    # swaync    = "swaync/.config/swaync";
+    swaync    = "swaync/.config/swaync";
     # tmux      = "tmux/.config/tmux";
     waybar    = "waybar/.config/waybar";
     # wofi      = "wofi/.config/wofi";
@@ -50,6 +50,8 @@ in
     tree
     unzip
     jq
+    inputs.fsel.packages.${pkgs.system}.default
+    awww
 
     # dev
     direnv          # auto-loads nix dev shells on cd

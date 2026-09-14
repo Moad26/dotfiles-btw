@@ -21,11 +21,13 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs"; # single nixpkgs, not two copies
     };
+    fsel.url = "github:Mjoyufull/fsel";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, ... }: {
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, ... }@inputs: {
     nixosConfigurations.legion = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
       modules = [
         ./configuration.nix
         ./hardware-configuration.nix
@@ -38,6 +40,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = { inherit inputs; };
           home-manager.users.mouaad = import ./home.nix;
           home-manager.backupFileExtension = "backup";
         }
