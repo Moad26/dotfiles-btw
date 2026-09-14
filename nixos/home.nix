@@ -15,7 +15,7 @@ let
     # mpv       = "mpv/.config/mpv";
     # niri      = "niri/.config/niri";
     nvim      = "nvim/.config/nvim";
-    # scripts   = "scripts/.config/scripts";
+    scripts   = "scripts/.config/scripts";
     # swaylock  = "swaylock/.config/swaylock";
     # swaync    = "swaync/.config/swaync";
     # tmux      = "tmux/.config/tmux";
@@ -108,6 +108,39 @@ in
     # optional: nix dev shell helper
     nix-direnv
   ];
+ programs.fish = {
+  enable = true;
+  interactiveShellInit = ''
+    set -g fish_greeting
+    set -g fish_key_bindings fish_hybrid_key_bindings
+    bind \cp up-or-search
+    bind \cn down-or-search
+  '';
+  shellAbbrs = {
+    ls = "eza --color --icons --group-directories-first";
+    ll = "eza -la --icons --group-directories-first";
+    v = "nvim";
+    c = "clear";
+    cat = "bat";
+    k = "kubectl";
+    nrs = "sudo nixos-rebuild switch --flake ~/dotfiles/nixos#legion";
+  };
+};
+
+programs.starship.enable = true;   # auto-adds fish integration, no manual `source`
+programs.zoxide.enable = true;     # same — enableFishIntegration defaults to true
+programs.fzf.enable = true;
+
+home.sessionVariables = {
+  FZF_DEFAULT_OPTS = "--height 40% --layout=reverse --border";
+};
+
+home.sessionPath = [
+  "$HOME/go/bin"
+  "$HOME/.config/scripts"
+  "$HOME/.local/bin"
+  "$HOME/.krew/bin"
+];
 
   # programs.neovim = {
   #   defaultEditor = true; # Sets the $EDITOR environment variable
