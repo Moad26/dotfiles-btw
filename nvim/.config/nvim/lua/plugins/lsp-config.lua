@@ -101,6 +101,7 @@ return {
 			end
 
 			local servers = {
+				nil_ls = {},
 				gopls = {
 					settings = {
 						gopls = {

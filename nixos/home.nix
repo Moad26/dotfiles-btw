@@ -79,6 +79,7 @@ in
     gcc
 
     # Go (LSP, linter, formatters, debugger)
+    nil
     gopls
     golangci-lint
     gofumpt

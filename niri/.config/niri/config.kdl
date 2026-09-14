@@ -74,7 +74,7 @@ layout {
 }
 
 spawn-at-startup "awww-daemon"
-spawn-sh-at-startup "awww img ~/Desktop/Wallpaper/ --transition-type center --transition-fps 60"
+spawn-sh-at-startup "awww img ~/Wallpaper/ --transition-type center --transition-fps 60"
 
 spawn-sh-at-startup "waybar -c ~/.config/waybar/niri/config.jsonc -s ~/.config/waybar/niri/style.css >/dev/null 2>&1 "
 
