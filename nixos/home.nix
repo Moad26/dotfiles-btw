@@ -11,7 +11,7 @@ let
 
   configs = {
     # btop      = "btop/.config/btop";
-    # fastfetch = "fastfetch/.config/fastfetch";
+    fastfetch = "fastfetch/.config/fastfetch";
     # fish      = "fish/.config/fish";
     foot = "foot/.config/foot";
     # ghostty   = "ghostty/.config/ghostty";
@@ -57,6 +57,7 @@ in
     jq
     inputs.fsel.packages.${pkgs.system}.default
     awww
+    fastfetch
 
     # dev
     direnv # auto-loads nix dev shells on cd
