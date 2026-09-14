@@ -121,6 +121,8 @@
       "networkmanager"
       "wheel"
       "docker"
+      "video"
+      "input"
     ];
     shell = pkgs.fish;
     packages = with pkgs; [
@@ -128,6 +130,8 @@
       #  thunderbird
     ];
   };
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   programs.fish.enable = true;
 

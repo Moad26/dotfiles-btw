@@ -59,6 +59,11 @@ in
     awww
     fastfetch
 
+    brightnessctl
+    nwg-displays
+    wifitui
+    bluetui
+
     # dev
     direnv # auto-loads nix dev shells on cd
     gh # GitHub CLI
