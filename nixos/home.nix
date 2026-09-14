@@ -21,7 +21,7 @@ let
     niri = "niri/.config/niri";
     nvim = "nvim/.config/nvim";
     scripts = "scripts/.config/scripts";
-    # swaylock  = "swaylock/.config/swaylock";
+    swaylock = "swaylock/.config/swaylock";
     swaync = "swaync/.config/swaync";
     # tmux      = "tmux/.config/tmux";
     waybar = "waybar/.config/waybar";
@@ -143,6 +143,7 @@ in
     # optional: nix dev shell helper
     nix-direnv
   ];
+  services.cliphist.enable = true;
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -159,6 +160,7 @@ in
       cat = "bat";
       k = "kubectl";
       nrs = "sudo nixos-rebuild switch --flake ~/dotfiles/nixos#legion";
+      cb = "cliphist list | fzf | cliphist decode | wl-copy";
     };
   };
 
