@@ -53,6 +53,7 @@ palette = "saliencedark"
 kitty = { template = 'colors-kitty.conf', target = '~/.cache/wallust/colors-kitty.conf' }
 foot = { template = 'colors-foot.ini', target = '~/.cache/wallust/colors-foot.ini' }
 niri = { template = 'colors-niri.kdl', target = '~/.cache/wallust/colors-niri.kdl' }
+waybar = { template = "colors-waybar.css", target = "~/.cache/wallust/colors-waybar.css" }
 
 [hooks]
 # Run commands when wallust is invoked. Useful to avoid scripting.

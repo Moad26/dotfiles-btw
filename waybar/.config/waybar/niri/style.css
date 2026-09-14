@@ -1,4 +1,5 @@
-@import "../colors.css";
+/* @import "../colors.css"; */
+@import "/home/mouaad/.cache/wallust/colors-waybar.css";
 
 * {
   font-family: "Iosevka Nerd Font", monospace;
