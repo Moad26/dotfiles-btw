@@ -64,9 +64,7 @@ in
     nwg-displays
     wifitui
     bluetui
-    kdePackages.kcmutils
-    kdePackages.plasma-pa
-    kdePackages.kirigami-addons
+    pavucontrol
 
     # dev
     direnv # auto-loads nix dev shells on cd
