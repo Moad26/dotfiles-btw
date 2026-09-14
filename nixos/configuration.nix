@@ -1,10 +1,15 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -35,14 +40,14 @@
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
-  
+
   services.xserver.enable = true;
   hardware.nvidia = {
-  	modesetting.enable = true;
-  	powerManagement.enable = true;
-  	powerManagement.finegrained = false;
-  	open = true;
-  	nvidiaSettings = true;
+    modesetting.enable = true;
+    powerManagement.enable = true;
+    powerManagement.finegrained = false;
+    open = true;
+    nvidiaSettings = true;
   };
 
   specialisation = {
@@ -59,17 +64,17 @@
     };
   };
   programs.nix-ld = {
-  enable = true;
-  libraries = with pkgs; [
-    stdenv.cc.cc.lib
-    zlib
-    openssl
-    libffi
-    glibc
-    libGL
-    glib
-    cudaPackages.cudatoolkit
-    cudaPackages.cudnn
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc.lib
+      zlib
+      openssl
+      libffi
+      glibc
+      libGL
+      glib
+      cudaPackages.cudatoolkit
+      cudaPackages.cudnn
     ];
   };
   # Enable the KDE Plasma Desktop Environment.
@@ -112,16 +117,19 @@
   users.users."mouaad" = {
     isNormalUser = true;
     description = "Mouaad El Yalaoui";
-    extraGroups = [ "networkmanager" "wheel" "docker"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
     shell = pkgs.fish;
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
   programs.fish.enable = true;
-
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -132,24 +140,24 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-	git
-  	curl
-  	wget
-  	vim
-  	uv
-  	go
-  	pciutils
-  	usbutils
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+    git
+    curl
+    wget
+    vim
+    uv
+    go
+    pciutils
+    usbutils
   ];
 
   environment.localBinInPath = true;
 
   nix.gc = {
-	  automatic = true;
-	  dates = "weekly";
-	  options = "--delete-older-than 14d";
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
   };
 
   fonts.packages = with pkgs; [
@@ -179,5 +187,8 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "26.05"; # Did you read the comment?
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 }
