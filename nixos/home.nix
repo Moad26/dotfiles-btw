@@ -59,10 +59,14 @@ in
     awww
     fastfetch
 
+    # for waybar niri
     brightnessctl
     nwg-displays
     wifitui
     bluetui
+    kdePackages.kcmutils
+    kdePackages.plasma-pa
+    kdePackages.kirigami-addons
 
     # dev
     direnv # auto-loads nix dev shells on cd

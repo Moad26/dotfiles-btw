@@ -140,10 +140,13 @@ binds {
         spawn "dolphin";
     }
 
-    Alt+B hotkey-overlay-title="Browser: zen-browser" {
-        spawn "zen-browser";
-    }
+    // Alt+B hotkey-overlay-title="Browser: zen-browser" {
+    //     spawn "zen-browser";
+    // }
 
+    Alt+B hotkey-overlay-title="Browser: zen-browser" {
+        spawn "zen-beta";
+    }
     Alt+Space hotkey-overlay-title="Launcher: fsel" {
       spawn "foot" "--app-id" "fsel" "--title" "launcher" "fsel"  "-d";
     }

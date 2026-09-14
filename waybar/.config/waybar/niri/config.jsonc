@@ -148,6 +148,7 @@
     "format-bluetooth": "󰂯 {volume}%",
     "format-muted": "󰖁 Muted",
     "on-click": "kcmshell6 kcm_pulseaudio",
+    // "on-click": "pavucontrol",
     "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
     "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
