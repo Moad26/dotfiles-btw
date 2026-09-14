@@ -62,6 +62,17 @@ in
     vlc
     firefox         # or any browser you use
 
+    #something ig
+    waybar
+    swaynotificationcenter 
+    swayidle
+    swaylock
+    gammastep
+    foot
+    grim                   
+    slurp                 
+    swappy                
+
     gcc
 
     # Go (LSP, linter, formatters, debugger)
