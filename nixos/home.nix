@@ -69,7 +69,8 @@ in
     obsidian
     telegram-desktop
     vlc
-    firefox # or any browser you use
+    firefox
+    inputs.zen-browser.packages.${pkgs.system}.default
 
     #something ig
     waybar

@@ -22,6 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs"; # single nixpkgs, not two copies
     };
     fsel.url = "github:Mjoyufull/fsel";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
   outputs =
