@@ -59,6 +59,8 @@ in
     awww
     fastfetch
     alsa-utils
+    chafa
+    wl-clipboard
 
     # for waybar niri
     brightnessctl

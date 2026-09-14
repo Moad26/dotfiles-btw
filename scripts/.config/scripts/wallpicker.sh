@@ -23,7 +23,7 @@ if [[ ! -x "$THEME_SCRIPT" ]]; then
   exit 1
 fi
 
-WALL_DIR="${WALLPAPER_DIR:-$HOME/Desktop/Wallpaper/}"
+WALL_DIR="${WALLPAPER_DIR:-$HOME/Wallpaper/}"
 
 if ! pgrep -x awww-daemon &>/dev/null; then
   awww-daemon &
