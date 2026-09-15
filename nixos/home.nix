@@ -64,6 +64,7 @@ in
       chafa
       wl-clipboard
       inputs.otter-launcher.packages.${pkgs.system}.default
+      opencode
 
       # for waybar niri
       brightnessctl
