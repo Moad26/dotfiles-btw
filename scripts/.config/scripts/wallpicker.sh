@@ -25,10 +25,10 @@ fi
 
 WALL_DIR="${WALLPAPER_DIR:-$HOME/Wallpaper/}"
 
-if ! pgrep -x awww-daemon &>/dev/null; then
-  awww-daemon &
-  sleep 1
-fi
+# if ! pgrep -x awww-daemon &>/dev/null; then
+#   awww-daemon &
+#   sleep 1
+# fi
 
 # ── Build image list ──────────────────────────────────────────────────────────
 mapfile -t images < <(
