@@ -34,11 +34,10 @@ hint_color = "\u001B[30m"
 move_right = 0
 move_up = 0
 
-
 [[modules]]
-description = "search with brave"
-prefix = "br"
-cmd = "setsid -f xdg-open 'https://search.brave.com/search?q={}'"
+description = "search with Zen Browser"
+prefix = "zen"
+cmd = "setsid -f zen-beta 'https://duckduckgo.com/?q={}'"
 with_argument = true
 url_encode = true
 
@@ -52,7 +51,8 @@ url_encode = true
 [[modules]]
 description = "manage clipboard with cliphist"
 prefix = "cl"
-cmd = "kitty -e sh -c 'cliphist list | fzf | cliphist decode | wl-copy'"
+# cmd = "kitty -e sh -c 'cliphist list | fzf | cliphist decode | wl-copy'"
+cmd = "cliphist list | fsel --dmenu | cliphist decode | wl-copy"
 
 [[modules]]
 description = "search NixOS packages"
