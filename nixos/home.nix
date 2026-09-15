@@ -85,6 +85,7 @@ in
       firefox
       inputs.zen-browser.packages.${pkgs.system}.default
       proton-vpn
+      vesktop
 
       #something ig
       waybar
