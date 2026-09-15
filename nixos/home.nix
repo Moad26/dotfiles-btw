@@ -81,7 +81,7 @@ in
     vlc
     firefox
     inputs.zen-browser.packages.${pkgs.system}.default
-    protonvpn-gui
+    proton-vpn
 
     #something ig
     waybar
