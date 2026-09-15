@@ -23,6 +23,7 @@
     };
     fsel.url = "github:Mjoyufull/fsel";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    otter-launcher.url = "github:kuokuo123/otter-launcher";
   };
 
   outputs =

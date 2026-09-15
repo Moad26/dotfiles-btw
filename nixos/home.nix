@@ -11,6 +11,7 @@ let
 
   configs = {
     # btop      = "btop/.config/btop";
+    otter-launcher = "otter-launcher/.config/otter-launcher";
     fastfetch = "fastfetch/.config/fastfetch";
     # fish      = "fish/.config/fish";
     foot = "foot/.config/foot";
@@ -32,118 +33,129 @@ let
   };
 in
 {
-  home.username = "mouaad";
-  home.homeDirectory = "/home/mouaad";
-  home.stateVersion = "26.05";
+  home = {
+    username = "mouaad";
+    homeDirectory = "/home/mouaad";
+    stateVersion = "26.05";
 
-  # ── User packages ────────────────────────────────────────────
-  # Things that are yours, not system-wide
-  home.packages = with pkgs; [
-    # terminal tools
-    wallust
-    kitty
-    foot
-    lazygit
-    neovim
-    btop
-    ripgrep
-    fd
-    fzf
-    zoxide
-    eza
-    bat
-    tree
-    unzip
-    jq
-    inputs.fsel.packages.${pkgs.system}.default
-    awww
-    fastfetch
-    alsa-utils
-    chafa
-    wl-clipboard
+    # ── User packages ────────────────────────────────────────────
+    # Things that are yours, not system-wide
+    packages = with pkgs; [
+      # terminal tools
+      wallust
+      kitty
+      foot
+      lazygit
+      neovim
+      btop
+      ripgrep
+      fd
+      fzf
+      zoxide
+      eza
+      bat
+      tree
+      unzip
+      jq
+      inputs.fsel.packages.${pkgs.system}.default
+      awww
+      fastfetch
+      alsa-utils
+      chafa
+      wl-clipboard
+      inputs.otter-launcher.packages.${pkgs.system}.default
 
-    # for waybar niri
-    brightnessctl
-    nwg-displays
-    wifitui
-    bluetui
-    pavucontrol
+      # for waybar niri
+      brightnessctl
+      nwg-displays
+      wifitui
+      bluetui
+      pavucontrol
 
-    # dev
-    direnv # auto-loads nix dev shells on cd
-    gh # GitHub CLI
+      # dev
+      direnv # auto-loads nix dev shells on cd
+      gh
 
-    # apps
-    antigravity
-    vscodium
-    obsidian
-    telegram-desktop
-    vlc
-    firefox
-    inputs.zen-browser.packages.${pkgs.system}.default
-    proton-vpn
+      # apps
+      antigravity
+      vscodium
+      obsidian
+      telegram-desktop
+      vlc
+      firefox
+      inputs.zen-browser.packages.${pkgs.system}.default
+      proton-vpn
 
-    #something ig
-    waybar
-    swaynotificationcenter
-    swayidle
-    swaylock
-    gammastep
-    foot
-    grim
-    slurp
-    swappy
+      #something ig
+      waybar
+      swaynotificationcenter
+      swayidle
+      swaylock
+      gammastep
+      foot
+      grim
+      slurp
+      swappy
 
-    gcc
+      gcc
 
-    # Go (LSP, linter, formatters, debugger)
-    nil
-    gopls
-    golangci-lint
-    gofumpt
-    gotools # provides goimports
-    golines
-    delve
+      nil
+      gopls
+      golangci-lint
+      gofumpt
+      gotools
+      golines
+      delve
 
-    # Python (LSP, linter/formatter, debugger)
-    basedpyright
-    ruff
-    tree-sitter
-    luarocks
+      basedpyright
+      ruff
+      tree-sitter
+      luarocks
 
-    nixfmt
-    statix
-    deadnix
-    lua-language-server
-    clang-tools
-    vscode-langservers-extracted
-    typescript-language-server
-    bash-language-server
-    marksman
-    buf
-    tinymist
-    tailwindcss-language-server
-    svelte-language-server
-    emmet-language-server
-    docker-compose-language-service
-    dockerfile-language-server
+      nixfmt
+      statix
+      deadnix
+      lua-language-server
+      clang-tools
+      vscode-langservers-extracted
+      typescript-language-server
+      bash-language-server
+      marksman
+      buf
+      tinymist
+      tailwindcss-language-server
+      svelte-language-server
+      emmet-language-server
+      docker-compose-language-service
+      dockerfile-language-server
 
-    prettier
-    stylua
-    shfmt
-    taplo
-    typstyle
+      prettier
+      stylua
+      shfmt
+      taplo
+      typstyle
 
-    eslint_d
-    shellcheck
-    hadolint
-    markdownlint-cli
+      eslint_d
+      shellcheck
+      hadolint
+      markdownlint-cli
 
-    zathura
+      zathura
 
-    # optional: nix dev shell helper
-    nix-direnv
-  ];
+      nix-direnv
+    ];
+
+    sessionVariables = {
+      FZF_DEFAULT_OPTS = "--height 40% --layout=reverse --border";
+    };
+
+    sessionPath = [
+      "$HOME/go/bin"
+      "$HOME/.config/scripts"
+      "$HOME/.local/bin"
+      "$HOME/.krew/bin"
+    ];
+  };
   services.cliphist.enable = true;
   programs.fish = {
     enable = true;
@@ -168,17 +180,6 @@ in
   programs.starship.enable = true; # auto-adds fish integration, no manual `source`
   programs.zoxide.enable = true; # same — enableFishIntegration defaults to true
   programs.fzf.enable = true;
-
-  home.sessionVariables = {
-    FZF_DEFAULT_OPTS = "--height 40% --layout=reverse --border";
-  };
-
-  home.sessionPath = [
-    "$HOME/go/bin"
-    "$HOME/.config/scripts"
-    "$HOME/.local/bin"
-    "$HOME/.krew/bin"
-  ];
 
   # programs.neovim = {
   #   defaultEditor = true; # Sets the $EDITOR environment variable
