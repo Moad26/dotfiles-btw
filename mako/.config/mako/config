@@ -3,13 +3,13 @@ default-timeout=5000
 width=600
 height=600
 
-background-color=#010104
-text-color=#FF8E67
-border-color=#5E1F1B
-progress-color=over #CF4525
+background-color=#090301
+text-color=#FFD163
+border-color=#927B70
+progress-color=over #AC8014
 
 [urgency=high]
-border-color=#23222A
+border-color=#484324
 
 [summary="Wayland Diagnose"]
 invisible=1

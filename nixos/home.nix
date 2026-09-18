@@ -93,9 +93,10 @@ in
 
       #something ig
       waybar
-      swaynotificationcenter
+      # swaynotificationcenter
       swayidle
-      swaylock
+      # swaylock
+      swaylock-effects
       gammastep
       foot
       grim
