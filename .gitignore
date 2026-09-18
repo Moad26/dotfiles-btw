@@ -4,3 +4,4 @@ sway/.config/sway*
 !sway/.config/sway/config
 tmux/.config/tmux/*
 !tmux/.config/tmux/tmux.conf
+mako/.config/mako/config
