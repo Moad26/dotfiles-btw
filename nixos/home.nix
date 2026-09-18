@@ -30,6 +30,7 @@ let
     # yazi      = "yazi/.config/yazi";
     # zed       = "zed/.config/zed";
     wallust = "wallust/.config/wallust";
+    mako = "mako/.config/mako";
   };
 in
 {

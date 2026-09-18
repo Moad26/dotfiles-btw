@@ -11,7 +11,8 @@ awww img "$selected" \
 
 wallust pywal -i "$selected" -n -q
 
-swaync-client -R && swaync-client -rs || true
+# swaync-client -R && swaync-client -rs || true
+makoctl reload || true
 
 niri msg action load-config-file || true
 
