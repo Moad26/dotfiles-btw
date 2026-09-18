@@ -74,6 +74,7 @@ in
       wl-clipboard
       inputs.otter-launcher.packages.${pkgs.system}.default
       opencode
+      unrar
 
       # for waybar niri
       brightnessctl
