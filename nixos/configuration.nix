@@ -118,6 +118,8 @@
   virtualisation.docker.enable = true;
   hardware.nvidia-container-toolkit.enable = true;
 
+  programs.gamescope.enable = true;
+  programs.gamemode.enable = true;
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 

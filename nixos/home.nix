@@ -9,6 +9,14 @@ let
   dotfiles = "${config.home.homeDirectory}/dotfiles";
   symlink = config.lib.file.mkOutOfStoreSymlink;
 
+  heroic = pkgs.heroic.override {
+    extraPkgs =
+      pkgs': with pkgs'; [
+        gamescope
+        gamemode
+      ];
+  };
+
   configs = {
     # btop      = "btop/.config/btop";
     otter-launcher = "otter-launcher/.config/otter-launcher";
@@ -79,6 +87,9 @@ in
       # dev
       direnv # auto-loads nix dev shells on cd
       gh
+
+      heroic
+      mangohud
 
       # apps
       antigravity
@@ -161,6 +172,8 @@ in
       "$HOME/.local/bin"
       "$HOME/.krew/bin"
     ];
+
+    file.".steam/root/compatibilitytools.d/Proton-GE".source = pkgs.proton-ge-bin.steamcompattool;
   };
   services.cliphist.enable = true;
   programs.fish = {
