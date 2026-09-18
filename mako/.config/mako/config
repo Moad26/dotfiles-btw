@@ -1,0 +1,15 @@
+font=Iosevka Nerd Font 10
+default-timeout=5000
+width=600
+height=600
+
+background-color=#010104
+text-color=#FF8E67
+border-color=#5E1F1B
+progress-color=over #CF4525
+
+[urgency=high]
+border-color=#23222A
+
+[summary="Wayland Diagnose"]
+invisible=1
