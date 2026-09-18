@@ -1,31 +1,23 @@
 {
-  "reload_style_on_change": true,
   "layer": "top",
   "position": "top",
   "height": 30,
-  "spacing": 0,
+  "spacing": 10,
+  "reload_style_on_change": true,
+
   "modules-left": ["niri/workspaces", "niri/window"],
-  "modules-center": ["clock"],
+
   "modules-right": [
     "tray",
-    "custom/sep",
     "idle_inhibitor",
-    "custom/sep",
     "cpu",
-    "custom/sep",
     "memory",
-    "custom/sep",
-    "pulseaudio",
-    "custom/sep",
     "backlight",
-    "custom/sep",
-    "network",
-    "custom/sep",
+    "pulseaudio",
     "bluetooth",
-    "custom/sep",
+    "network",
     "battery",
-    "custom/sep",
-    "custom/notification",
+    "clock",
   ],
 
   "niri/workspaces": {
@@ -47,95 +39,45 @@
   },
 
   "niri/window": {
-    "format": "{}",
-    "max-length": 40,
-    "rewrite": {
-      "(.*) - VSCode": " $1",
-      "(.*) - vim": " $1",
-    },
+    "format": "{title}",
+    "max-length": 45,
+    "separate-outputs": true,
+  },
+
+  "tray": {
+    "spacing": 10,
+    "icon-size": 16,
+    "show-passive-items": true,
   },
 
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
-      "activated": "󰅶",
-      "deactivated": "󰾪",
+      "activated": "AWAKE",
+      "deactivated": "IDLE",
     },
     "tooltip-format-activated": "Idle inhibitor active",
     "tooltip-format-deactivated": "Idle inhibitor inactive",
   },
 
-  "tray": {
-    "icon-size": 18,
-    "spacing": 10,
-    "show-passive-items": true,
-  },
-
-  "clock": {
-    "format": "{:%a %b %d  %H:%M}",
-    "format-alt": "{:%A, %B %d, %Y  %H:%M:%S}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "interval": 1,
-  },
   "cpu": {
-    "format": "CPU: {usage}%",
-    "tooltip": false,
+    "interval": 5,
+    "format": "CPU {usage}%",
+    "states": { "warning": 70, "critical": 90 },
     "on-click": "foot btop",
-  },
-  "memory": {
-    "format": "Mem: {percentage}%",
-    "on-click": "foot btop",
-  },
-  "disk": {
-    "interval": 60,
-    "path": "/",
-    "format": "Disk: {free}",
   },
 
-  "battery": {
-    "format": "{capacity}% {icon}",
-    "format-discharging": "{capacity}% {icon}",
-    "format-charging": "{capacity}% {icon}",
-    "format-plugged": "",
-    "format-icons": {
-      "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
-      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-    },
-    "format-full": "󰂅",
-    "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
-    "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
+  "memory": {
     "interval": 5,
-    "states": {
-      "warning": 20,
-      "critical": 10,
-    },
+    "format": "MEM {percentage}%",
+    "states": { "warning": 70, "critical": 90 },
+    "tooltip-format": "{used:0.1f}GiB / {total:0.1f}GiB",
+    "on-click": "foot btop",
   },
-  "network": {
-    "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤥 ", "󰤨 "],
-    "format": "{icon}",
-    "format-wifi": "{icon}",
-    "format-ethernet": "󰀂 ",
-    "format-disconnected": "󰖪 ",
-    "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}\n\n{ipaddr}",
-    "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}\n\n{ipaddr}",
-    "tooltip-format-disconnected": "Disconnected",
-    "interval": 10,
-    "on-click": "foot wifitui",
-  },
-  "bluetooth": {
-    // "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
-    "format": " {status}",
-    // "format-disabled": "", // an empty format will hide the module
-    "format-connected": " {num_connections} connected",
-    "tooltip-format": "{controller_alias}\t{controller_address}",
-    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-    "on-click": "foot bluetui",
-  },
+
   "backlight": {
     "device": "intel_backlight",
-    "format": "{icon} {percent}%",
-    "format-icons": ["󰃞 ", "󰃟 ", "󰃠 "],
+    "format": "BRT {percent}%",
     "on-scroll-up": "brightnessctl -d intel_backlight set 5%+",
     "on-scroll-down": "brightnessctl -d intel_backlight set 5%-",
     "interval": 1,
@@ -143,39 +85,52 @@
   },
 
   "pulseaudio": {
+    "format": "VOL {volume}%",
+    "format-muted": "MUTED",
     "scroll-step": 5,
-    "format": "  {volume}%",
-    "format-bluetooth": "󰂯 {volume}%",
-    "format-muted": "󰖁 Muted",
-    // "on-click": "kcmshell6 kcm_pulseaudio",
+    "tooltip-format": "{desc}\n{volume}%",
     "on-click": "pavucontrol",
     "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
     "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
-    "tooltip-format": "{desc}\n{volume}%",
   },
-  "custom/sep": {
-    "format": "::",
-    "interval": 0,
+
+  "bluetooth": {
+    "format": "BT {status}",
+    "format-connected": "BT {num_connections}",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "on-click": "foot bluetui",
   },
-  "custom/notification": {
-    "tooltip": false,
-    "format": "{} {icon}",
-    "format-icons": {
-      "notification": "󱅫",
-      "none": "",
-      "dnd-notification": " ",
-      "dnd-none": "󰂛",
-      "inhibited-notification": " ",
-      "inhibited-none": "",
-      "dnd-inhibited-notification": " ",
-      "dnd-inhibited-none": " ",
+
+  "network": {
+    "interval": 5,
+    "format-wifi": "WIFI {signalStrength}%",
+    "format-ethernet": "ETH",
+    "format-disconnected": "OFFLINE",
+    "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}\nIP: {ipaddr}",
+    "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}\nIP: {ipaddr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click": "foot wifitui",
+  },
+
+  "battery": {
+    "interval": 10,
+    "states": {
+      "warning": 20,
+      "critical": 10,
     },
-    "return-type": "json",
-    "exec-if": "which swaync-client",
-    "exec": "swaync-client -swb",
-    "on-click": "sleep 0.1 && swaync-client -t -sw",
-    "on-click-right": "sleep 0.1 && swaync-client -d -sw",
-    "escape": true,
+    "format": "BAT {capacity}%",
+    "format-charging": "CHG {capacity}%",
+    "format-plugged": "AC {capacity}%",
+    "tooltip-format-discharging": "{power:>1.0f}W↓ · {timeTo}",
+    "tooltip-format-charging": "{power:>1.0f}W↑ · {timeTo}",
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": "{:%Y-%m-%d  %H:%M:%S}",
+    "tooltip": false,
   },
 }

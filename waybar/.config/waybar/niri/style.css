@@ -1,15 +1,18 @@
-/* @import "../colors.css"; */
 @import "/home/mouaad/.cache/wallust/colors-waybar.css";
 
 * {
   font-family: "Iosevka Nerd Font", monospace;
-  font-size: 16px;
   font-weight: bold;
+  font-size: 14px;
+  border: none;
+  border-radius: 0px;
+  min-height: 0px;
 }
 
 window#waybar {
   background-color: @background;
   color: @foreground;
+  transition: background-color 0.3s ease;
 }
 
 #workspaces button {
@@ -21,106 +24,79 @@ window#waybar {
 
 #workspaces button.empty {
   color: @color0;
+  opacity: 0.35;
 }
 
-#workspaces button.focused {
-  color: @color6;
-}
-
-#workspaces button.visible {
-  color: @color0;
-  border-radius: 0px;
-  background-color: @color8;
-}
-
-#workspaces button.urgent {
-  color: @color2;
+#workspaces button.focused,
+#workspaces button.active {
+  color: @foreground;
+  background-color: alpha(@color8, 0.25);
 }
 
 #workspaces button:hover {
   color: @color7;
   background: alpha(@color8, 0.15);
-  border-radius: 0px;
-  border-color: transparent;
 }
 
-#clock,
-#custom-sep,
-#battery,
-#cpu,
-#memory,
-#disk,
-#network,
-#pulseaudio,
-#backlight,
-#custom-notification,
-#bluetooth,
-#tray {
-  padding: 0 2px;
-  color: @color1;
-  transition: color 0.2s ease;
+#workspaces button.urgent {
+  color: @color5;
 }
 
-#battery:hover,
-#cpu:hover,
-#memory:hover,
-#pulseaudio:hover,
-#backlight:hover,
-#network:hover,
-#custom-notification:hover,
-#idle_inhibitor:hover {
-  color: @foreground;
-}
 #window {
-  margin-left: 8px;
+  padding: 0 8px;
   color: @color8;
   font-weight: normal;
 }
 
-#clock {
-  color: @color6;
-}
-
-#battery.charging {
-  color: @color2;
-}
-
-#battery.critical {
-  color: @color10;
-}
-
-#idle_inhibitor {
-  padding: 0 8px;
-  margin-right: 4px;
-  color: @color8;
-  transition: color 0.2s ease;
+#idle_inhibitor,
+#cpu,
+#memory,
+#backlight,
+#pulseaudio,
+#bluetooth,
+#network,
+#battery,
+#clock,
+#tray {
+  padding: 0 4px;
+  color: @foreground;
 }
 
 #idle_inhibitor.activated {
-  color: @color2;
+  color: @color7;
 }
 
-#custom-sep {
-  color: alpha(@color8, 0.45);
-  margin-bottom: 4px;
+#cpu.warning,
+#memory.warning,
+#battery.warning:not(.charging) {
+  color: @color14;
 }
 
-#custom-notification {
-  padding: 0 8px;
-  margin-right: 8px;
+#cpu.critical,
+#memory.critical,
+#pulseaudio.muted {
+  color: @color5;
 }
 
-#custom-notification.notification {
-  color: @color9;
+#battery.charging,
+#battery.plugged {
+  color: @color7;
+}
+
+#battery.critical:not(.charging) {
+  color: @color5;
+  animation: blink 1s step-end infinite;
+}
+
+#network.disconnected {
+  color: alpha(@foreground, 0.35);
 }
 
 tooltip {
   background: @background;
-  border: 1px solid alpha(@color8, 0.4);
-  border-radius: 0;
+  border: 1px solid alpha(@color8, 0.35);
+  border-radius: 0px;
   color: @foreground;
-  font-size: 13px;
-  font-weight: normal;
 }
 
 tooltip label {
