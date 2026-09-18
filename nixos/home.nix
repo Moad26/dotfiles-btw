@@ -71,6 +71,8 @@ in
       nwg-displays
       wifitui
       bluetui
+      mako
+      libnotify
       pavucontrol
 
       # dev
