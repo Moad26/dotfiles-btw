@@ -83,7 +83,7 @@
     "on-click": "foot btop",
   },
   "memory": {
-    "format": "Mem: {used}GiB",
+    "format": "Mem: {percentage}%",
     "on-click": "foot btop",
   },
   "disk": {
