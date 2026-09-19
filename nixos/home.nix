@@ -94,7 +94,6 @@ in
       mangohud
 
       # apps
-      antigravity
       vscodium
       obsidian
       telegram-desktop
