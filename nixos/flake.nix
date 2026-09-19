@@ -14,6 +14,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -32,6 +33,13 @@
       home-manager,
       ...
     }@inputs:
+    let
+      system = "x86_64-linux";
+      pkgs-unstable = import inputs.nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true; # a separate instance doesn't inherit your nixpkgs.config
+      };
+    in
     {
       nixosConfigurations.legion = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -48,7 +56,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit inputs; };
+              extraSpecialArgs = { inherit inputs pkgs-unstable; };
               users.mouaad = import ./home.nix;
               backupFileExtension = "backup";
             };

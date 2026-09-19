@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   inputs,
   ...
 }:
@@ -161,6 +162,9 @@ in
       zathura
 
       nix-direnv
+
+      #upkgs-unstable
+      pkgs-unstable.antigravity-ide
     ];
 
     sessionVariables = {
