@@ -14,9 +14,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs"; # single nixpkgs, not two copies
@@ -43,16 +41,17 @@
           ./hardware-configuration.nix
 
           # community hardware module for Legion Pro 7i Gen 9 (16IRX9H)
-          # handles kernel params, power quirks, PRIME config
           nixos-hardware.nixosModules.lenovo-legion-16irx9h
 
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.mouaad = import ./home.nix;
-            home-manager.backupFileExtension = "backup";
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = { inherit inputs; };
+              users.mouaad = import ./home.nix;
+              backupFileExtension = "backup";
+            };
           }
         ];
       };
