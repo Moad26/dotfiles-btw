@@ -49,7 +49,6 @@ in
     stateVersion = "26.05";
 
     # ── User packages ────────────────────────────────────────────
-    # Things that are yours, not system-wide
     packages = with pkgs; [
       # terminal tools
       wallust
@@ -116,7 +115,7 @@ in
       swappy
 
       gcc
-
+      #nvim lsp and linters/formatters
       nil
       gopls
       golangci-lint
