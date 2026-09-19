@@ -101,6 +101,7 @@ in
       inputs.zen-browser.packages.${pkgs.system}.default
       proton-vpn
       vesktop
+      qbittorrent
 
       #something ig
       waybar
