@@ -20,7 +20,7 @@
 # done
 set -euo pipefail
 
-WALL_DIR="${WALLPAPER_DIR:-$HOME/Desktop/Wallpaper}"
+WALL_DIR="${WALLPAPER_DIR:-$HOME/Wallpaper}"
 DRY_RUN=false
 
 while [[ $# -gt 0 ]]; do
