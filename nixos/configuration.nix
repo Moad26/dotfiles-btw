@@ -167,6 +167,10 @@
   ];
 
   environment.localBinInPath = true;
+  # Enable tailscale at startup
+  services.tailscale = {
+    enable = true;
+  };
 
   nix.gc = {
     automatic = true;
