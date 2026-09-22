@@ -78,6 +78,7 @@ in
       (nvtopPackages.nvidia.override { intel = true; })
       aria2
       motrix
+      tailscale
 
       # for waybar niri
       brightnessctl
