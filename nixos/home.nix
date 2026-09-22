@@ -76,6 +76,8 @@ in
       opencode
       unrar
       (nvtopPackages.nvidia.override { intel = true; })
+      aria2
+      motrix
 
       # for waybar niri
       brightnessctl
@@ -166,6 +168,12 @@ in
       #upkgs-unstable
       pkgs-unstable.antigravity-ide
     ];
+
+    systemd.user.services.aria2 = {
+      Unit.Description = "aria2 download daemon";
+      Service.ExecStart = "${pkgs.aria2}/bin/aria2c --enable-rpc --rpc-listen-all=false --dir=${config.home.homeDirectory}/Downloads --continue=true --max-connection-per-server=16 --split=16";
+      Install.WantedBy = [ "default.target" ];
+    };
 
     sessionVariables = {
       FZF_DEFAULT_OPTS = "--height 40% --layout=reverse --border";
