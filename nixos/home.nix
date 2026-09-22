@@ -78,6 +78,7 @@ in
       (nvtopPackages.nvidia.override { intel = true; })
       aria2
       motrix
+      inputs.lucida-downloader.packages.${pkgs.system}.default
 
       # for waybar niri
       brightnessctl
