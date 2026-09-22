@@ -174,6 +174,9 @@
   services.syncthing = {
     enable = true;
     openDefaultPorts = true;
+    user = "mouaad";
+    dataDir = "/home/mouaad";
+    configDir = "/home/mouaad/.config/syncthing";
   };
 
   nix.gc = {
