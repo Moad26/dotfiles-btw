@@ -171,6 +171,10 @@
   services.tailscale = {
     enable = true;
   };
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+  };
 
   nix.gc = {
     automatic = true;
