@@ -75,7 +75,7 @@ in
       inputs.otter-launcher.packages.${pkgs.system}.default
       opencode
       unrar
-      nvtop
+      (nvtopPackages.nvidia.override { intel = true; })
 
       # for waybar niri
       brightnessctl
