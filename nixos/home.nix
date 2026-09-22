@@ -50,7 +50,6 @@ in
 
     # ── User packages ────────────────────────────────────────────
     packages = with pkgs; [
-      xwayland-satellite
       # terminal tools
       wallust
       kitty
