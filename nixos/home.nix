@@ -188,6 +188,10 @@ in
     Install.WantedBy = [ "default.target" ];
   };
 
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+  };
   services.cliphist.enable = true;
   programs.fish = {
     enable = true;
