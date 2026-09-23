@@ -186,6 +186,31 @@
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
   };
+  nix = {
+
+    # Add to configuration.nix
+    registry.nixpkgs.flake = inputs.nixpkgs;
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
+      extra-substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos-cuda.org"
+      ];
+      extra-trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+      ];
+
+    };
+  };
 
   # nix.gc = {
   #   automatic = true;
@@ -227,24 +252,5 @@
       extraArgs = "--keep-since 14d --keep 5";
     };
   };
-  system.stateVersion = "26.05"; # Did you read the comment?
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    trusted-users = [
-      "root"
-      "@wheel"
-    ];
-    extra-substituters = [
-      "https://nix-community.cachix.org"
-      "https://cache.nixos-cuda.org"
-    ];
-    extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
-    ];
-
-  };
+  system.stateVersion = "26.05";
 }
