@@ -107,6 +107,7 @@ in
       vesktop
       qbittorrent
       harmonoid
+      spotube
 
       #something ig
       waybar
