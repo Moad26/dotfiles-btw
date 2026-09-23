@@ -91,7 +91,7 @@ in
       pavucontrol
 
       # dev
-      direnv # auto-loads nix dev shells on cd
+      # direnv # auto-loads nix dev shells on cd
       gh
 
       heroic
@@ -116,7 +116,6 @@ in
       # swaylock
       swaylock-effects
       gammastep
-      foot
       grim
       slurp
       swappy
@@ -166,7 +165,7 @@ in
 
       zathura
 
-      nix-direnv
+      # nix-direnv
 
       #upkgs-unstable
       pkgs-unstable.antigravity-ide
