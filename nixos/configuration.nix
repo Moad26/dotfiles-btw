@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 
@@ -45,7 +46,7 @@
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = true;
-    powerManagement.finegrained = false;
+    powerManagement.finegrained = true;
     open = true;
     nvidiaSettings = true;
   };
@@ -59,6 +60,7 @@
           enable = lib.mkForce false;
           enableOffloadCmd = lib.mkForce false;
         };
+        powerManagement.finegrained = lib.mkForce false;
       };
 
     };
@@ -116,6 +118,8 @@
     #media-session.enable = true;
   };
   virtualisation.docker.enable = true;
+  virtualisation.docker.enableOnBoot = false;
+
   hardware.nvidia-container-toolkit.enable = true;
 
   programs.gamescope.enable = true;
@@ -146,7 +150,7 @@
   programs.fish.enable = true;
 
   # Install firefox.
-  programs.firefox.enable = true;
+  # programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -177,6 +181,10 @@
     user = "mouaad";
     dataDir = "/home/mouaad";
     configDir = "/home/mouaad/.config/syncthing";
+  };
+
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
   };
 
   nix.gc = {
@@ -211,9 +219,31 @@
 
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  programs.nh = {
+    enable = true;
+    flake = "/home/mouaad/dotfiles/nixos";
+    clean = {
+      enable = true;
+      # extraArgs = "--keep-since 14d --keep 5";
+    };
+  };
   system.stateVersion = "26.05"; # Did you read the comment?
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
+  trusted-users = [
+    "root"
+    "@wheel"
+  ];
+  extra-substituters = [
+    "https://nix-community.cachix.org"
+    "https://cache.nixos-cuda.org"
+  ];
+  extra-trusted-public-keys = [
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
   ];
 }

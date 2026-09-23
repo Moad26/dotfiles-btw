@@ -50,6 +50,7 @@ in
 
     # ── User packages ────────────────────────────────────────────
     packages = with pkgs; [
+      xwayland-satellite
       # terminal tools
       wallust
       kitty
@@ -59,26 +60,26 @@ in
       btop
       ripgrep
       fd
-      fzf
-      zoxide
+      # fzf
+      # zoxide
       eza
       bat
       tree
       unzip
       jq
-      inputs.fsel.packages.${pkgs.system}.default
+      inputs.fsel.packages.${pkgs.stdenv.hostPlatform.system}.default
       awww
       fastfetch
       alsa-utils
       chafa
       wl-clipboard
-      inputs.otter-launcher.packages.${pkgs.system}.default
+      inputs.otter-launcher.packages.${pkgs.stdenv.hostPlatform.system}.default
       opencode
       unrar
       (nvtopPackages.nvidia.override { intel = true; })
       aria2
       motrix
-      inputs.lucida-downloader.packages.${pkgs.system}.default
+      inputs.lucida-downloader.packages.${pkgs.stdenv.hostPlatform.system}.default
 
       # for waybar niri
       brightnessctl
@@ -102,7 +103,7 @@ in
       telegram-desktop
       vlc
       firefox
-      inputs.zen-browser.packages.${pkgs.system}.default
+      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
       proton-vpn
       vesktop
       qbittorrent
@@ -172,6 +173,15 @@ in
     ];
 
     sessionVariables = {
+      FZF_DEFAULT_OPTS = "--height 40% --layout=reverse --border";
+    };
+
+    programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+    home.sessionVariables = {
+      EDITOR = "nvim";
       FZF_DEFAULT_OPTS = "--height 40% --layout=reverse --border";
     };
 

@@ -1,16 +1,16 @@
 {
   description = "Mouaad's NixOS config — Legion Pro 7i Gen 9";
 
-  nixConfig = {
-    extra-substituters = [
-      "https://nix-community.cachix.org"
-      "https://cache.nixos-cuda.org"
-    ];
-    extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
-    ];
-  };
+  # nixConfig = {
+  #   extra-substituters = [
+  #     "https://nix-community.cachix.org"
+  #     "https://cache.nixos-cuda.org"
+  #   ];
+  #   extra-trusted-public-keys = [
+  #     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  #     "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+  #   ];
+  # };
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -47,7 +47,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./configuration.nix
-          ./hardware-configuration.nix
+          # ./hardware-configuration.nix
 
           # community hardware module for Legion Pro 7i Gen 9 (16IRX9H)
           nixos-hardware.nixosModules.lenovo-legion-16irx9h
