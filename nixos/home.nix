@@ -216,7 +216,8 @@ in
       c = "clear";
       cat = "bat";
       k = "kubectl";
-      nrs = "sudo nixos-rebuild switch --flake ~/dotfiles/nixos#legion";
+      # nrs = "sudo nixos-rebuild switch --flake ~/dotfiles/nixos#legion";
+      nrs = "nh os switch";
       cb = "cliphist list | fzf | cliphist decode | wl-copy";
     };
   };
