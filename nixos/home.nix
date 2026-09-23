@@ -106,8 +106,7 @@ in
       proton-vpn
       vesktop
       qbittorrent
-      harmonoid
-      spotube
+      tauon
 
       #something ig
       waybar
