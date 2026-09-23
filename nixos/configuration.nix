@@ -187,11 +187,11 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 14d";
-  };
+  # nix.gc = {
+  #   automatic = true;
+  #   dates = "weekly";
+  #   options = "--delete-older-than 14d";
+  # };
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -224,7 +224,7 @@
     flake = "/home/mouaad/dotfiles/nixos";
     clean = {
       enable = true;
-      # extraArgs = "--keep-since 14d --keep 5";
+      extraArgs = "--keep-since 14d --keep 5";
     };
   };
   system.stateVersion = "26.05"; # Did you read the comment?
@@ -233,17 +233,18 @@
       "nix-command"
       "flakes"
     ];
+    trusted-users = [
+      "root"
+      "@wheel"
+    ];
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://cache.nixos-cuda.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+    ];
+
   };
-  trusted-users = [
-    "root"
-    "@wheel"
-  ];
-  extra-substituters = [
-    "https://nix-community.cachix.org"
-    "https://cache.nixos-cuda.org"
-  ];
-  extra-trusted-public-keys = [
-    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
-  ];
 }

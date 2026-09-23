@@ -81,7 +81,7 @@ spawn-sh-at-startup "awww img ~/Wallpaper/ --transition-type center --transition
 
 spawn-sh-at-startup "waybar -c ~/.config/waybar/niri/config.jsonc -s ~/.config/waybar/niri/style.css >/dev/null 2>&1 "
 
-spawn-at-startup "swaync"
+// spawn-at-startup "swaync"
 
 spawn-sh-at-startup "swayidle -w timeout 1800 'swaylock -f' timeout 3600 'niri msg action power-off-monitors' before-sleep 'swaylock -f'"
 
