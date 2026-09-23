@@ -106,6 +106,7 @@ in
       proton-vpn
       vesktop
       qbittorrent
+      harmonoid
 
       #something ig
       waybar
