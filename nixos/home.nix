@@ -80,6 +80,7 @@ in
       aria2
       motrix
       inputs.lucida-downloader.packages.${pkgs.stdenv.hostPlatform.system}.default
+      ffmpeg
 
       # for waybar niri
       brightnessctl
