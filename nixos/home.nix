@@ -181,6 +181,7 @@ in
       "$HOME/.config/scripts"
       "$HOME/.local/bin"
       "$HOME/.krew/bin"
+      "$HOME/.config/scripts"
     ];
 
     file.".steam/root/compatibilitytools.d/Proton-GE".source = pkgs.proton-ge-bin.steamcompattool;
