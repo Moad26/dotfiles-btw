@@ -226,4 +226,5 @@ return {
 	{ "kyazdani42/blue-moon", lazy = true },
 	{ "Aejkatappaja/cendre", lazy = true },
 	{ "roobert/palette.nvim", lazy = true },
+	{ "kdheepak/monochrome.nvim", lazy = true },
 }
