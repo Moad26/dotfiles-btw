@@ -27,7 +27,7 @@ let
     # ghostty   = "ghostty/.config/ghostty";
     kitty = "kitty/.config/kitty";
     # lazygit   = "lazygit/.config/lazygit";
-    # mpv       = "mpv/.config/mpv";
+    mpv = "mpv/.config/mpv";
     niri = "niri/.config/niri";
     nvim = "nvim/.config/nvim";
     scripts = "scripts/.config/scripts";
