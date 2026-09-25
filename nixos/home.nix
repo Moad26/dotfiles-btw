@@ -96,7 +96,7 @@ in
       pavucontrol
 
       # dev
-      # direnv # auto-loads nix dev shells on cd
+      direnv
       gh
 
       heroic
@@ -171,7 +171,7 @@ in
 
       zathura
 
-      # nix-direnv
+      nix-direnv
 
       #upkgs-unstable
       pkgs-unstable.antigravity-ide
