@@ -113,6 +113,7 @@ in
       vesktop
       qbittorrent
       tauon
+      mpv
 
       #something ig
       waybar
