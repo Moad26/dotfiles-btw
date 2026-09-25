@@ -82,6 +82,10 @@ in
       inputs.lucida-downloader.packages.${pkgs.stdenv.hostPlatform.system}.default
       ffmpeg
 
+      #k8s temp
+      minikube
+      kubectl
+
       # for waybar niri
       brightnessctl
       nwg-displays
