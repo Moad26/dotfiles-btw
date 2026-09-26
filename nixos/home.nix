@@ -96,7 +96,9 @@ in
       pavucontrol
 
       # dev
+      devenv
       direnv
+      nix-direnv
       gh
 
       heroic
@@ -170,8 +172,6 @@ in
       markdownlint-cli
 
       zathura
-
-      nix-direnv
 
       #upkgs-unstable
       pkgs-unstable.antigravity-ide
