@@ -96,7 +96,7 @@ in
       pavucontrol
 
       # dev
-      devenv
+      pkgs-unstable.devenv
       direnv
       nix-direnv
       gh
