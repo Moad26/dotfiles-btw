@@ -81,6 +81,7 @@ in
       motrix
       inputs.lucida-downloader.packages.${pkgs.stdenv.hostPlatform.system}.default
       ffmpeg
+      powertop
 
       #k8s temp
       minikube
