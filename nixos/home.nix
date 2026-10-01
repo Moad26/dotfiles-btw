@@ -117,6 +117,7 @@ in
       qbittorrent
       tauon
       mpv
+      pcmanfm
 
       #something ig
       waybar
