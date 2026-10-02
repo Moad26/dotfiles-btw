@@ -74,7 +74,7 @@ in
       chafa
       wl-clipboard
       inputs.otter-launcher.packages.${pkgs.stdenv.hostPlatform.system}.default
-      opencode
+      pkgs-unstable.opencode
       unrar
       (nvtopPackages.nvidia.override { intel = true; })
       aria2
