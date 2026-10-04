@@ -118,6 +118,7 @@ in
       tauon
       mpv
       pcmanfm
+      libreoffice-qt
 
       #something ig
       waybar
