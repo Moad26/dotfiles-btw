@@ -51,7 +51,8 @@ return {
 						module = "blink-cmp-dictionary",
 						min_keyword_length = 2,
 						opts = {
-							dictionary_files = { vim.fn.expand("~/.config/nvim/dictionary/words.dict") },
+							-- dictionary_files = { vim.fn.expand("~/.config/nvim/dictionary/words.dict") },
+							dictionary_files = { vim.fn.expand("~/dotfiles/nvim/.config/nvim/dictionary") },
 						},
 					},
 				},
