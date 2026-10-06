@@ -82,6 +82,7 @@ in
       inputs.lucida-downloader.packages.${pkgs.stdenv.hostPlatform.system}.default
       ffmpeg
       powertop
+      bibata-cursors
 
       #k8s temp
       minikube
