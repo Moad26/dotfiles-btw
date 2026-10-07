@@ -11,17 +11,21 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
+  boot = {
+    loader = {
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 10;
+      # Bootloader.
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      systemd-boot.configurationLimit = 10;
+    };
 
-  # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages;
-  boot.extraModprobeConfig = ''
-    options snd_hda_intel power_save=0 power_save_controller=N
-  '';
+    # Use latest kernel.
+    kernelPackages = pkgs.linuxPackages;
+    extraModprobeConfig = ''
+      options snd_hda_intel power_save=0 power_save_controller=N
+    '';
+  };
 
   networking.hostName = "legion"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -65,6 +69,7 @@
 
     };
   };
+
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
@@ -72,6 +77,7 @@
       xdg-desktop-portal-gtk
     ];
   };
+
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
@@ -221,7 +227,19 @@
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts.iosevka
+    noto-fonts
+    noto-fonts-color-emoji
+
   ];
+  services.resolved.enable = true;
+  services.tailscale.useRoutingFeatures = "client";
+  networking.firewall.checkReversePath = "loose";
+  services.fwupd.enable = true;
+  zramSwap.enable = true;
+  nix.optimise.automatic = true;
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+  programs.dconf.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
