@@ -20,10 +20,22 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs"; # single nixpkgs, not two copies
     };
-    fsel.url = "github:Mjoyufull/fsel";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    otter-launcher.url = "github:kuokuo123/otter-launcher";
-    lucida-downloader.url = "github:jelni/lucida-downloader";
+    fsel = {
+      url = "github:Mjoyufull/fsel";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    otter-launcher = {
+      url = "github:kuokuo123/otter-launcher";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    lucida-downloader = {
+      url = "github:jelni/lucida-downloader";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
