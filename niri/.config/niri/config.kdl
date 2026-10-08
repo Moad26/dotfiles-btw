@@ -116,7 +116,7 @@ window-rule {
 window-rule {
     match app-id="wall-pick"
     open-floating true
-    default-column-width { proportion 0.4; }
+    default-column-width { proportion 0.6; }
     default-window-height { proportion 0.3; }
 }
 
