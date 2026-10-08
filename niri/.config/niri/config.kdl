@@ -102,18 +102,22 @@ window-rule {
     match title="launcher"
     open-floating true
     default-column-width { proportion 0.38; }
+    default-window-height { proportion 0.5; }
+
 }
 
 window-rule {
     match app-id="otter-launcher"
     open-floating true
     default-column-width { proportion 0.38; }
+    default-window-height { proportion 0.5; }
 }
 
 window-rule {
     match app-id="wall-pick"
     open-floating true
-    default-column-width { proportion 0.59; }
+    default-column-width { proportion 0.4; }
+    default-window-height { proportion 0.3; }
 }
 
 window-rule {
