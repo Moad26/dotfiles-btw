@@ -87,6 +87,7 @@ in
       #k8s temp
       minikube
       kubectl
+      kind
 
       # for waybar niri
       brightnessctl
