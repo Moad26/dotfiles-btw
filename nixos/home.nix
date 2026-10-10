@@ -40,7 +40,7 @@ let
     # zed       = "zed/.config/zed";
     wallust = "wallust/.config/wallust";
     mako = "mako/.config/mako";
-    # opencode = "opencode/.config/opencode";
+    opencode = "opencode/.config/opencode";
 
   };
 in
