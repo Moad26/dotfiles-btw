@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "@dietrichgebert/ponytail",
+    "@tarquinen/opencode-dcp",
+    "opencode-snip",
+    "@simonwjackson/opencode-direnv",
+    "@atonev/opencode-short-term-memory",
+  ],
+}

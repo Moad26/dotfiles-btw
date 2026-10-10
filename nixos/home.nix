@@ -77,6 +77,7 @@ in
       wl-clipboard
       inputs.otter-launcher.packages.${pkgs.stdenv.hostPlatform.system}.default
       pkgs-unstable.opencode
+      snip # for opencode
       unrar
       (nvtopPackages.nvidia.override { intel = true; })
       aria2
