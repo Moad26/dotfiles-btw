@@ -41,6 +41,7 @@ let
     wallust = "wallust/.config/wallust";
     mako = "mako/.config/mako";
     opencode = "opencode/.config/opencode";
+    mango = "mango/.config/mango";
 
   };
 in
