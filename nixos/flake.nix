@@ -36,6 +36,10 @@
       url = "github:jelni/lucida-downloader";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    mangowm = {
+      url = "github:mangowm/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

@@ -10,6 +10,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    inputs.mangowm.nixosModules.mango
   ];
   boot = {
     loader = {
@@ -98,6 +99,7 @@
   services.desktopManager.plasma6.enable = true;
 
   programs.niri.enable = true;
+  programs.mango.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
