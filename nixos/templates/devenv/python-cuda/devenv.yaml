@@ -1,0 +1,3 @@
+nixpkgs:
+  allow_unfree: true
+  cuda_support: true
