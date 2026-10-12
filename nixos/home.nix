@@ -230,6 +230,9 @@ in
       nrs = "nh os switch";
       cb = "cliphist list | fzf | cliphist decode | wl-copy";
     };
+    functions.dt = ''
+      cp -n ~/dotfiles/nixos/templates/$argv[1]/devenv.{nix,yaml} .
+    '';
   };
 
   programs.direnv = {
