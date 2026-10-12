@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+selected="${1:?Usage: theme_change_mango /path/to/wallpaper}"
+[[ -f "$selected" ]] || { printf 'Wallpaper not found: %s\n' "$selected" >&2; exit 1; }
+
+# Wallpaper + color palette (same workflow as Niri).
+awww img "$selected" \
+  --transition-type simple \
+  --transition-fps 60 \
+  --transition-step 20
+
+wallust pywal -i "$selected" -n -q
+
+# Refresh notification colors.
+makoctl reload || true
+
+# MangoWM uses mmsg, not `niri msg`.
+# This only updates Mango's theme if your Wallust templates write into its config.
+mmsg -d reload_config || true
+
+# Restart Waybar using a Mango-specific layout.
+config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+waybar_config="$config_home/waybar/mango/config.jsonc"
+waybar_style="$config_home/waybar/mango/style.css"
+
+if [[ -f "$waybar_config" && -f "$waybar_style" ]]; then
+  pkill -x waybar || true
+  sleep 0.3
+  # Unlike `systemd-run`, this inherits WAYLAND_DISPLAY from the current session.
+  nohup waybar -c "$waybar_config" -s "$waybar_style" \
+    </dev/null >/dev/null 2>&1 &
+else
+  printf 'Mango Waybar files missing; keeping the current bar: %s / %s\n' \
+    "$waybar_config" "$waybar_style" >&2
+fi

@@ -171,7 +171,7 @@ binds {
     }
 
     Alt+Shift+W hotkey-overlay-title="Wallpaper picker" {
-        spawn "foot" "--app-id" "wall-pick" "-T" "foot" "wallpicker";
+        spawn "foot" "--app-id" "wall-pick" "-T" "foot" "wallpicker" "niri";
     }
 
     Alt+W hotkey-overlay-title="Lock screen: swaylock" {

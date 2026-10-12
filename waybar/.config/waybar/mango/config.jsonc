@@ -5,7 +5,7 @@
   "spacing": 10,
   "reload_style_on_change": true,
 
-  "modules-left": ["niri/workspaces", "niri/window"],
+  "modules-left": ["mango/workspaces", "mango/layout", "mango/window"],
 
   "modules-right": [
     "tray",
@@ -20,28 +20,16 @@
     "clock",
   ],
 
-  "niri/workspaces": {
-    "disable-scroll": true,
+  "mango/workspaces": {
     "disable-markup": true,
     "format": "{index}",
-    "all-outputs": true,
-    "persistent-workspaces": {
-      "1": [],
-      "2": [],
-      "3": [],
-      "4": [],
-      "5": [],
-      "6": [],
-      "7": [],
-      "8": [],
-      "9": [],
-    },
+    "hide-empty": false,
+    "on-click": "activate",
   },
 
-  "niri/window": {
+  "mango/window": {
     "format": "{title}",
     "max-length": 45,
-    "separate-outputs": true,
   },
 
   "tray": {

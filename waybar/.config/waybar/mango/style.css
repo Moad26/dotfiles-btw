@@ -48,6 +48,7 @@ window#waybar {
   font-weight: normal;
 }
 
+#layout,
 #idle_inhibitor,
 #cpu,
 #memory,
@@ -101,4 +102,16 @@ tooltip {
 
 tooltip label {
   color: @foreground;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0.3;
+  }
 }

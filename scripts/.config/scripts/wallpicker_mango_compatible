@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# An explicit argument always wins: wallpicker mango|niri|sway
+if [[ $# -ge 1 ]]; then
+  case "$1" in
+    niri|sway|mango) WM="$1" ;;
+    *) printf 'Usage: %s [niri|sway|mango]\n' "$0" >&2; exit 2 ;;
+  esac
+elif [[ -n "${NIRI_SOCKET:-}" ]]; then
+  WM=niri
+elif [[ -n "${SWAYSOCK:-}" ]]; then
+  WM=sway
+else
+  desktop="${XDG_CURRENT_DESKTOP:-}:${DESKTOP_SESSION:-}"
+  case "${desktop,,}" in
+    *mango*) WM=mango ;;
+    *)
+      notify-send 'Wallpaper Picker' \
+        'Could not detect compositor. Run wallpicker mango (or niri/sway).' \
+        --icon=dialog-warning
+      exit 1
+      ;;
+  esac
+fi
+
+config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+theme_script="$config_home/scripts/theme_change_${WM}"
+
+if [[ ! -x "$theme_script" ]]; then
+  notify-send 'Wallpaper Picker' \
+    "Theme script missing or not executable: $theme_script" \
+    --icon=dialog-warning
+  exit 1
+fi
+
+wall_dir="${WALLPAPER_DIR:-$HOME/Wallpaper/}"
+if [[ ! -d "$wall_dir" ]]; then
+  notify-send 'Wallpaper Picker' "Wallpaper directory missing: $wall_dir" \
+    --icon=dialog-warning
+  exit 1
+fi
+
+mapfile -t images < <(
+  find "$wall_dir" -maxdepth 2 -type f \
+    \( -iname '*.jpg' -o -iname '*.jpeg' \
+       -o -iname '*.png' -o -iname '*.webp' \
+       -o -iname '*.gif' \) | sort -V
+)
+
+if [[ ${#images[@]} -eq 0 ]]; then
+  notify-send 'Wallpaper Picker' "No images found in $wall_dir" \
+    --icon=dialog-warning
+  exit 1
+fi
+
+# fzf is terminal-based; open wallpicker in a terminal from Mango keybindings.
+selected=$(
+  printf '%s\n' "${images[@]}" |
+    fzf \
+      --prompt "Wallpaper [$WM] > " \
+      --preview 'chafa --format=sixel --size="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}" -- {}' \
+      --preview-window 'right:75%,border-none' \
+      --with-nth -1 \
+      --delimiter '/' \
+      --ansi \
+      --layout=reverse \
+      --no-sort \
+      --cycle \
+      --bind 'enter:accept'
+) || exit 0
+
+[[ -n "$selected" ]] || exit 0
+
+# Run in the current session to preserve WAYLAND_DISPLAY and XDG_RUNTIME_DIR.
+if "$theme_script" "$selected"; then
+  notify-send 'Theme change' 'Wallpaper and theme updated'
+else
+  notify-send 'Theme change' 'Wallpaper/theme update failed' \
+    --icon=dialog-error
+  exit 1
+fi
