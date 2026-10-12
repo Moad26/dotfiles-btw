@@ -232,6 +232,7 @@ in
     };
     functions.dt = ''
       cp -n ~/dotfiles/nixos/templates/devenv/$argv[1]/devenv.{nix,yaml} .
+      and devenv allow
     '';
   };
 
