@@ -231,7 +231,7 @@ in
       cb = "cliphist list | fzf | cliphist decode | wl-copy";
     };
     functions.dt = ''
-      cp -n ~/dotfiles/nixos/templates/$argv[1]/devenv.{nix,yaml} .
+      cp -n ~/dotfiles/nixos/templates/devenv/$argv[1]/devenv.{nix,yaml} .
     '';
   };
 
