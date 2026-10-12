@@ -127,7 +127,8 @@ in
       libreoffice-qt
 
       #something ig
-      waybar
+      # waybar
+      inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.default
       # swaynotificationcenter
       swayidle
       # swaylock
