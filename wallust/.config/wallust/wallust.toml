@@ -55,6 +55,7 @@ foot = { template = 'colors-foot.ini', target = '~/.cache/wallust/colors-foot.in
 niri = { template = 'colors-niri.kdl', target = '~/.cache/wallust/colors-niri.kdl' }
 waybar = { template = "colors-waybar.css", target = "~/.cache/wallust/colors-waybar.css" }
 mako = { template = 'colors-mako', target = '~/dotfiles/mako/.config/mako/config' }
+mango = { template = "colors-mango.conf", target = "~/.cache/wallust/colors-mango.conf" }
 
 [hooks]
 # Run commands when wallust is invoked. Useful to avoid scripting.
