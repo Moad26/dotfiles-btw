@@ -1,0 +1,36 @@
+/* Import GTK3 Adwaita dark as the base */
+@import url("resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css");
+
+/* Wallust colors */
+@define-color theme_bg_color {{background}};
+@define-color theme_fg_color {{foreground}};
+@define-color theme_selected_bg_color {{color4}};
+@define-color theme_selected_fg_color {{foreground}};
+
+/* Application background */
+window, dialog {
+    background-color: {{background}};
+    color: {{foreground}};
+}
+
+/* Header bars */
+headerbar, .titlebar {
+    background-color: {{color0}};
+    color: {{foreground}};
+}
+
+/* Buttons */
+button {
+    background-color: {{color1}};
+    color: {{foreground}};
+}
+
+button:hover {
+    background-color: {{color2}};
+}
+
+/* Selection */
+row:selected, treeview.view:selected {
+    background-color: {{color4}};
+    color: {{foreground}};
+}

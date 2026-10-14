@@ -101,6 +101,7 @@ in
       mako
       libnotify
       pavucontrol
+      qt6Packages.qt6ct
 
       # dev
       pkgs-unstable.devenv
