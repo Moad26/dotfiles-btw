@@ -118,6 +118,8 @@ in
       vlc
       firefox
       inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+      inputs.helium-flake.packages.${pkgs.stdenv.hostPlatform.system}.default
+
       proton-vpn
       vesktop
       qbittorrent

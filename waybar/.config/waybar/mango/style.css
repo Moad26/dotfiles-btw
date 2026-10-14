@@ -23,11 +23,10 @@ window#waybar {
 }
 
 #workspaces button.empty {
-  color: @color0;
-  opacity: 0.35;
+  color: @color8;
+  opacity: 0.25;
 }
 
-#workspaces button.focused,
 #workspaces button.active {
   color: @foreground;
   background-color: alpha(@color8, 0.25);
@@ -41,6 +40,15 @@ window#waybar {
 #workspaces button.urgent {
   color: @color5;
 }
+
+/* #workspaces button.overview { */
+/*   color: @color7; */
+/*   background-color: alpha(@color8, 0.25); */
+/* } */
+
+/* #workspaces button.current_output { */
+/*   border-bottom: 2px solid @color7; */
+/* } */
 
 #window {
   padding: 0 8px;

@@ -44,6 +44,10 @@
       url = "github:Alexays/Waybar";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    helium-flake = {
+      url = "github:oxcl/nix-flake-helium-browser";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
