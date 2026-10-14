@@ -42,6 +42,7 @@ let
     mako = "mako/.config/mako";
     opencode = "opencode/.config/opencode";
     mango = "mango/.config/mango";
+    qt6ct = "qt6ct/.config/qt6ct";
 
   };
 in

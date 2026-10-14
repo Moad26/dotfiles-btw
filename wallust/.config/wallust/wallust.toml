@@ -56,7 +56,8 @@ niri = { template = 'colors-niri.kdl', target = '~/.cache/wallust/colors-niri.kd
 waybar = { template = "colors-waybar.css", target = "~/.cache/wallust/colors-waybar.css" }
 mako = { template = 'colors-mako', target = '~/dotfiles/mako/.config/mako/config' }
 mango = { template = "colors-mango.conf", target = "~/.cache/wallust/colors-mango.conf" }
-
+qt6ct = { template = 'colors-qt6ct.conf', target = '~/.cache/wallust/colors-qt6ct.conf' }
+gtk3 = { template = 'colors-gtk3.css', target = '~/.local/share/themes/Wallust/gtk-3.0/gtk.css' }
 [hooks]
 # Run commands when wallust is invoked. Useful to avoid scripting.
 #wallpaper = """swww img "$(find ~/Media/Pictures/Wallpapers -iregex '.*.\\(jpg\\|jpeg\\|png\\|gif\\)' -type f | shuf -n 1)" """
