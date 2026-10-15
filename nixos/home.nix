@@ -43,6 +43,7 @@ let
     opencode = "opencode/.config/opencode";
     mango = "mango/.config/mango";
     qt6ct = "qt6ct/.config/qt6ct";
+    starship = "starship/.config/starship";
 
   };
 in
@@ -90,9 +91,9 @@ in
       bibata-cursors
 
       #k8s temp
-      minikube
-      kubectl
-      kind
+      # minikube
+      # kubectl
+      # kind
 
       # for waybar niri
       brightnessctl
@@ -194,6 +195,7 @@ in
     sessionVariables = {
       EDITOR = "nvim";
       FZF_DEFAULT_OPTS = "--height 40% --layout=reverse --border";
+      STARSHIP_CONFIG = "${config.home.homeDirectory}/.config/starship/starship.toml";
     };
 
     sessionPath = [
