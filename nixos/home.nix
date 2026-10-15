@@ -19,7 +19,7 @@ let
   };
 
   configs = {
-    # btop      = "btop/.config/btop";
+    btop = "btop/.config/btop";
     otter-launcher = "otter-launcher/.config/otter-launcher";
     fastfetch = "fastfetch/.config/fastfetch";
     # fish      = "fish/.config/fish";
