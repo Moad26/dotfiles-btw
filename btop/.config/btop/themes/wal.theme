@@ -1,1 +1,63 @@
-/home/moad/.cache/wal/colors-btop.theme
+# Base colors
+theme[main_bg]="#050300"
+theme[main_fg]="#F7DD90"
+theme[title]="#F7DD90"
+theme[hi_fg]="#487886"
+theme[selected_bg]="#487886"
+theme[selected_fg]="#080601"
+theme[inactive_fg]="#A08946"
+theme[graph_text]="#F7DD90"
+theme[meter_bg]="#080601"
+theme[proc_misc]="#C5A547"
+
+# Box outlines
+theme[cpu_box]="#487886"
+theme[mem_box]="#3B665E"
+theme[net_box]="#CCAB4B"
+theme[proc_box]="#C5A547"
+theme[div_line]="#A08946"
+
+# Temperature
+theme[temp_start]="#3B665E"
+theme[temp_mid]="#4B7A85"
+theme[temp_end]="#3F695C"
+
+# CPU
+theme[cpu_start]="#487886"
+theme[cpu_mid]="#CCAB4B"
+theme[cpu_end]="#C5A547"
+
+# Free memory
+theme[free_start]="#3B665E"
+theme[free_mid]="#3B665E"
+theme[free_end]="#CCAB4B"
+
+# Cached memory
+theme[cached_start]="#487886"
+theme[cached_mid]="#487886"
+theme[cached_end]="#CCAB4B"
+
+# Available memory
+theme[available_start]="#CCAB4B"
+theme[available_mid]="#CCAB4B"
+theme[available_end]="#487886"
+
+# Used memory
+theme[used_start]="#3B665E"
+theme[used_mid]="#4B7A85"
+theme[used_end]="#3F695C"
+
+# Network download
+theme[download_start]="#487886"
+theme[download_mid]="#487886"
+theme[download_end]="#CCAB4B"
+
+# Network upload
+theme[upload_start]="#C5A547"
+theme[upload_mid]="#C5A547"
+theme[upload_end]="#3F695C"
+
+# Processes
+theme[process_start]="#3B665E"
+theme[process_mid]="#487886"
+theme[process_end]="#C5A547"

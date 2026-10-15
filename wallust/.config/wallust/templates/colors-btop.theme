@@ -1,0 +1,63 @@
+# Base colors
+theme[main_bg]="{{background}}"
+theme[main_fg]="{{foreground}}"
+theme[title]="{{foreground}}"
+theme[hi_fg]="{{color4}}"
+theme[selected_bg]="{{color4}}"
+theme[selected_fg]="{{color0}}"
+theme[inactive_fg]="{{color8}}"
+theme[graph_text]="{{foreground}}"
+theme[meter_bg]="{{color0}}"
+theme[proc_misc]="{{color5}}"
+
+# Box outlines
+theme[cpu_box]="{{color4}}"
+theme[mem_box]="{{color2}}"
+theme[net_box]="{{color6}}"
+theme[proc_box]="{{color5}}"
+theme[div_line]="{{color8}}"
+
+# Temperature
+theme[temp_start]="{{color2}}"
+theme[temp_mid]="{{color3}}"
+theme[temp_end]="{{color1}}"
+
+# CPU
+theme[cpu_start]="{{color4}}"
+theme[cpu_mid]="{{color6}}"
+theme[cpu_end]="{{color5}}"
+
+# Free memory
+theme[free_start]="{{color2}}"
+theme[free_mid]="{{color10}}"
+theme[free_end]="{{color6}}"
+
+# Cached memory
+theme[cached_start]="{{color4}}"
+theme[cached_mid]="{{color12}}"
+theme[cached_end]="{{color6}}"
+
+# Available memory
+theme[available_start]="{{color6}}"
+theme[available_mid]="{{color14}}"
+theme[available_end]="{{color4}}"
+
+# Used memory
+theme[used_start]="{{color2}}"
+theme[used_mid]="{{color3}}"
+theme[used_end]="{{color1}}"
+
+# Network download
+theme[download_start]="{{color4}}"
+theme[download_mid]="{{color12}}"
+theme[download_end]="{{color6}}"
+
+# Network upload
+theme[upload_start]="{{color5}}"
+theme[upload_mid]="{{color13}}"
+theme[upload_end]="{{color1}}"
+
+# Processes
+theme[process_start]="{{color2}}"
+theme[process_mid]="{{color4}}"
+theme[process_end]="{{color5}}"
