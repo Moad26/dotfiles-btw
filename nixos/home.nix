@@ -195,7 +195,7 @@ in
     sessionVariables = {
       EDITOR = "nvim";
       FZF_DEFAULT_OPTS = "--height 40% --layout=reverse --border";
-      STARSHIP_CONFIG = pkgs.lib.mkForce "${config.home.homeDirectory}/.config/starship/starship.toml";
+      # STARSHIP_CONFIG = pkgs.lib.mkForce "${config.home.homeDirectory}/.config/starship/starship.toml";
     };
 
     sessionPath = [
@@ -248,7 +248,10 @@ in
     nix-direnv.enable = true;
   };
 
-  programs.starship.enable = true; # auto-adds fish integration, no manual `source`
+  programs.starship = {
+    enable = true;
+    configPath = "${config.xdg.configHome}/starship/starship.toml";
+  }; # auto-adds fish integration, no manual `source`
   programs.zoxide.enable = true; # same — enableFishIntegration defaults to true
   programs.fzf.enable = true;
 
