@@ -195,7 +195,7 @@ in
     sessionVariables = {
       EDITOR = "nvim";
       FZF_DEFAULT_OPTS = "--height 40% --layout=reverse --border";
-      STARSHIP_CONFIG = "${config.home.homeDirectory}/.config/starship/starship.toml";
+      STARSHIP_CONFIG = pkgs.lib.mkForce "${config.home.homeDirectory}/.config/starship/starship.toml";
     };
 
     sessionPath = [
