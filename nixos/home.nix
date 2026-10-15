@@ -43,7 +43,7 @@ let
     opencode = "opencode/.config/opencode";
     mango = "mango/.config/mango";
     qt6ct = "qt6ct/.config/qt6ct";
-    starship = "starship/.config/starship";
+    "starship.toml" = "starship/.config/starship/starship.toml";
 
   };
 in
@@ -250,7 +250,7 @@ in
 
   programs.starship = {
     enable = true;
-    configPath = "${config.xdg.configHome}/starship/starship.toml";
+    # configPath = "${config.xdg.configHome}/starship/starship.toml";
   }; # auto-adds fish integration, no manual `source`
   programs.zoxide.enable = true; # same — enableFishIntegration defaults to true
   programs.fzf.enable = true;
