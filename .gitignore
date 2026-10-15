@@ -6,3 +6,4 @@ tmux/.config/tmux/*
 !tmux/.config/tmux/tmux.conf
 mako/.config/mako/config
 .opencode/
+btop/.config/btop/themes/
