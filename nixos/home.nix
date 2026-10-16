@@ -218,6 +218,19 @@ in
   };
 
   services.cliphist.enable = true;
+  programs.tmux = {
+    enable = true;
+
+    prefix = "C-s";
+    mouse = true;
+    keyMode = "vi";
+    baseIndex = 1;
+    terminal = "tmux-256color";
+
+    plugins = with pkgs.tmuxPlugins; [
+      vim-tmux-navigator
+    ];
+  };
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
