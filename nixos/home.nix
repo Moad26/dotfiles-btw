@@ -90,6 +90,7 @@ in
       powertop
       bibata-cursors
       adwaita-icon-theme
+      papirus-icon-theme
 
       #k8s temp
       # minikube
