@@ -89,6 +89,7 @@ in
       ffmpeg
       powertop
       bibata-cursors
+      adwaita-icon-theme
 
       #k8s temp
       # minikube
