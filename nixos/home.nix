@@ -231,6 +231,7 @@ in
       vim-tmux-navigator
       dotbar
     ];
+    extraConfig = builtins.readFile ~/dotfiles/tmux/.config/tmux/tmux.conf;
   };
   programs.fish = {
     enable = true;
