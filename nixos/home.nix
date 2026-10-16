@@ -229,6 +229,7 @@ in
 
     plugins = with pkgs.tmuxPlugins; [
       vim-tmux-navigator
+      dotbar
     ];
   };
   programs.fish = {
