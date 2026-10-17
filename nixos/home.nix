@@ -62,6 +62,8 @@ in
       foot
       lazygit
       neovim
+      helix
+      vis
       btop
       ripgrep
       fd
