@@ -94,6 +94,7 @@ in
       adwaita-icon-theme
       papirus-icon-theme
       xdg-desktop-portal-wlr
+      wlr-randr
 
       #k8s temp
       # minikube
