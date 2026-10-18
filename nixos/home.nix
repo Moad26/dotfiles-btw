@@ -126,6 +126,7 @@ in
       firefox
       inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
       inputs.helium-flake.packages.${pkgs.stdenv.hostPlatform.system}.default
+      godot
 
       proton-vpn
       vesktop
