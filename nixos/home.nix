@@ -93,6 +93,7 @@ in
       bibata-cursors
       adwaita-icon-theme
       papirus-icon-theme
+      xdg-desktop-portal-wlr
 
       #k8s temp
       # minikube
@@ -126,7 +127,7 @@ in
       firefox
       inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
       inputs.helium-flake.packages.${pkgs.stdenv.hostPlatform.system}.default
-      godot
+      pkgs-unstable.godot
 
       proton-vpn
       vesktop
