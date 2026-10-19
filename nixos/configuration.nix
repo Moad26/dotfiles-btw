@@ -28,6 +28,7 @@
     '';
   };
 
+  services.hardware.openrgb.enable = true;
   networking.hostName = "legion"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
