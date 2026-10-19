@@ -95,6 +95,7 @@ in
       papirus-icon-theme
       xdg-desktop-portal-wlr
       wlr-randr
+      openrgb
 
       #k8s temp
       # minikube
