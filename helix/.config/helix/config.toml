@@ -1,0 +1,19 @@
+theme = "gruvbox"
+[editor]
+default-yank-register = "+"
+line-number = "relative"
+cursorline = true
+scrolloff = 8
+popup-border = "all"
+auto-format = false
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.inline-diagnostics]
+cursor-line = "warning"

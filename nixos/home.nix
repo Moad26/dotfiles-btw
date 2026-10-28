@@ -43,6 +43,7 @@ let
     opencode = "opencode/.config/opencode";
     mango = "mango/.config/mango";
     qt6ct = "qt6ct/.config/qt6ct";
+    helix = "helix/.config/helix";
     "starship.toml" = "starship/.config/starship/starship.toml";
 
   };
