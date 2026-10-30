@@ -33,7 +33,7 @@ let
     scripts = "scripts/.config/scripts";
     swaylock = "swaylock/.config/swaylock";
     # swaync = "swaync/.config/swaync";
-    # tmux = "tmux/.config/tmux";
+    tmux = "tmux/.config/tmux";
     waybar = "waybar/.config/waybar";
     # wofi      = "wofi/.config/wofi";
     # yazi      = "yazi/.config/yazi";
