@@ -9,6 +9,7 @@ vim.opt.smartindent = true
 
 -- UI
 vim.opt.showtabline = 0
+vim.opt.laststatus = 3
 vim.opt.cmdheight = 0
 vim.opt.wrap = false
 vim.opt.cursorline = true
@@ -34,6 +35,7 @@ vim.opt.timeoutlen = 300
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.inccommand = "split"
 
 -- Files
 vim.opt.swapfile = false

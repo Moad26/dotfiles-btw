@@ -1,99 +1,71 @@
-return {
-	"ibhagwan/fzf-lua",
-	dependencies = { "echasnovski/mini.icons" },
-	config = function()
-		local fzf = require("fzf-lua")
-		fzf.setup({
-			keymap = {
-				builtin = {
-					["<Tab>"] = "down",
-					["<S-Tab>"] = "up",
-				},
-				fzf = {
-					["tab"] = "down",
-					["shift-tab"] = "up",
-				},
-			},
-			-- Allow copying diagnostic text from the picker with Ctrl-y
-			diagnostics = {
-				actions = {
-					["ctrl-y"] = function(selected)
-						if selected and #selected > 0 then
-							-- Extract just the diagnostic message (after the severity icon)
-							local entry = selected[1]
-							vim.fn.setreg("+", entry)
-							vim.notify("Copied to clipboard", vim.log.levels.INFO)
-						end
-					end,
-				},
-			},
-		})
+local fzf = require("fzf-lua")
+fzf.setup({
+	keymap = {
+		builtin = { ["<Tab>"] = "down", ["<S-Tab>"] = "up" },
+		fzf = { ["tab"] = "down", ["shift-tab"] = "up" },
+	},
+	diagnostics = {
+		actions = {
+			["ctrl-y"] = function(selected)
+				if selected and #selected > 0 then
+					vim.fn.setreg("+", selected[1])
+					vim.notify("Copied to clipboard", vim.log.levels.INFO)
+				end
+			end,
+		},
+	},
+})
+fzf.register_ui_select()
 
-		fzf.register_ui_select()
-
-		local keymap = vim.keymap.set
-
-		keymap("n", "<C-p>", fzf.files, { desc = "Find Files" })
-		keymap("n", "<leader>fg", fzf.live_grep, { desc = "Live Grep" })
-		keymap("n", "<leader><leader>", fzf.oldfiles, { desc = "Recent Files" })
-
-		-- LSP pickers
-		keymap("n", "gr", fzf.lsp_references, { desc = "Lsp references" })
-		keymap("n", "gd", fzf.lsp_definitions, { desc = "Lsp definitions" })
-		keymap("n", "gi", fzf.lsp_implementations, { desc = "Lsp implementations" })
-		keymap("n", "gt", fzf.lsp_typedefs, { desc = "Lsp type definitions" })
-
-		keymap("n", "<leader>ds", fzf.lsp_document_symbols, { desc = "Document Symbols" })
-		keymap("n", "<leader>dd", fzf.diagnostics_document, { desc = "Document diagnostics" })
-		keymap("n", "<leader>dx", fzf.diagnostics_workspace, { desc = "Workspace diagnostics" })
-		keymap("n", "<leader>dq", fzf.quickfix, { desc = "Quickfix" })
-		keymap("n", "<leader>dc", fzf.lsp_code_actions, { desc = "Code actions" })
-
-		-- Additional useful pickers
-		keymap("n", "<leader>fb", fzf.buffers, { desc = "Buffers" })
-		keymap("n", "<leader>fh", fzf.help_tags, { desc = "Help Tags" })
-		keymap("n", "<leader>fc", fzf.commands, { desc = "Commands" })
-		keymap("n", "<leader>fk", fzf.keymaps, { desc = "Keymaps" })
-		keymap("n", "<leader>fw", fzf.grep_cword, { desc = "Word Under Cursor" })
-		keymap("n", "<leader>fy", fzf.registers, { desc = "Registers" })
-		keymap("n", "<leader>fr", fzf.resume, { desc = "Resume Last Picker" })
-
-		-- Git pickers
-		keymap("n", "<leader>gs", fzf.git_status, { desc = "Git Status" })
-		keymap("n", "<leader>gc", fzf.git_commits, { desc = "Git Commits" })
-		keymap("n", "<leader>gB", fzf.git_branches, { desc = "Git Branches" })
-		keymap("n", "<leader>tc", function()
-			fzf.colorschemes({
-				ignore_patterns = {
-					-- native vim/nvim builtins
-					"^blue$",
-					"^darkblue$",
-					"^default$",
-					"^delek$",
-					"^desert$",
-					"^elflord$",
-					"^evening$",
-					"^habamax$",
-					"^industry$",
-					"^koehler$",
-					"^lunaperche$",
-					"^morning$",
-					"^murphy$",
-					"^pablo$",
-					"^peachpuff$",
-					"^quiet$",
-					"^retrobox$",
-					"^ron$",
-					"^shine$",
-					"^slate$",
-					"^sorbet$",
-					"^torte$",
-					"^wildcharm$",
-					"^zaibatsu$",
-					"^zellner$",
-				},
-				sort_lastused = true, -- your last used floats to top, rest alphabetical
-			})
-		end, { desc = "Switch Colorscheme" })
-	end,
-}
+local map = vim.keymap.set
+map("n", "<C-p>", fzf.files, { desc = "Find files" })
+map("n", "<leader>fg", fzf.live_grep, { desc = "Live grep" })
+map("n", "<leader><leader>", fzf.oldfiles, { desc = "Recent files" })
+map("n", "gr", fzf.lsp_references, { desc = "LSP references" })
+map("n", "gd", fzf.lsp_definitions, { desc = "LSP definitions" })
+map("n", "gi", fzf.lsp_implementations, { desc = "LSP implementations" })
+map("n", "gt", fzf.lsp_typedefs, { desc = "LSP type definitions" })
+map("n", "<leader>ds", fzf.lsp_document_symbols, { desc = "Document symbols" })
+map("n", "<leader>dd", fzf.diagnostics_document, { desc = "Document diagnostics" })
+map("n", "<leader>dx", fzf.diagnostics_workspace, { desc = "Workspace diagnostics" })
+map("n", "<leader>dq", fzf.quickfix, { desc = "Quickfix" })
+map("n", "<leader>dc", fzf.lsp_code_actions, { desc = "Code actions" })
+map("n", "<leader>fb", fzf.buffers, { desc = "Buffers" })
+map("n", "<leader>fh", fzf.help_tags, { desc = "Help tags" })
+map("n", "<leader>fc", fzf.commands, { desc = "Commands" })
+map("n", "<leader>fk", fzf.keymaps, { desc = "Keymaps" })
+map("n", "<leader>fw", fzf.grep_cword, { desc = "Word under cursor" })
+map("n", "<leader>fy", fzf.registers, { desc = "Registers" })
+map("n", "<leader>fr", fzf.resume, { desc = "Resume last picker" })
+map("n", "<leader>tc", function()
+	fzf.colorschemes({
+		ignore_patterns = {
+			"^blue$",
+			"^darkblue$",
+			"^default$",
+			"^delek$",
+			"^desert$",
+			"^elflord$",
+			"^evening$",
+			"^habamax$",
+			"^industry$",
+			"^koehler$",
+			"^lunaperche$",
+			"^morning$",
+			"^murphy$",
+			"^pablo$",
+			"^peachpuff$",
+			"^quiet$",
+			"^retrobox$",
+			"^ron$",
+			"^shine$",
+			"^slate$",
+			"^sorbet$",
+			"^torte$",
+			"^wildcharm$",
+			"^zaibatsu$",
+			"^zellner$",
+		},
+		sort_lastused = true,
+	})
+end, { desc = "Switch colorscheme" })

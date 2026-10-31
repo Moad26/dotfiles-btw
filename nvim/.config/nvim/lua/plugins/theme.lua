@@ -1,230 +1,85 @@
-return {
-	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			local colorscheme_file = vim.fn.stdpath("data") .. "/last_colorscheme.txt"
+vim.pack.add({
+	"https://github.com/folke/tokyonight.nvim",
+	"https://github.com/dgox16/oldworld.nvim",
+	"https://github.com/topazape/oldtale.nvim",
+	"https://github.com/yorumicolors/yorumi.nvim",
+	"https://github.com/slugbyte/lackluster.nvim",
+	"https://github.com/scottmckendry/cyberdream.nvim",
+	"https://github.com/ramojus/mellifluous.nvim",
+	"https://github.com/0xstepit/flow.nvim",
+	"https://github.com/morhetz/gruvbox",
+	"https://github.com/bluz71/vim-nightfly-guicolors",
+	"https://github.com/sainnhe/everforest",
+	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
+	"https://github.com/rebelot/kanagawa.nvim",
+	"https://github.com/sainnhe/gruvbox-material",
+	{ src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
+	"https://github.com/navarasu/onedark.nvim",
+	"https://github.com/EdenEast/nightfox.nvim",
+	"https://github.com/Shatur/neovim-ayu",
+	"https://github.com/craftzdog/solarized-osaka.nvim",
+	"https://github.com/shaunsingh/nord.nvim",
+	"https://github.com/Mofiqul/dracula.nvim",
+	"https://github.com/savq/melange-nvim",
+	{ src = "https://github.com/bluz71/vim-moonfly-colors", name = "moonfly" },
+	"https://github.com/ribru17/bamboo.nvim",
+	"https://github.com/olivercederborg/poimandres.nvim",
+	"https://github.com/xero/miasma.nvim",
+	"https://github.com/comfysage/evergarden",
+	"https://github.com/AlexvZyl/nordic.nvim",
+	"https://github.com/vague2k/vague.nvim",
+	"https://github.com/rktjmp/lush.nvim",
+	"https://github.com/zenbones-theme/zenbones.nvim",
+	"https://github.com/thesimonho/kanagawa-paper.nvim",
+	"https://github.com/webhooked/kanso.nvim",
+	"https://github.com/zootedb0t/citruszest.nvim",
+	"https://github.com/datsfilipe/vesper.nvim",
+	"https://github.com/sontungexpt/witch",
+	"https://github.com/nyoom-engineering/oxocarbon.nvim",
+	"https://github.com/kvrohit/rasmus.nvim",
+	"https://github.com/eldritch-theme/eldritch.nvim",
+	"https://github.com/sam4llis/nvim-tundra",
+	"https://github.com/olimorris/onedarkpro.nvim",
+	"https://github.com/tiagovla/tokyodark.nvim",
+	"https://github.com/mellow-theme/mellow.nvim",
+	{ src = "https://github.com/Everblush/nvim", name = "everblush" },
+	"https://github.com/owickstrom/vim-colors-paramount",
+	"https://github.com/no-clown-fiesta/no-clown-fiesta.nvim",
+	"https://github.com/casedami/neomodern.nvim",
+	"https://github.com/kyazdani42/blue-moon",
+	"https://github.com/Aejkatappaja/cendre",
+	"https://github.com/roobert/palette.nvim",
+	"https://github.com/kdheepak/monochrome.nvim",
+})
 
-			local function save_colorscheme(scheme)
-				local file = io.open(colorscheme_file, "w")
-				if file then
-					file:write(scheme)
-					file:close()
-				end
-			end
+vim.g.nightflyItalics = true
+vim.g.nightflyCursorColor = true
+vim.g.nightflyNormalFloat = true
+vim.g.nightflyWinSeparator = 2
+vim.g.everforest_enable_italic = true
+vim.g.everforest_background = "soft"
+vim.opt.background = "dark"
 
-			local function load_last_colorscheme()
-				local file = io.open(colorscheme_file, "r")
-				if file then
-					local scheme = file:read("*all")
-					file:close()
-					return scheme
-				end
-				return "tokyonight-night"
-			end
+require("flow").setup({ theme = { style = "dark", contrast = "default", transparent = false } })
+require("bamboo").setup({})
+require("evergarden").setup({ variant = "hard", overrides = {} })
 
-			vim.defer_fn(function()
-				local last_colorscheme = load_last_colorscheme()
-				local ok, _ = pcall(vim.cmd.colorscheme, last_colorscheme)
-				if not ok then
-					vim.cmd.colorscheme("tokyonight-night")
-				end
-			end, 0)
+local colorscheme_file = vim.fn.stdpath("data") .. "/last_colorscheme.txt"
+local file = io.open(colorscheme_file, "r")
+local scheme = file and file:read("*all") or "tokyonight-night"
+if file then
+	file:close()
+end
+if not pcall(vim.cmd.colorscheme, scheme) then
+	vim.cmd.colorscheme("tokyonight-night")
+end
 
-			vim.api.nvim_create_autocmd("ColorScheme", {
-				callback = function()
-					save_colorscheme(vim.g.colors_name)
-				end,
-			})
-		end,
-	},
-	{ "dgox16/oldworld.nvim", lazy = true },
-	{ "topazape/oldtale.nvim", lazy = true },
-	{ "yorumicolors/yorumi.nvim", lazy = true },
-	{ "slugbyte/lackluster.nvim", lazy = true },
-	{ "scottmckendry/cyberdream.nvim", lazy = true },
-	{ "ramojus/mellifluous.nvim", lazy = true },
-	{
-		"0xstepit/flow.nvim",
-		lazy = true,
-		opts = {
-			theme = {
-				style = "dark", --  "dark" | "light"
-				contrast = "default", -- "default" | "high"
-				transparent = false, -- true | false
-			},
-		},
-	},
-	{
-		"morhetz/gruvbox",
-		lazy = true,
-	},
-	{
-		"bluz71/vim-nightfly-guicolors",
-		lazy = true,
-		config = function()
-			vim.g.nightflyItalics = true
-			vim.g.nightflyCursorColor = true
-			vim.g.nightflyNormalFloat = true
-			vim.g.nightflyWinSeparator = 2
-		end,
-	},
-	{
-		"sainnhe/everforest",
-		lazy = true,
-		config = function()
-			vim.g.everforest_enable_italic = true
-			vim.g.everforest_background = "soft"
-		end,
-	},
-	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		lazy = true,
-	},
-	{
-		"rebelot/kanagawa.nvim",
-		lazy = true,
-	},
-	{
-		"sainnhe/gruvbox-material",
-		lazy = true,
-		--[[config = function()
-			vim.g.gruvbox_material_background = "hard"
-		end,]]
-	},
-	{
-		"rose-pine/neovim",
-		name = "rose-pine",
-		lazy = true,
-	},
-	{
-		"navarasu/onedark.nvim",
-		lazy = true,
-	},
-	{
-		"EdenEast/nightfox.nvim",
-		lazy = true,
-	},
-	{
-		"Shatur/neovim-ayu",
-		lazy = true,
-	},
-	{
-		"craftzdog/solarized-osaka.nvim",
-		lazy = true,
-	},
-	{
-		"shaunsingh/nord.nvim",
-		lazy = true,
-	},
-	{
-		"Mofiqul/dracula.nvim",
-		lazy = true,
-	},
-	{
-		"savq/melange-nvim",
-		lazy = true,
-	},
-	{
-		"bluz71/vim-moonfly-colors",
-		name = "moonfly",
-		lazy = true,
-	},
-	{
-		"ribru17/bamboo.nvim",
-		lazy = true,
-		config = function()
-			require("bamboo").setup({})
-		end,
-	},
-	{
-		"olivercederborg/poimandres.nvim",
-		lazy = true,
-	},
-	{
-		"xero/miasma.nvim",
-		lazy = true,
-	},
-	{
-		"comfysage/evergarden",
-		lazy = true,
-		opts = {
-			variant = "hard",
-			overrides = {},
-		},
-	},
-	{
-		"AlexvZyl/nordic.nvim",
-		lazy = true,
-	},
-	{
-		"vague2k/vague.nvim",
-		lazy = true,
-	},
-	{
-		"zenbones-theme/zenbones.nvim",
-		lazy = true,
-		dependencies = { "rktjmp/lush.nvim" },
-	},
-	{
-		"thesimonho/kanagawa-paper.nvim",
-		lazy = true,
-	},
-	{
-		"webhooked/kanso.nvim",
-		lazy = true,
-	},
-	{
-		"zootedb0t/citruszest.nvim",
-		lazy = true,
-	},
-	{
-		"datsfilipe/vesper.nvim",
-		lazy = true,
-	},
-	{
-		"sontungexpt/witch",
-		lazy = true,
-	},
-	{
-		"nyoom-engineering/oxocarbon.nvim",
-		lazy = true,
-		config = function()
-			vim.opt.background = "dark"
-		end,
-	},
-	{
-		"kvrohit/rasmus.nvim",
-		lazy = true,
-	},
-	{
-		"eldritch-theme/eldritch.nvim",
-		lazy = true,
-	},
-	{
-		"sam4llis/nvim-tundra",
-		lazy = true,
-	},
-	{
-		"olimorris/onedarkpro.nvim",
-		lazy = true,
-	},
-	{
-		"tiagovla/tokyodark.nvim",
-		lazy = true,
-	},
-	{
-		"mellow-theme/mellow.nvim",
-		lazy = true,
-	},
-	{ "Everblush/nvim", name = "everblush", lazy = true },
-	{ "owickstrom/vim-colors-paramount", lazy = true },
-	{ "no-clown-fiesta/no-clown-fiesta.nvim", lazy = true },
-	{ "casedami/neomodern.nvim", lazy = true },
-	{ "kyazdani42/blue-moon", lazy = true },
-	{ "Aejkatappaja/cendre", lazy = true },
-	{ "roobert/palette.nvim", lazy = true },
-	{ "kdheepak/monochrome.nvim", lazy = true },
-}
+vim.api.nvim_create_autocmd("ColorScheme", {
+	callback = function(ev)
+		local output = io.open(colorscheme_file, "w")
+		if output then
+			output:write(ev.match)
+			output:close()
+		end
+	end,
+})

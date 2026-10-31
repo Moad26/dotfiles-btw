@@ -1,227 +1,62 @@
-return {
-	{
-		"saghen/blink.cmp",
-		lazy = false,
-		dependencies = {
-			"nvim-mini/mini.nvim",
-			"rafamadriz/friendly-snippets",
-			"L3MON4D3/LuaSnip",
-			"Kaiser-Yang/blink-cmp-dictionary",
-		},
-		version = "v1.*",
-
-		opts = {
-			keymap = {
-				preset = "default",
-				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-				["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
-				["<C-e>"] = { "hide" },
-				["<CR>"] = { "accept", "fallback" },
-
-				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
-				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
-
-				["<C-b>"] = { "scroll_documentation_up", "fallback" },
-				["<C-f>"] = { "scroll_documentation_down", "fallback" },
-
-				["<C-N>"] = { "select_next", "fallback" },
-				["<C-p>"] = { "select_prev", "fallback" },
-			},
-
-			appearance = {
-				highlight_ns = vim.api.nvim_create_namespace("blink_cmp"),
-				use_nvim_cmp_as_default = false,
-				nerd_font_variant = "mono",
-			},
-
-			sources = {
-				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
-				per_filetype = {
-					markdown = { "buffer", "path", "dictionary" },
+require("lazydev").setup({})
+require("blink.cmp").setup({
+	keymap = {
+		preset = "default",
+		["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+		["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+		["<CR>"] = { "accept", "fallback" },
+		["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+		["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+	},
+	fuzzy = { implementation = "lua" }, -- No downloaded native binary on NixOS.
+	sources = {
+		default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+		per_filetype = { markdown = { "buffer", "path", "dictionary" } },
+		providers = {
+			lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
+			dictionary = {
+				name = "dictionary",
+				module = "blink-cmp-dictionary",
+				min_keyword_length = 2,
+				opts = {
+					-- Directory discovery only reads .txt; our dictionaries use .dict.
+					dictionary_files = vim.fn.glob(vim.fn.stdpath("config") .. "/dictionary/*.dict", false, true),
 				},
-				providers = {
-					lazydev = {
-						name = "LazyDev",
-						module = "lazydev.integrations.blink",
-						-- make lazydev completions top priority (see `:h blink.cmp`)
-						score_offset = 100,
-					},
-					dictionary = {
-						name = "dictionary",
-						module = "blink-cmp-dictionary",
-						min_keyword_length = 2,
-						opts = {
-							-- dictionary_files = { vim.fn.expand("~/.config/nvim/dictionary/words.dict") },
-							dictionary_directories = { vim.fn.expand("~/dotfiles/nvim/.config/nvim/dictionary") },
-						},
-					},
-				},
-			},
-
-			completion = {
-				accept = {
-					auto_brackets = {
-						enabled = true,
-					},
-				},
-				menu = {
-					draw = {
-						treesitter = { "lsp" },
-						columns = {
-							{ "label", "label_description", gap = 1 },
-							{ "kind_icon", "kind", gap = 1 },
-							{ "source_name" },
-						},
-
-						components = {
-							kind_icon = {
-								text = function(ctx)
-									local icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
-
-									if ctx.item.source_name == "LSP" then
-										local color_item = require("nvim-highlight-colors").format(
-											ctx.item.documentation,
-											{ kind = ctx.kind }
-										)
-										if color_item and color_item.abbr ~= "" then
-											icon = color_item.abbr
-										end
-									end
-
-									return icon .. ctx.icon_gap
-								end,
-								highlight = function(ctx)
-									if ctx.item.source_name == "LSP" then
-										local color_item = require("nvim-highlight-colors").format(
-											ctx.item.documentation,
-											{ kind = ctx.kind }
-										)
-										if color_item and color_item.abbr_hl_group then
-											return color_item.abbr_hl_group
-										end
-									end
-
-									local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-									return hl
-								end,
-							},
-							kind = {
-								highlight = function(ctx)
-									local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-									return hl
-								end,
-							},
-						},
-					},
-				},
-				documentation = {
-					auto_show = true,
-				},
-				ghost_text = {
-					enabled = true,
-				},
-			},
-
-			signature = {
-				enabled = true,
 			},
 		},
-
-		opts_extend = { "sources.default" },
 	},
-	{
-		"windwp/nvim-ts-autotag",
-		event = { "BufReadPost", "BufNewFile" },
-		config = function()
-			require("nvim-ts-autotag").setup()
-		end,
+	completion = {
+		accept = { auto_brackets = { enabled = true } },
+		documentation = { auto_show = true },
 	},
-	--Tmux
+	signature = { enabled = true },
+})
 
-	{
-		"christoomey/vim-tmux-navigator",
-		cmd = {
-			"TmuxNavigateLeft",
-			"TmuxNavigateDown",
-			"TmuxNavigateUp",
-			"TmuxNavigateRight",
-			"TmuxNavigatePrevious",
-			"TmuxNavigatorProcessList",
-		},
-		keys = {
-			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-		},
-	},
-	--Treesitter
-	{
-		"nvim-treesitter/nvim-treesitter",
-		branch = "main", -- master branch is frozen; main is required for Neovim 0.12+
-		lazy = false,
-		build = ":TSUpdate",
-		config = function()
-			local treesitter = require("nvim-treesitter")
+require("nvim-ts-autotag").setup({})
+require("ts-comments").setup({})
+-- Keep automatic .venv activation; package management and test runs stay in the shell.
+require("uv").setup({ keymaps = false, picker_integration = false, notify_activate_venv = false })
 
-			local function enable_ts_features()
-				vim.treesitter.start()
-				vim.wo.foldmethod = "expr"
-				vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-				vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-			end
-
-			local ts_group = vim.api.nvim_create_augroup("TreesitterSetup", { clear = true })
-
-			vim.api.nvim_create_autocmd("FileType", {
-				group = ts_group,
-				callback = function(ev)
-					local ft = vim.bo[ev.buf].filetype
-					if ft == "" then
-						return
-					end
-
-					-- Query fresh each time so newly installed parsers are detected.
-					local available = treesitter.get_available()
-					if not vim.tbl_contains(available, ft) then
-						return
-					end
-
-					local installed = treesitter.get_installed()
-					if vim.tbl_contains(installed, ft) then
-						enable_ts_features()
-					else
-						vim.notify(
-							("nvim-treesitter: auto-installing parser for '%s'…"):format(ft),
-							vim.log.levels.INFO
-						)
-						-- install() is async; use a one-shot autocmd to enable
-						-- TS features once the parser becomes available.
-						treesitter.install(ft)
-						vim.api.nvim_create_autocmd("FileType", {
-							group = ts_group,
-							buffer = ev.buf,
-							once = true,
-							callback = function()
-								if vim.tbl_contains(treesitter.get_installed(), ft) then
-									enable_ts_features()
-								end
-							end,
-						})
-					end
-				end,
-			})
-		end,
-	},
-	{
-		"folke/ts-comments.nvim",
-		opts = {},
-		event = "VeryLazy",
-		enabled = vim.fn.has("nvim-0.10.0") == 1,
-	},
-	{
-		"benomahony/uv.nvim",
-		opts = {},
-	},
-}
+local treesitter = require("nvim-treesitter")
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("TreesitterSetup", { clear = true }),
+	callback = function(ev)
+		local lang = vim.treesitter.language.get_lang(vim.bo[ev.buf].filetype)
+		if not lang or not vim.tbl_contains(treesitter.get_available(), lang) then
+			return
+		end
+		treesitter.install({ lang }):await(function(err)
+			vim.schedule(function()
+				if err then
+					vim.notify(tostring(err), vim.log.levels.ERROR)
+				elseif
+					vim.api.nvim_buf_is_valid(ev.buf)
+					and vim.treesitter.language.get_lang(vim.bo[ev.buf].filetype) == lang
+				then
+					vim.treesitter.start(ev.buf, lang)
+					vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end
+			end)
+		end)
+	end,
+})

@@ -1,69 +1,39 @@
-return {
-	{
-		"folke/todo-comments.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = {},
-	},
-	{
-		"folke/flash.nvim",
-		event = "VeryLazy",
-		---@type Flash.Config
-		opts = {},
-		-- stylua: ignore
-		keys = {
-			{ "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
-			{ "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
-			{ "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
-			{ "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-			{ "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
-		},
-	},
-	{
-		"stevearc/oil.nvim",
-		---@module 'oil'
-		---@type oil.SetupOpts
-		opts = {
-			view_options = {
-				-- Show files and directories that start with "."
-				show_hidden = true,
-			},
-		},
-		dependencies = { { "nvim-mini/mini.icons", opts = {} } },
-		lazy = false,
-		keys = {
-			{ "-", "<CMD>Oil<CR>", desc = "Open parent directory" },
-		},
-	},
+require("oil").setup({ view_options = { show_hidden = true } })
+require("gitsigns").setup({})
 
-	{
-		"mbbill/undotree",
-		keys = {
-			{ "<leader>ut", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undotree" },
-		},
-	},
-
-	{
-		"brenoprata10/nvim-highlight-colors",
-		event = { "BufReadPost", "BufNewFile" },
-		opts = {},
-	},
-
-	-- Git
-	{
-		"lewis6991/gitsigns.nvim",
-		event = { "BufReadPost", "BufNewFile" },
-		opts = {},
-		keys = {
-			{ "<leader>gp", "<cmd>Gitsigns preview_hunk<CR>", desc = "Preview Hunk" },
-			{ "<leader>gt", "<cmd>Gitsigns toggle_current_line_blame<CR>", desc = "Toggle Line Blame" },
-			{ "]c", "<cmd>Gitsigns next_hunk<CR>", desc = "Next Hunk" },
-			{ "[c", "<cmd>Gitsigns prev_hunk<CR>", desc = "Prev Hunk" },
-			{ "<leader>gS", "<cmd>Gitsigns stage_hunk<CR>", desc = "Stage Hunk" },
-			{ "<leader>gR", "<cmd>Gitsigns reset_hunk<CR>", desc = "Reset Hunk" },
-		},
-	},
-	{
-		"sindrets/diffview.nvim",
-		cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory" },
-	},
-}
+local map = vim.keymap.set
+local gitsigns = require("gitsigns")
+map("n", "-", "<cmd>Oil<cr>", { desc = "Open parent directory" })
+map("n", "<leader>ut", function()
+	vim.cmd.packadd("nvim.undotree")
+	vim.cmd.Undotree()
+end, { desc = "Toggle native undo tree" })
+map("n", "<leader>lg", function()
+	vim.cmd.tabnew()
+	vim.cmd.terminal("lazygit")
+	vim.api.nvim_create_autocmd("TermClose", {
+		buffer = vim.api.nvim_get_current_buf(),
+		once = true,
+		callback = function(ev)
+			if vim.v.event.status == 0 then
+				vim.schedule(function()
+					if vim.api.nvim_buf_is_valid(ev.buf) then
+						vim.api.nvim_buf_delete(ev.buf, { force = true })
+					end
+				end)
+			end
+		end,
+	})
+	vim.cmd.startinsert()
+end, { desc = "LazyGit" })
+map("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete buffer" })
+map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "Preview Git hunk" })
+map("n", "<leader>gt", gitsigns.toggle_current_line_blame, { desc = "Toggle Git blame" })
+map("n", "]c", function()
+	gitsigns.nav_hunk("next")
+end, { desc = "Next Git hunk" })
+map("n", "[c", function()
+	gitsigns.nav_hunk("prev")
+end, { desc = "Previous Git hunk" })
+map("n", "<leader>gS", gitsigns.stage_hunk, { desc = "Stage Git hunk" })
+map("n", "<leader>gR", gitsigns.reset_hunk, { desc = "Reset Git hunk" })
