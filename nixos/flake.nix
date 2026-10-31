@@ -48,6 +48,10 @@
       url = "github:oxcl/nix-flake-helium-browser";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    antigravity-skills = {
+      url = "github:rmyndharis/antigravity-skills";
+      flake = false;
+   };
   };
 
   outputs =
