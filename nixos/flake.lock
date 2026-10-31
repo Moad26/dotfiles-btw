@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "antigravity-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791990127,
+        "narHash": "sha256-F0dpy4716RLVSO1S+NVDUPt0YjbMYQb+WZtlQla13ZI=",
+        "owner": "rmyndharis",
+        "repo": "antigravity-skills",
+        "rev": "364ea63c190fcf7cac035f7fa91f0406fa392584",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rmyndharis",
+        "repo": "antigravity-skills",
+        "type": "github"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -453,6 +469,7 @@
     },
     "root": {
       "inputs": {
+        "antigravity-skills": "antigravity-skills",
         "fsel": "fsel",
         "helium-flake": "helium-flake",
         "home-manager": "home-manager",
